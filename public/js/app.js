@@ -1873,6 +1873,17 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 //     forceTLS: true
 // });
 
+/* global bootstrap: false */
+
+(function () {
+  'use strict';
+
+  var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+  tooltipTriggerList.forEach(function (tooltipTriggerEl) {
+    new bootstrap.Tooltip(tooltipTriggerEl);
+  });
+})();
+
 /***/ }),
 
 /***/ "./node_modules/lodash/lodash.js":

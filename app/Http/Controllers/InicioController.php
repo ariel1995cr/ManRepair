@@ -9,6 +9,9 @@ class InicioController extends Controller
     //
     public function index()
     {
-        return view('inicio');
+        $data = [
+            'nroOrdenDeServicio' => 14213213
+        ];
+        return view('inicio', $data);
     }
 }
