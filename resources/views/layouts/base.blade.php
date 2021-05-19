@@ -24,7 +24,7 @@
                             <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Iniciar sesion</a>
+                            <a class="nav-link" href="{{route('empleado.iniciarSesion')}}">Iniciar sesion</a>
                         </li>
                     </ul>
                 </div>
