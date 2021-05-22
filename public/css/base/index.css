@@ -48,7 +48,7 @@ main {
 .btn-toggle:hover,
 .btn-toggle:focus {
     color: rgba(0, 0, 0, .85);
-    background-color: #d2f4ea;
+    background-color: gray;
 }
 
 .btn-toggle::before {

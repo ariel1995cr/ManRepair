@@ -9,6 +9,9 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/base/index.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/base.js') }}" type="text/javascript"></script>
+    <script type="text/javascript" src="{{ asset('js/all.js') }}"></script>
+    @stack('head')
 </head>
 
 <body>
@@ -26,29 +29,17 @@
                 Home
             </a>
         </li>
-        <li>
-            <a href="#" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
-                Dashboard
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#table"/></svg>
-                Orders
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
-                Products
-            </a>
-        </li>
-        <li>
-            <a href="#" class="nav-link text-white">
-                <svg class="bi me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
-                Customers
-            </a>
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+                Ordenes de servicio
+            </button>
+            <div class="collapse" id="home-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{{route('ordenDeServicio.create')}}" class="link-dark text-white rounded">Crear</a></li>
+                    <li><a href="#" class="link-dark text-white rounded">Updates</a></li>
+                    <li><a href="#" class="link-dark text-white rounded">Reports</a></li>
+                </ul>
+            </div>
         </li>
     </ul>
     <hr>
@@ -66,10 +57,11 @@
         </ul>
     </div>
 </div>
-    <div class="container">
+    <div class="container-fluid">
         @yield('content')
     </div>
 </main>
+
 </body>
 
 </html>
