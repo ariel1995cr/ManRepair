@@ -11,6 +11,9 @@ class Empleado extends Usuario
     use HasFactory;
     use Notifiable;
 
+
+    protected $fillable = ['nombre','dni', 'apellido', 'numero_de_telefono', 'email', 'contrasena']; // GonzaWarjir
+
     protected $table= "empleado";
     protected $primaryKey = 'id';
     public $timestamps = false;
@@ -29,4 +32,6 @@ class Empleado extends Usuario
     {
         return 'email';
     }
+
+    
 }

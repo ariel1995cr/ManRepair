@@ -2,11 +2,13 @@
 
 use App\Http\Controllers\InicioController;
 use App\Http\Controllers\OrdenDeServicioController;
-use App\Http\Controllers\dashboard\MarcaController as MarcaGonza;
+// use App\Http\Controllers\dashboard\MarcaController as MarcaGonza;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ModeloController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +33,8 @@ Route::group(['middleware' => 'auth:empleados','prefix' => 'admin'], function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
     Route::resource('ordenDeServicio', OrdenDeServicioController::class)->only(['create']);
     Route::get('marcas/obtenerModelos/{marca}', [MarcaController::class, 'listarModelos']);
-    Route::resource('marcas', MarcaGonza::class);
+    Route::resource('marcas', MarcaController::class); Route::resource('modelos', ModeloController::class);
+    Route::resource('empleados', EmpleadoController::class);
 });
 
 

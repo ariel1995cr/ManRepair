@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\dashboard;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreMarca;
-use App\Models\Marca;
+use App\Http\Requests\StoreModelo;
 use Illuminate\Http\Request;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Models\Modelo;
 
-class MarcaController extends Controller
+class ModeloController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -26,9 +26,7 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        return view('dashboard.marca.create');
-        // $marca = Marca::pluck('nombre','logo');
-
+        return view('dashboard.modelo.create');
     }
 
     /**
@@ -37,10 +35,9 @@ class MarcaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreMarca $request)
+    public function store(StoreModelo $request)
     {
-        // dd($request->validated());
-        Marca::create($request->validated());
+        Modelo::create($request->validated());
         return back()->with('status', 'Marca creada con exito');
     }
 
@@ -52,7 +49,8 @@ class MarcaController extends Controller
      */
     public function show($id)
     {
-        return view('dashboard.marca.show');
+        $modelos = Modelo::get();
+        return view('dashboard.modelo.show', ['modelos'=> $modelos]);
     }
 
     /**

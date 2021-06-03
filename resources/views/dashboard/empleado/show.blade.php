@@ -5,7 +5,7 @@
 
     <div class="form-group">
 
-        <h1 class="display-1">Lista de Marcas</h1>
+        <h1 class="display-1">Lista de Empleados</h1>
         <hr>
         <div class="row justify-content-center align-items-center">
             <div class="col-12 col-md-11">
@@ -13,21 +13,27 @@
                     <thead>
                         <tr>
                             <th scope="col">Nombre</th>
-                            <th scope="col">Logo</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Apellido</th>
+                            <th scope="col">DNI</th>
+                            <th scope="col">Teléfono</th>
+                            <th scope="col">Correo electrónico</th>
+
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($marcas as $marca)
+                        @foreach ($empleados as $empleado)
                             <tr>
-                                <td scope="row">{{ $marca->nombre }}</td>
-                                <td>{{ $marca->logo }}</td>
-                                <td>
+                                <td>{{ $empleado->nombre }}</td>
+                                <td>{{ $empleado->apellido }}</td>
+                                <td scope="row">{{ $empleado->dni }}</td>
+                                <td>{{ $empleado->numero_de_telefono }}</td>
+                                <td>{{ $empleado->email }}</td>
+                                {{--  <td>
                                     <a class="btn btn-primary" href="">Ver</a>
                                     <a class="btn btn-primary" href="">Editar</a>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target=""
                                         data-id="">Borrar</button>
-                                </td>
+                                </td>  --}}
                             </tr>
                         @endforeach
                     </tbody>
