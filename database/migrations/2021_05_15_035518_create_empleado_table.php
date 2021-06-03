@@ -20,7 +20,7 @@ class CreateEmpleadoTable extends Migration
             $table->string('apellido');
             $table->string('numero_de_telefono');
             $table->string('contrasena');
-            $table->string('rol');
+            $table->string('rol')->default(1);
         });
     }
 

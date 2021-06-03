@@ -26,6 +26,13 @@
         <input type="email" class="form-control" name="email" id="email">
     </div>
 
+
+    <div class="mb-3">
+        <label for="logo" class="form-label">Contraseña</label>
+        <input type="password" class="form-control" name="contrasena" id="contrasena">
+    </div>
+
+
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
