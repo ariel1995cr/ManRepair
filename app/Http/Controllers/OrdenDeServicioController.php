@@ -43,7 +43,7 @@ class OrdenDeServicioController extends Controller
     }
 
     public function listar(){
-        $ordenesDeServicios = $this->ordenDeServicio::all();
+        $ordenesDeServicios = $this->ordenDeServicio::with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->paginate(15);
         return view('Admin.OrdenDeServicio.listar', compact('ordenesDeServicios'));
     }
 
