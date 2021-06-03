@@ -5,29 +5,32 @@
 
     <div class="form-group">
 
-        <h1 class="display-1">Lista de Marcas</h1>
+        <h1 class="display-1">Lista de Modelos</h1>
         <hr>
         <div class="row justify-content-center align-items-center">
             <div class="col-12 col-md-11">
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Logo</th>
-                            <th scope="col">Acciones</th>
+                            <th scope="col">Marca</th>
+                            <th scope="col">Modelo</th>
+                            <th scope="col">Fecha de lanzamiento</th>
+                            <th scope="col">Foto</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($marcas as $marca)
+                        @foreach ($modelos as $modelo)
                             <tr>
-                                <td scope="row">{{ $marca->nombre }}</td>
-                                <td>{{ $marca->logo }}</td>
-                                <td>
+                                <td scope="row">{{ $modelo->nombre_marca }}</td>
+                                <td>{{ $modelo->nombre }}</td>
+                                <td>{{ $modelo->fecha_lanzamiento }}</td>
+                                <td>{{ $modelo->foto }}</td>
+                                {{--  <td>
                                     <a class="btn btn-primary" href="">Ver</a>
                                     <a class="btn btn-primary" href="">Editar</a>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target=""
                                         data-id="">Borrar</button>
-                                </td>
+                                </td>  --}}
                             </tr>
                         @endforeach
                     </tbody>

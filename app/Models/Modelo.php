@@ -8,10 +8,12 @@ use Illuminate\Database\Eloquent\Builder;
 
 class Modelo extends Model
 {
+
     use HasFactory;
     protected $primaryKey = 'nombre';
     protected $table = "modelo";
     public $incrementing = false;
     public $timestamps = false;
 
+    protected $fillable = ['nombre', 'nombre_marca', 'fecha_lanzamiento', 'foto'];
 }
