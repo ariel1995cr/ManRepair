@@ -7,6 +7,7 @@ use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\ClienteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -29,9 +30,19 @@ Route::post('iniciarSesion', [EmpleadoController::class, 'ingresar'])->name('emp
 
 Route::group(['middleware' => 'auth:empleados','prefix' => 'admin'], function(){
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
-    Route::resource('ordenDeServicio', OrdenDeServicioController::class)->only(['create']);
+
+    Route::resource('ordenDeServicio', OrdenDeServicioController::class)->only(['create', 'store']);
+    Route::group(['prefix' => 'ordenDeServicio'], function (){
+        Route::get('listar', [OrdenDeServicioController::class,'listar'])->name('admin.ordenDeServicio.listar');
+    });
+
+
     Route::get('marcas/obtenerModelos/{marca}', [MarcaController::class, 'listarModelos']);
+
     Route::resource('marcas', MarcaGonza::class);
+
+
+    Route::group(['prefix' => 'clientes'], function (){
+        Route::get('campo/{campo}/dni/{dni}', [ClienteController::class, 'buscarCliente']);
+    });
 });
-
-

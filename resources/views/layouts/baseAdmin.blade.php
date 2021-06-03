@@ -6,11 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin - Man Repair</title>
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/base/index.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/base.js') }}" type="text/javascript"></script>
-    <script type="text/javascript" src="{{ asset('js/all.js') }}"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
     @stack('head')
 </head>
 
@@ -36,7 +36,7 @@
             <div class="collapse" id="home-collapse">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="{{route('ordenDeServicio.create')}}" class="link-dark text-white rounded">Crear</a></li>
-                    <li><a href="#" class="link-dark text-white rounded">Updates</a></li>
+                    <li><a href="{{route('admin.ordenDeServicio.listar')}}" class="link-dark text-white rounded">Listar</a></li>
                     <li><a href="#" class="link-dark text-white rounded">Reports</a></li>
                 </ul>
             </div>
@@ -58,10 +58,14 @@
     </div>
 </div>
     <div class="container-fluid">
+        @if ($message = Session::get('errors'))
+            <script>
+                enviarNotificacion('error', 'Error en el formulario', 'Verifique los errores.')
+            </script>
+        @endif
         @yield('content')
     </div>
 </main>
-
 </body>
 
 </html>

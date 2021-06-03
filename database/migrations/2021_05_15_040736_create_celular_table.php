@@ -14,7 +14,7 @@ class CreateCelularTable extends Migration
     public function up()
     {
         Schema::create('celular', function (Blueprint $table) {
-            $table->integer('imei')->unsigned();
+            $table->unsignedBigInteger('imei');
             $table->string('nombre_marca');
             $table->string('nombre_modelo');
             $table->timestamps();

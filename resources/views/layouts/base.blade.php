@@ -33,6 +33,9 @@
     </nav>
     <div class="container">
         @yield('content')
+        <script>
+            enviarNotificacion();
+        </script>
     </div>
 
 </body>
