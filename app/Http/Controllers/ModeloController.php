@@ -38,7 +38,7 @@ class ModeloController extends Controller
     public function store(StoreModelo $request)
     {
         Modelo::create($request->validated());
-        return back()->with('status', 'Marca creada con exito');
+        return back()->with('status', 'Modelo creado con exito');
     }
 
     /**

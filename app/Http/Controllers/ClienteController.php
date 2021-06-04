@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreCliente;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 
@@ -35,7 +36,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.cliente.create');
     }
 
     /**
@@ -44,9 +45,10 @@ class ClienteController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreCliente $request)
     {
-        //
+        Cliente::create($request->validated());
+        return back()->with('status', 'Cliente creado con exito');
     }
 
     /**
@@ -57,7 +59,9 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        //
+        $clientes = Cliente::get();
+        // dd($marcas);
+        return view('dashboard.cliente.show', ['clientes'=> $clientes]);
     }
 
     /**

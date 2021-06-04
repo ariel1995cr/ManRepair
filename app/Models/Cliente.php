@@ -13,6 +13,9 @@ class Cliente extends Model
     public $incrementing = false;
     public $timestamps = false;
 
+    // Gonza //
+    protected $fillable = ['nombre', 'dni', 'apellido', 'numero_de_telefono', 'email'];
+
     public function scopeBuscarCliente($query, $campo, $valor){
         return $query->where($campo, $valor);
     }

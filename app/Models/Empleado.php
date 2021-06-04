@@ -12,10 +12,17 @@ class Empleado extends Usuario
     use Notifiable;
 
 
-    protected $fillable = ['nombre','dni', 'apellido', 'numero_de_telefono', 'email', 'contrasena']; // GonzaWarjir
+
+    // // // Encripta la contraseña // // //
+    public function setContrasenaAttribute($value)
+    {
+        $this->attributes['contrasena'] = bcrypt($value);
+    }
+
+    protected $fillable = ['nombre', 'dni', 'apellido', 'numero_de_telefono', 'email', 'contrasena']; // GonzaWarjir
 
 
-    protected $table= "empleado";
+    protected $table = "empleado";
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $guard = "empleados";
@@ -33,6 +40,4 @@ class Empleado extends Usuario
     {
         return 'email';
     }
-
-    
 }
