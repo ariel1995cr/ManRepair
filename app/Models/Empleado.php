@@ -37,6 +37,6 @@ class Empleado extends Usuario
 
     public function setContrasenaAttribute($value)
     {
-        $this->attributes['contrasena'] = bcrypt($value);
+        $this->attributes['contrasena'] = Hash::make($value);
     }
 }
