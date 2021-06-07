@@ -13,7 +13,9 @@
                 <th>Marca</th>
                 <th>Modelo</th>
                 <th>Cliente</th>
+                <th>Atendido por</th>
                 <th>Ingreso</th>
+                <th>Estado actual</th>
                 <th>Ultima actualizaci&oacute;n</th>
             </tr>
             </thead>
@@ -25,8 +27,11 @@
                     <td>{{$orden->celular->imei}}</td>
                     <td>{{$orden->celular->nombre_marca}}</td>
                     <td>{{$orden->celular->nombre_modelo}}</td>
-                    <td>{{$orden->cliente->nombre}} {{$orden->cliente->apellido}}</td>
+                    <td>{{$orden->cliente->apellido}} {{$orden->cliente->nombre}}</td>
+                    <td>{{$orden->empleado->apellido}} {{$orden->empleado->nombre}}</td>
                     <td>{{$orden->created_at}}</td>
+                    <td>{{$orden->estado_actual}}</td>
+                    <td>{{$orden->ultima_actualizacion}}</td>
                 </tr>
             @endforeach
             </tbody>

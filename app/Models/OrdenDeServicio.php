@@ -14,7 +14,6 @@ class OrdenDeServicio extends Model
     protected $primaryKey = 'nro';
     public $incrementing = true;
 
-
     public function crearOrdenDeServicio($motivo_orden, $descripcion_estado_celular, $imei, $dni_cliente){
         $this->motivo_orden = $motivo_orden;
         $this->descripcion_estado_celular = $descripcion_estado_celular;
@@ -25,7 +24,7 @@ class OrdenDeServicio extends Model
     }
 
     public function historico_estado(){
-        return $this->belongsToMany(Estado::class, 'historial_estado_orden_de_servicio', 'nro_orden_de_servicio', 'nombre_estado')->withTimestamps();
+        return $this->belongsToMany(Estado::class, 'historial_estado_orden_de_servicio', 'nro_orden_de_servicio', 'nombre_estado')->withTimestamps()->orderBy('created_at','asc');
     }
 
     public function celular(){
@@ -38,5 +37,13 @@ class OrdenDeServicio extends Model
 
     public function cliente(){
         return $this->belongsTo(Cliente::class, 'dni_cliente', 'dni');
+    }
+
+    public function getEstadoActualAttribute(){
+        return $this->historico_estado()->latest()->get()->first()->nombre;
+    }
+
+    public function getUltimaActualizacionAttribute(){
+        return $this->historico_estado()->latest()->get()->first()->pivot->created_at;
     }
 }

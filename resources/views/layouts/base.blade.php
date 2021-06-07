@@ -23,9 +23,16 @@
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Inicio</a>
                         </li>
+                        @guest()
                         <li class="nav-item">
                             <a class="nav-link" href="{{route('empleado.iniciarSesion')}}">Iniciar sesion</a>
                         </li>
+                        @endguest
+                        @auth()
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{route('admin.index')}}">Dashboard Administrativo</a>
+                            </li>
+                        @endauth
                     </ul>
                 </div>
             </div>
@@ -33,9 +40,6 @@
     </nav>
     <div class="container">
         @yield('content')
-        <script>
-            enviarNotificacion();
-        </script>
     </div>
 
 </body>

@@ -33,6 +33,8 @@ Route::post('iniciarSesion', [EmpleadoController::class, 'ingresar'])->name('emp
 Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function () {
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
+    Route::get('cerrarSesion', [EmpleadoController::class, 'cerrarSesion'])->name('admin.cerrarSesion');
+
     Route::resource('ordenDeServicio', OrdenDeServicioController::class)->only(['create', 'store']);
     Route::group(['prefix' => 'ordenDeServicio'], function () {
         Route::get('listar', [OrdenDeServicioController::class, 'listar'])->name('admin.ordenDeServicio.listar');

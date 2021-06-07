@@ -36,6 +36,16 @@ class EmpleadoController extends Controller
         return redirect()->back();
     }
 
+    public function cerrarSesion(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+
+        return redirect('/');
+    }
+
     protected function guard()
     {
         return Auth::guard('empleados');
