@@ -91,7 +91,7 @@ class EmpleadoController extends Controller
     {
         // dd($request->validated());
         Empleado::create($request->validated());
-        return back()->with('status', 'Marca creada con exito');
+        return back()->with('status', 'Empleado creado con exito');
     }
 
 }

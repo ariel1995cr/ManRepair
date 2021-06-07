@@ -12,13 +12,13 @@ class Empleado extends Usuario
     use Notifiable;
 
 
-    protected $fillable = ['nombre', 'dni', 'apellido', 'numero_de_telefono', 'email', 'contrasena']; // GonzaWarjir
-
 
     protected $table = "empleado";
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $guard = "empleados";
+
+    protected $fillable = ['nombre', 'dni', 'apellido', 'numero_de_telefono', 'email', 'contrasena']; // GonzaWarjir
 
     public function getAuthPassword()
     {
@@ -35,4 +35,8 @@ class Empleado extends Usuario
         return 'email';
     }
 
+    public function setContrasenaAttribute($value)
+    {
+        $this->attributes['contrasena'] = bcrypt($value);
+    }
 }

@@ -1,21 +1,23 @@
 @extends('layouts.baseAdmin')
 
-{{-- @include('dashboard.vistasParciales.navBar') --}}
+
 @section('content')
 
     <div class="form-group">
 
-        <form action="{{ route('empleados.store') }}" method="POST">
+        
+        <form action="{{ route('clientes.store') }}" method="POST">
 
-            <h1 class="display-1">Crear Empleado</h1>
+            <h1 class="display-1">Crear Cliente</h1>
             <hr>
             @include('dashboard.vistasParciales.createUpdateDelete-exitosa')
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-6">
-                    @include('dashboard.empleado.formularioEmpleado')
+                    @include('dashboard.cliente.formularioCliente')
                 </div>
             </div>
         </form>
+        
     </div>
 
 @endsection
