@@ -30,7 +30,8 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        //
+        $marcas = Marca::get();
+        return view('dashboard.marca.show', ['marcas'=> $marcas]);
     }
 
     /**
@@ -66,10 +67,8 @@ class MarcaController extends Controller
      */
     public function show($id)
     {
-        // $marca = Marca::orderBy('nombre', 'asc');
-        $marcas = Marca::get();
-        // dd($marcas);
-        return view('dashboard.marca.show', ['marcas'=> $marcas]);
+        // $marcas = Marca::get();
+        // return view('dashboard.marca.show', ['marcas'=> $marcas]);
     }
 
     /**

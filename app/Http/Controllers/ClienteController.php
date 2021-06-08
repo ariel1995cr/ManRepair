@@ -26,7 +26,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $clientes = Cliente::get();
+        return view('dashboard.cliente.show', ['clientes'=> $clientes]);
     }
 
     /**
@@ -59,9 +60,9 @@ class ClienteController extends Controller
      */
     public function show($id)
     {
-        $clientes = Cliente::get();
-        // dd($marcas);
-        return view('dashboard.cliente.show', ['clientes'=> $clientes]);
+        // $clientes = Cliente::get();
+        // // dd($marcas);
+        // return view('dashboard.cliente.show', ['clientes'=> $clientes]);
     }
 
     /**

@@ -62,11 +62,10 @@ class EmpleadoController extends Controller
      */
     public function show($id)
     {
-        // $marca = Marca::orderBy('nombre', 'asc');
-        $empleados = Empleado::get();
-        // dd($marcas);
-        return view('dashboard.empleado.show', ['empleados'=> $empleados]);
+        // $empleados = Empleado::get();
+        // return view('dashboard.empleado.show', ['empleados'=> $empleados]);
     }
+
 
 
     /**

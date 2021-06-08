@@ -16,7 +16,8 @@ class ModeloController extends Controller
      */
     public function index()
     {
-        //
+        $modelos = Modelo::get();
+        return view('dashboard.modelo.show', ['modelos'=> $modelos]);
     }
 
     /**
@@ -49,8 +50,8 @@ class ModeloController extends Controller
      */
     public function show($id)
     {
-        $modelos = Modelo::get();
-        return view('dashboard.modelo.show', ['modelos'=> $modelos]);
+        // $modelos = Modelo::get();
+        // return view('dashboard.modelo.show', ['modelos'=> $modelos]);
     }
 
     /**

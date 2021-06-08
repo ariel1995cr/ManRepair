@@ -29,6 +29,20 @@
                 Home
             </a>
         </li>
+        {{-- // Clientes //  --}}
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapseCliente" aria-expanded="false">
+                Clientes
+            </button>
+            <div class="collapse" id="home-collapseCliente">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{{route('clientes.create')}}" class="link-dark text-white rounded">Crear</a></li>
+                    <li><a href="{{route('clientes.index')}}" class="link-dark text-white rounded">Listar</a></li>
+                    
+                </ul>
+            </div>
+        </li>
+        
         <li class="mb-1">
             <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
                 Ordenes de servicio
@@ -41,7 +55,48 @@
                 </ul>
             </div>
         </li>
+        {{-- // Marca //  --}}
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapseMarca" aria-expanded="false">
+                Marcas
+            </button>
+            <div class="collapse" id="home-collapseMarca">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{{route('marcas.create')}}" class="link-dark text-white rounded">Crear</a></li>
+                    <li><a href="{{route('marcas.index')}}" class="link-dark text-white rounded">Listar</a></li>
+                    
+                </ul>
+            </div>
+        </li>
+        {{-- // Modelo //  --}}
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapseModelo" aria-expanded="false">
+                Modelos
+            </button>
+            <div class="collapse" id="home-collapseModelo">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{{route('modelos.create')}}" class="link-dark text-white rounded">Crear</a></li>
+                    <li><a href="{{route('modelos.index')}}" class="link-dark text-white rounded">Listar</a></li>
+                    
+                </ul>
+            </div>
+        </li>
+        {{-- // Empleados //  --}}
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapseEmpleado" aria-expanded="false">
+                Empleados
+            </button>
+            <div class="collapse" id="home-collapseEmpleado">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{{route('empleados.create')}}" class="link-dark text-white rounded">Crear</a></li>
+                    <li><a href="{{route('empleados.create')}}" class="link-dark text-white rounded">Listar</a></li>
+                    
+                </ul>
+            </div>
+        </li>
     </ul>
+    
+    
     <hr>
     <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
