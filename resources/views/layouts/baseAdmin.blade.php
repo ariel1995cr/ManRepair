@@ -89,7 +89,7 @@
             <div class="collapse" id="home-collapseEmpleado">
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="{{route('empleados.create')}}" class="link-dark text-white rounded">Crear</a></li>
-                    <li><a href="{{route('empleados.create')}}" class="link-dark text-white rounded">Listar</a></li>
+                    <li><a href="{{route('empleados.index')}}" class="link-dark text-white rounded">Listar</a></li>
                     
                 </ul>
             </div>

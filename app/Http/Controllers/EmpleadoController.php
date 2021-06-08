@@ -52,6 +52,17 @@ class EmpleadoController extends Controller
     }
 
 
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $empleados = Empleado::get();
+        return view('dashboard.empleado.show', ['empleados'=> $empleados]);
+    }
+
     ////// ////// GonzaWasJir ////// //////
 
      /**
