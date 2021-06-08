@@ -26,7 +26,7 @@ Route::resource('/', InicioController::class)->only(['index']);
 
 Route::get('ordenDeServicio/{nroOrdenDeServicio?}', [OrdenDeServicioController::class, 'buscar'])->name('orden.buscar');
 
-Route::get('iniciarSesion', [EmpleadoController::class, 'index'])->name('empleado.iniciarSesion')->middleware('auth.redirect');
+Route::get('iniciarSesion', [EmpleadoController::class, 'iniciarSesion'])->name('empleado.iniciarSesion')->middleware('auth.redirect');
 
 Route::post('iniciarSesion', [EmpleadoController::class, 'ingresar'])->name('empleado.iniciarSesion.post');
 

@@ -17,7 +17,7 @@ class EmpleadoController extends Controller
         $this->empleado  = new Empleado();
     }
 
-    public function index()
+    public function iniciarSesion()
     {
         return view('Auth.iniciarSesion');
     }
