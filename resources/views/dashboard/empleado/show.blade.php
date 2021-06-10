@@ -17,7 +17,7 @@
                             <th scope="col">DNI</th>
                             <th scope="col">Teléfono</th>
                             <th scope="col">Correo electrónico</th>
-
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -28,12 +28,12 @@
                                 <td scope="row">{{ $empleado->dni }}</td>
                                 <td>{{ $empleado->numero_de_telefono }}</td>
                                 <td>{{ $empleado->email }}</td>
-                                {{--  <td>
-                                    <a class="btn btn-primary" href="">Ver</a>
-                                    <a class="btn btn-primary" href="">Editar</a>
+                                <td>
+                                    {{--  <a class="btn btn-primary" href="">Ver</a>  --}}
+                                    <a class="btn btn-primary" href="{{ route('empleados.edit', $empleado->dni) }}">Editar</a>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target=""
                                         data-id="">Borrar</button>
-                                </td>  --}}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

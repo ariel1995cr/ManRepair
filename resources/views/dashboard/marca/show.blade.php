@@ -14,7 +14,8 @@
                         <tr>
                             <th scope="col">Nombre</th>
                             <th scope="col">Logo</th>
-                            {{--  <th scope="col">Acciones</th>  --}}
+                            <th scope="col">Acciones</th>
+                            {{-- <th scope="col">Acciones</th> --}}
                         </tr>
                     </thead>
                     <tbody>
@@ -22,16 +23,19 @@
                             <tr>
                                 <td scope="row">{{ $marca->nombre }}</td>
                                 <td>{{ $marca->logo }}</td>
-                                {{--  <td>
-                                    <a class="btn btn-primary" href="">Ver</a>
-                                    <a class="btn btn-primary" href="">Editar</a>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target=""
-                                        data-id="">Borrar</button>
-                                </td>  --}}
+                                <td>
+
+                                    <a class="btn btn-primary"
+                                        href="{{ route('marcas.edit', $marca->nombre) }}">Editar</a>
+
+                                    <button type="button" class="btn btn-danger" data-toggle="modal"
+                                        data-target="#modalBorrado" data-id="">Borrar</button>
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>
                 </table>
+
             </div>
         </div>
 

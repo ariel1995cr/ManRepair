@@ -37,7 +37,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        return view('dashboard.cliente.create');
+        return view('dashboard.cliente.create', ['cliente'=> new Cliente()]);
     }
 
     /**
@@ -71,9 +71,9 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cliente $cliente)
     {
-        //
+        return view('dashboard.cliente.edit', ['cliente' => $cliente]);
     }
 
     /**
@@ -83,9 +83,10 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreCliente $request, Cliente $cliente)
     {
-        //
+        $cliente->update($request->validated());
+        return back()->with('status', 'Cliente actualizado con exito');
     }
 
     /**

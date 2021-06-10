@@ -41,7 +41,7 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        return view('dashboard.marca.create');
+        return view('dashboard.marca.create', ['marca'=> new Marca()]);
         // $marca = Marca::pluck('nombre','logo');
 
     }
@@ -77,9 +77,9 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Marca $marca)
     {
-        //
+        return view('dashboard.marca.edit', ['marca' => $marca]);
     }
 
     /**
@@ -89,9 +89,10 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreMarca $request, Marca $marca)
     {
-        //
+        $marca->update($request->validated());
+        return back()->with('status', 'Marca actualizada con exito');
     }
 
     /**
@@ -100,8 +101,9 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Marca $marca)
     {
-        //
+        $marca->delete();
+        return back()->with('status', 'Post borrado con exito');
     }
 }

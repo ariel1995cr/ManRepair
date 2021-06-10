@@ -16,6 +16,7 @@
                             <th scope="col">Modelo</th>
                             <th scope="col">Fecha de lanzamiento</th>
                             <th scope="col">Foto</th>
+                            <th scope="col">Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -25,12 +26,12 @@
                                 <td>{{ $modelo->nombre }}</td>
                                 <td>{{ $modelo->fecha_lanzamiento }}</td>
                                 <td>{{ $modelo->foto }}</td>
-                                {{--  <td>
-                                    <a class="btn btn-primary" href="">Ver</a>
-                                    <a class="btn btn-primary" href="">Editar</a>
+                                <td>
+                                    {{--  <a class="btn btn-primary" href="">Ver</a>  --}}
+                                    <a class="btn btn-primary" href="{{ route('modelos.edit', $modelo->nombre) }}">Editar</a>
                                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target=""
                                         data-id="">Borrar</button>
-                                </td>  --}}
+                                </td>
                             </tr>
                         @endforeach
                     </tbody>

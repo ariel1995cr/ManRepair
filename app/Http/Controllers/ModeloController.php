@@ -27,7 +27,7 @@ class ModeloController extends Controller
      */
     public function create()
     {
-        return view('dashboard.modelo.create');
+        return view('dashboard.modelo.create', ['modelo'=> new Modelo()]);
     }
 
     /**
@@ -60,9 +60,9 @@ class ModeloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Modelo $modelo)
     {
-        //
+        return view('dashboard.modelo.edit', ['modelo' => $modelo]);
     }
 
     /**
@@ -72,9 +72,10 @@ class ModeloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(StoreModelo $request, Modelo $modelo)
     {
-        //
+        $modelo->update($request->validated());
+        return back()->with('status', 'Modelo actualizado con exito');
     }
 
     /**
