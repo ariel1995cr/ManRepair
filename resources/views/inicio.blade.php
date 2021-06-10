@@ -4,8 +4,8 @@
 
 
 <div class="container">
-    <div class="col-12 text-center">
-        <h1 class="display-1">Conoce el Estado<br /> de tu Orden De Servicio</h1>
+    <div class="col-12 text-center mt-5">
+        <h1 class="display-1  justify-content-center">Conoce el estado<br /> de tu Orden de Servicio</h1>
     </div>
     <form action="{{route('orden.buscar')}}" method="GET">
         <div class="row justify-content-center">

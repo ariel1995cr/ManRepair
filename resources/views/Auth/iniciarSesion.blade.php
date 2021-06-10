@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="col-12 text-center">
-        <h1 class="display-1">Iniciar Sesión</h1>
+        <h1 class="display-1 mt-5">Iniciar Sesión</h1>
     </div>
     <form action="{{route('empleado.iniciarSesion.post')}}" method="POST">
         @csrf
