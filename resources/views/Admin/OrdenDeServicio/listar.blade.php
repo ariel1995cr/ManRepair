@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-12 text-left">
-        <h1 class="display-1">Listado de ordenes de servicio</h1>
+        <h1 class="display-1 text-center">Listado de ordenes de servicio</h1>
         <hr>
         <table class="table">
             <thead>

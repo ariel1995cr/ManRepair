@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="col-12 text-left">
-        <h1 class="display-1">Crear orden de servicio</h1>
+        <h1 class="display-1  text-center">Crear orden de servicio</h1>
         <hr>
         <form id="formCrearOrdenDeServicio" action="{{route('ordenDeServicio.store')}}" method="POST" >
             @csrf
