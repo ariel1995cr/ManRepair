@@ -8,7 +8,7 @@
         
         <form action="{{ route('modelos.store') }}" method="POST">
 
-            <h1 class="display-1">Crear Modelo</h1>
+            <h1 class="display-1 text-center">Crear Modelo</h1>
             <hr>
             @include('dashboard.vistasParciales.createUpdateDelete-exitosa')
             <div class="row justify-content-center align-items-center">
