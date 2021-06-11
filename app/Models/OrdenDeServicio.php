@@ -41,10 +41,10 @@ class OrdenDeServicio extends Model
     }
 
     public function getEstadoActualAttribute(){
-        return $this->historico_estado()->latest()->get()->first()->nombre;
+        return $this->historico_estado()->latest()->get()->last()->nombre;
     }
 
     public function getUltimaActualizacionAttribute(){
-        return $this->historico_estado()->latest()->get()->first()->pivot->created_at;
+        return $this->historico_estado()->latest()->get()->last()->pivot->created_at;
     }
 }

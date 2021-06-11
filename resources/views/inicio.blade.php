@@ -10,7 +10,7 @@
     <form action="{{route('orden.buscar')}}" method="GET">
         <div class="row justify-content-center">
             <div class="col-9 col-lg-8">
-                <input type="text" name="nroOrdenDeServicio" class="form-control" id="nroOrdenDeServicio" placeholder="Ingresa tu orden de servicio">
+                <input type="text" name="nroOrdenDeServicio" class="form-control" id="nroOrdenDeServicio" placeholder="Ingresa tu orden de servicio" value="{{ empty($nroOrdenDeServicio) ? '' : $nroOrdenDeServicio }}">
             </div>
             <div class="col-2 col-lg-auto">
                 <button type="submit" class="btn btn-secondary">Buscar</button>

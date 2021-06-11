@@ -9,10 +9,10 @@
             <div class="row justify-content-center align-items-center">
                     <div class="col-12 col-md-4">
                         <label>Marca</label>
-                        <select onchange="changeMarca()" id="marca" name="marca" class="form-select {{$errors->has('marca') ? 'border-danger' : ''}}" aria-label="Seleccionar marca">
+                        <select onchange="changeMarca(event.target.value)" id="marca" name="marca" class="form-select {{$errors->has('marca') ? 'border-danger' : ''}}" aria-label="Seleccionar marca">
                             <option selected value="">Seleccionar marca</option>
                             @foreach($marcas as $marca)
-                                <option value="{{$marca->nombre}}">{{$marca->nombre}}</option>
+                                <option {{ old('marca') == $marca->nombre ? 'selected' : '' }} value="{{$marca->nombre}}">{{$marca->nombre}}</option>
                             @endforeach
                         </select>
                         @if($errors->has('marca'))
@@ -80,18 +80,14 @@
             <div class="row justify-content-center align-items-center pt-2">
                 <div class="col-12 col-md-8">
                     <label>Estado del celular</label>
-                    <textarea type="text" name="estado" class="form-control {{$errors->has('estado') ? 'border-danger' : ''}}" id="estado">
-                        {{ old('estado') }}
-                    </textarea>
+                    <textarea type="text" name="estado" class="form-control {{$errors->has('estado') ? 'border-danger' : ''}}" id="estado">{{ old('estado') }}</textarea>
                     @if($errors->has('estado'))
                         <span class="text-danger">{{$errors->first('estado')}}</span>
                     @endif
                 </div>
                 <div class="col-12 col-md-8">
                     <label>Motivo de la orden</label>
-                    <textarea type="text" name="motivo_orden" class="form-control {{$errors->has('motivo_orden') ? 'border-danger' : ''}}" id="motivo_orden">
-                        {{ old('motivo_orden') }}
-                    </textarea>
+                    <textarea type="text" name="motivo_orden" class="form-control {{$errors->has('motivo_orden') ? 'border-danger' : ''}}" id="motivo_orden">{{ old('motivo_orden') }}</textarea>
                     @if($errors->has('motivo_orden'))
                         <span class="text-danger">{{$errors->first('motivo_orden')}}</span>
                     @endif
@@ -104,4 +100,13 @@
             </div>
         </form>
     </div>
+    @if ($message = Session::get('errors'))
+        <script>
+            let marca = @json(old('marca'));
+            let modelo = @json(old('modelo'));
+            if(marca != ''){
+                obtenerModelos(marca,modelo)
+            }
+        </script>
+    @endif
 @endsection

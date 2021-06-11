@@ -1,7 +1,7 @@
-function changeMarca(){
-    let nombreMarca = event.target.value;
+function changeMarca(marca){
+    let nombreMarca = marca;
     this.limpiarSelectModelos();
-    if(event.target.value != ''){
+    if(nombreMarca != ''){
         this.obtenerModelos(nombreMarca);
     }
 }
@@ -15,8 +15,8 @@ function limpiarSelectModelos(){
     }
 }
 
-function obtenerModelos(marca){
-    axios.get('/admin/marcas/obtenerModelos/'+marca)
+async function obtenerModelos(marca, modeloSeleccionado=null){
+    await axios.get('/admin/marcas/obtenerModelos/'+marca)
         .then(response=>{
             console.log(response);
             let select = document.getElementById('modelo');
@@ -24,6 +24,9 @@ function obtenerModelos(marca){
             response.data.forEach(modelo => {
                 option.text = modelo.nombre;
                 option.value = modelo.nombre;
+                if(modelo.nombre == modeloSeleccionado){
+                    option.selected = true;
+                }
                 select.add(option);
             })
         })
@@ -67,3 +70,64 @@ function enviarNotificacion(icon,title,text,footer=''){
         footer: footer
     });
 }
+
+function crearInputForm(nombre,clase,label, claseDiv, inputTipo, type){
+    let elementoPadre = document.createElement('div');
+    elementoPadre.className =  'row';
+
+    let elemento = document.createElement('div');
+    elemento.className =  claseDiv;
+
+    let lbl = document.createElement('label');
+    lbl.textContent = label;
+
+    let input = document.createElement(inputTipo);
+    input.name = nombre;
+    input.id = nombre;
+    input.className = clase;
+    input.type = type;
+    if(nombre == 'importe_reparacion'){
+        input.step = "0.01"
+        input.min = "0"
+
+    }
+
+    elemento.appendChild(lbl);
+    elemento.appendChild(input);
+    elementoPadre.appendChild(elemento);
+    return elementoPadre;
+
+
+}
+
+async function formularioCambioDeEstado(estado){
+    let estadoNuevo = estado;
+
+    let divs = await document.getElementById("divForm");
+
+    if(estadoNuevo == ''){
+        for (let i = 2; i < divs.children.length; i++) {
+            if(divs.children[i].className == 'row'){
+                divs.children[i].className = 'row d-none';
+            }
+        }
+    }
+
+    if(estadoNuevo == 'Presupuestado'){
+        for (let i = 0; i < divs.children.length; i++) {
+            if(divs.children[i].className == 'row d-none'){
+                divs.children[i].className = 'row';
+            }
+        }
+    }
+
+    if (estadoNuevo != 'Presupuestado' && estadoNuevo != ''){
+        for (let i = 6; i < divs.children.length; i++) {
+            console.log(i);
+            if(divs.children[i].className == 'row d-none'){
+                divs.children[i].className = 'row';
+            }
+        }
+    }
+}
+

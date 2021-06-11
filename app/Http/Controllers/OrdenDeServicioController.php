@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CambiarEstadoRequest;
 use App\Http\Requests\RequestSaveOrdenDeServicio;
 use App\Http\Requests\StoreCliente;
 use App\Models\Celular;
@@ -34,8 +35,12 @@ class OrdenDeServicioController extends Controller
     public function buscar(Request $request)
     {
         $nroOrdenDeServicio = $request->nroOrdenDeServicio;
-        $ordenDeServicio = OrdenDeServicio::find($nroOrdenDeServicio);
-        return view('ordenDeServicio', compact('nroOrdenDeServicio', 'ordenDeServicio'));
+
+        $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$request->nroOrdenDeServicio)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
+
+        return view('ordenDeServicio')->with('nroOrdenDeServicio', $nroOrdenDeServicio)->with('ordenDeServicio', $this->ordenDeServicio);
+
+
     }
 
     public function create(){
@@ -53,6 +58,24 @@ class OrdenDeServicioController extends Controller
         $ordenDeServicio =  $this->ordenDeServicio->find($nroOrdenDeServicio)->first();
         $estadosPosibles = $this->estado->obtenerEstadoPosibles($ordenDeServicio->estado_actual);
         return view('Admin.OrdenDeServicio.cambiarEstado', compact('ordenDeServicio', 'estadosPosibles'));
+    }
+
+    public function cambiarEstado(OrdenDeServicio $nroOrdenDeServicio, CambiarEstadoRequest $request){
+        $this->ordenDeServicio = $nroOrdenDeServicio;
+        if($request->nombre_estado == $this->estado::PRESUPUESTADO){
+            $this->ordenDeServicio->detalle_reparacion = $request->detalle_reparacion;
+            $this->ordenDeServicio->materiales_necesarios = $request->materiales_necesarios;
+            $this->ordenDeServicio->importe_reparacion = $request->importe_reparacion;
+            $this->ordenDeServicio->tiempo_de_reparacion = $request->tiempo_de_reparacion;
+            $this->ordenDeServicio->save();
+        }
+        $this->historialEstado->nro_orden_de_servicio = $this->ordenDeServicio->nro;
+        $this->historialEstado->nombre_estado = $request->nombre_estado;
+        $this->historialEstado->comentario = $request->comentario;
+        $this->historialEstado->save();
+        $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$this->ordenDeServicio->nro)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
+
+        return view('Admin.OrdenDeServicio.createSucces')->with('ordenDeServicio', $this->ordenDeServicio);
     }
 
     public function store(RequestSaveOrdenDeServicio $request){

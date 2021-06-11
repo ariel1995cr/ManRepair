@@ -17,6 +17,7 @@ class CreateHistorialEstadoOrdenDeServicioTable extends Migration
             $table->id();
             $table->integer('nro_orden_de_servicio');
             $table->string('nombre_estado');
+            $table->string('comentario')->nullable();
             $table->timestamps();
 
             $table->foreign('nro_orden_de_servicio')->references('nro')->on('orden_de_servicio');

@@ -31,9 +31,11 @@
                <div class="card border-1 border-dark p-4">
                    <div class="card" style="width: 18rem;">
                        @foreach($ordenDeServicio->historico_estado as $estado)
-                           <div class="card-body bg-light">
-                               <h5 class="card-title">{{$estado->nombre}}</h5>
-                               <p class="card-text">{{$estado->pivot->created_at}}</p>
+                           <div class="card mt-2" style="width: 18rem;">
+                               <div class="card-body bg-light">
+                                   <h5 class="card-title">{{$estado->nombre}}</h5>
+                                   <p class="card-text">{{$estado->pivot->created_at}}</p>
+                               </div>
                            </div>
                        @endforeach
                    </div>
