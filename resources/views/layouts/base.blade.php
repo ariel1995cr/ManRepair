@@ -6,8 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio - Man Repair</title>
-    <script src="{{ asset('js/app.js') }}" defer></script>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/base/index.css') }}" rel="stylesheet">
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/base.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/all.js') }}"></script>
 </head>
 
 <body>
@@ -39,6 +42,12 @@
         </div>
     </nav>
     <div class="container">
+        @if ($message = Session::get('errors'))
+            <script>
+                let mensaje = @json($message->first());
+                enviarNotificacion('error', 'Error en el formulario', `${mensaje}`);
+            </script>
+        @endif
         @yield('content')
     </div>
 
