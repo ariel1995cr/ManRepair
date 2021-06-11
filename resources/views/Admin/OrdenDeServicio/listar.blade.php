@@ -17,6 +17,7 @@
                 <th>Ingreso</th>
                 <th>Estado actual</th>
                 <th>Ultima actualizaci&oacute;n</th>
+                <th>Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -32,6 +33,13 @@
                     <td>{{$orden->created_at}}</td>
                     <td>{{$orden->estado_actual}}</td>
                     <td>{{$orden->ultima_actualizacion}}</td>
+                    <td>
+                            <a href="{{route('admin.ordenDeServicio.cambiarEstado', ['nroOrdenDeServicio'=>$orden->nro])}}" class="text-black-50" data-bs-toggle="tooltip" data-bs-placement="left" title="Cambiar estado">
+                               <button class="botonTransparente" type="submit">
+                                   <i class="bi bi-arrow-repeat"></i>
+                               </button>
+                            </a>
+                    </td>
                 </tr>
             @endforeach
             </tbody>

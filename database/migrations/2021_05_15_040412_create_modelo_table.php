@@ -16,8 +16,8 @@ class CreateModeloTable extends Migration
         Schema::create('modelo', function (Blueprint $table) {
             $table->string('nombre');
             $table->string('nombre_marca');
-            $table->date('fecha_lanzamiento');
-            $table->string('foto');
+            $table->date('fecha_lanzamiento')->nullable();
+            $table->string('foto')->nullable();
 
             $table->foreign('nombre_marca')->references('nombre')->on('marca');
 

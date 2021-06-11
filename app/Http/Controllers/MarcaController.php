@@ -19,7 +19,8 @@ class MarcaController extends Controller
     //
     public function listarModelos(Marca $marca)
     {
-        $modelos = $this->marca->with('modelos')->first()->modelos;
+        $this->marca = $marca;
+        $modelos = $this->marca->modelos;
         return response()->json($modelos);
     }
 

@@ -13,6 +13,7 @@ class OrdenDeServicio extends Model
     protected $table = 'orden_de_servicio';
     protected $primaryKey = 'nro';
     public $incrementing = true;
+    protected $with = ['historico_estado', 'celular', 'empleado', 'cliente'];
 
     public function crearOrdenDeServicio($motivo_orden, $descripcion_estado_celular, $imei, $dni_cliente){
         $this->motivo_orden = $motivo_orden;

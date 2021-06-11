@@ -26,15 +26,15 @@ class RequestSaveOrdenDeServicio extends FormRequest
         return [
             //
             'motivo_orden' => 'required',
-            'imei' => 'required',
+            'imei' => 'required|integer|min:15',
             'dni' => 'required',
-            'email' => 'required',
-            'nombre' => 'required',
-            'apellido' => 'required',
-            'numero_de_telefono' => 'required',
+            'email' => 'required|email',
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
+            'apellido' => 'required|regex:/^[\pL\s\-]+$/u',
+            'numero_de_telefono' => 'required|integer',
             'estado' => 'required',
-            'marca'=>'required',
-            'modelo'=>'required',
+            'marca'=>'required|exists:marca,nombre',
+            'modelo'=>'required|exists:modelo,nombre',
         ];
     }
 }

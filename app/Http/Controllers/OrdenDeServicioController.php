@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\RequestSaveOrdenDeServicio;
+use App\Http\Requests\StoreCliente;
 use App\Models\Celular;
 use App\Models\Cliente;
 use App\Models\Estado;
@@ -11,6 +12,7 @@ use App\Models\Marca;
 use App\Models\OrdenDeServicio;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class OrdenDeServicioController extends Controller
 {
@@ -47,6 +49,12 @@ class OrdenDeServicioController extends Controller
         return view('Admin.OrdenDeServicio.listar', compact('ordenesDeServicios'));
     }
 
+    public function cambiarEstadoView(OrdenDeServicio $nroOrdenDeServicio){
+        $ordenDeServicio =  $this->ordenDeServicio->find($nroOrdenDeServicio)->first();
+        $estadosPosibles = $this->estado->obtenerEstadoPosibles($ordenDeServicio->estado_actual);
+        return view('Admin.OrdenDeServicio.cambiarEstado', compact('ordenDeServicio', 'estadosPosibles'));
+    }
+
     public function store(RequestSaveOrdenDeServicio $request){
         $cliente = $this->cliente::buscarCliente('dni', $request->dni)->first();
         if($cliente == null){
@@ -55,6 +63,12 @@ class OrdenDeServicioController extends Controller
             $this->cliente->nombre = $request->nombre;
             $this->cliente->apellido = $request->apellido;
             $this->cliente->numero_de_telefono = $request->numero_de_telefono;
+            $validate = Validator::make($this->cliente->toArray(), (new StoreCliente())->rules());
+            if($validate->fails()){
+                return back()
+                    ->withErrors($validate)
+                    ->withInput();
+            }
             $this->cliente->save();
         }else{
             $this->cliente->find($request->dni);

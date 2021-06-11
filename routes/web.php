@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
     Route::resource('ordenDeServicio', OrdenDeServicioController::class)->only(['create', 'store']);
     Route::group(['prefix' => 'ordenDeServicio'], function () {
         Route::get('listar', [OrdenDeServicioController::class, 'listar'])->name('admin.ordenDeServicio.listar');
+        Route::get('/{nroOrdenDeServicio}/cambiarEstado/', [OrdenDeServicioController::class, 'cambiarEstadoView'])->name('admin.ordenDeServicio.cambiarEstado');
     });
 
 
