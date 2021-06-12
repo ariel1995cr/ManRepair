@@ -26,11 +26,11 @@ class RequestSaveOrdenDeServicio extends FormRequest
         return [
             //
             'motivo_orden' => 'required',
-            'imei' => 'required|integer|min:15',
-            'dni' => 'required',
+            'imei' => 'required|integer|digits_between:15,15',
+            'dni' => 'required|integer|digits_between:7,8',
             'email' => 'required|email',
-            'nombre' => 'required|regex:/^[\pL\s\-]+$/u',
-            'apellido' => 'required|regex:/^[\pL\s\-]+$/u',
+            'nombre' => 'required|regex:/^[\pL\s\-]+$/u|min:2',
+            'apellido' => 'required|regex:/^[\pL\s\-]+$/u|min:2',
             'numero_de_telefono' => 'required|integer',
             'estado' => 'required',
             'marca'=>'required|exists:marca,nombre',

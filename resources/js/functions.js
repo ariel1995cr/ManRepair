@@ -131,3 +131,29 @@ async function formularioCambioDeEstado(estado){
     }
 }
 
+async function ordenDeServicioReingreso(nro){
+    let resp = await axios.get('/admin/ordenDeServicio/reingresoValido/'+nro)
+        .then(response=>{
+            return true;
+        })
+        .catch(err=>{
+            let mensaje = err.response.data.mensaje;
+            enviarNotificacion('error', 'Error en el formulario', mensaje);
+            return false;
+        })
+    return resp;
+}
+
+async function enviarFormOrdenDeServicioReingreso(){
+    let nro = document.getElementById('nro_orden_anterior').value;
+    if(nro == ''){
+        return enviarNotificacion('error', 'Error en el formulario', 'No ingreso el número de la orden de servicio');
+    }else{
+        let resp = await this.ordenDeServicioReingreso(nro);
+        if(resp){
+            let form = document.getElementById('formCrearOrdenDeServicio');
+            form.submit();
+        }
+    }
+}
+

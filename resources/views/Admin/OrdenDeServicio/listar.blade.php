@@ -34,11 +34,15 @@
                     <td>{{$orden->estado_actual}}</td>
                     <td>{{$orden->ultima_actualizacion}}</td>
                     <td>
+                        @if($orden->estado_actual != 'Entregado')
                             <a href="{{route('admin.ordenDeServicio.cambiarEstado', ['nroOrdenDeServicio'=>$orden->nro])}}" class="text-black-50" data-bs-toggle="tooltip" data-bs-placement="left" title="Cambiar estado">
-                               <button class="botonTransparente" type="submit">
-                                   <i class="bi bi-arrow-repeat"></i>
-                               </button>
+                                <button class="botonTransparente" type="submit">
+                                    <i class="bi bi-arrow-repeat"></i>
+                                </button>
                             </a>
+                        @else
+                            No hay acciones para realizar.
+                        @endif
                     </td>
                 </tr>
             @endforeach
