@@ -48,7 +48,7 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
     Route::resource('modelos', ModeloController::class);
     Route::resource('empleados', EmpleadoController::class);
     Route::resource('clientes', ClienteController::class);
-
+    
     Route::group(['prefix' => 'clientes'], function () {
         Route::get('campo/{campo}/dni/{dni}', [ClienteController::class, 'buscarCliente']);
     });

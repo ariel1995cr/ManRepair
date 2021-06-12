@@ -14,7 +14,7 @@ class Empleado extends Usuario
 
 
     protected $table = "empleado";
-    protected $primaryKey = 'id';
+    protected $primaryKey = 'dni';
     public $timestamps = false;
     protected $guard = "empleados";
 

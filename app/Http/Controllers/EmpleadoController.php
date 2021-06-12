@@ -100,7 +100,11 @@ class EmpleadoController extends Controller
         return view('dashboard.empleado.create', ['empleado'=> new Empleado()]);
         // $marca = Marca::pluck('nombre','logo');
     }
-
+    //Ariel dijo que hagas esto !!!!!!!
+    public function update(Request $request)
+    {
+        dd($request->all);
+    }
 
      /**
      * Store a newly created resource in storage.

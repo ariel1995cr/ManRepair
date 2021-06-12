@@ -5,7 +5,7 @@
 
         {{--  <form action="{{ route('marcas.store') }}" method="POST">  --}}
 
-            <h1 class="display-1">Editar Cliente</h1>
+            <h1 class="display-1 text-center">Editar Cliente</h1>
             <hr>
             @include('dashboard.vistasParciales.createUpdateDelete-exitosa')
             <div class="row justify-content-center align-items-center">
