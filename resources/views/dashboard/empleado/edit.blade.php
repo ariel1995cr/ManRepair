@@ -11,7 +11,7 @@
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-6">
                     
-                    <form action="{{ route('empleados.update', $empleado->dni) }}" method="POST">
+                    <form action="{{ route('empleados.update', $empleado->nombre) }}" method="POST">
                         @method('PUT')
 
                         @include('dashboard.empleado.formularioEmpleado')
