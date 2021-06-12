@@ -37,8 +37,12 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
 
     Route::resource('ordenDeServicio', OrdenDeServicioController::class)->only(['create', 'store']);
     Route::group(['prefix' => 'ordenDeServicio'], function () {
+        Route::get('reingreso', [OrdenDeServicioController::class, 'createReingreso'])->name('admin.ordenDeServicio.reingreso.view');
+        Route::post('reingreso', [OrdenDeServicioController::class, 'altaReingreso'])->name('admin.ordenDeServicio.altaReingreso');
         Route::get('listar', [OrdenDeServicioController::class, 'listar'])->name('admin.ordenDeServicio.listar');
-        Route::get('/{nroOrdenDeServicio}/cambiarEstado/', [OrdenDeServicioController::class, 'cambiarEstadoView'])->name('admin.ordenDeServicio.cambiarEstado');
+        Route::get('/{nroOrdenDeServicio}/cambiarEstado', [OrdenDeServicioController::class, 'cambiarEstadoView'])->name('admin.ordenDeServicio.cambiarEstado');
+        Route::post('/{nroOrdenDeServicio}/cambiarEstado', [OrdenDeServicioController::class, 'cambiarEstado'])->name('admin.ordenDeServicio.cambiarEstado.Post');
+        Route::get('reingresoValido/{nroOrdenDeServicio}', [OrdenDeServicioController::class, 'validarOrdenyGarantia']);
     });
 
 
@@ -47,7 +51,7 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
     Route::resource('modelos', ModeloController::class);
     Route::resource('empleados', EmpleadoController::class);
     Route::resource('clientes', ClienteController::class);
-
+    
     Route::group(['prefix' => 'clientes'], function () {
         Route::get('campo/{campo}/dni/{dni}', [ClienteController::class, 'buscarCliente']);
     });

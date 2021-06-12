@@ -5,7 +5,7 @@
 
     <div class="form-group">
 
-        <h1 class="display-1">Lista de Empleados</h1>
+        <h1 class="display-1 text-center">Lista de Empleados</h1>
         <hr>
         <div class="row justify-content-center align-items-center">
             <div class="col-12 col-md-11">

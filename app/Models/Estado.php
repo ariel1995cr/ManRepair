@@ -19,7 +19,7 @@ class Estado extends Model
     const ENREPARACION = 'En reparacion';
     const REPARADO = 'Reparado';
     const LISTOPARAENTREGA = 'Listo para entrega';
-    const ENTREGADO = 'En reparacion';
+    const ENTREGADO = 'Entregado';
 
 
     public function obtenerEstadoPosibles($estadoActual){

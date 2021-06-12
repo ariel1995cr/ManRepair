@@ -21,7 +21,7 @@ class CreateOrdenDeServicioTable extends Migration
             $table->text('detalle_reparacion')->nullable();
             $table->text('materiales_necesarios')->nullable();
             $table->double('importe_reparacion', 8, 2)->nullable();
-            $table->time('tiempo_de_reparacion')->nullable();
+            $table->dateTime('tiempo_de_reparacion')->nullable();
             $table->unsignedBigInteger('imei');
             $table->integer('dni_empleado');
             $table->integer('dni_cliente');

@@ -38,11 +38,11 @@
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="{{route('clientes.create')}}" class="link-dark text-white rounded">Crear</a></li>
                     <li><a href="{{route('clientes.index')}}" class="link-dark text-white rounded">Listar</a></li>
-                    
+
                 </ul>
             </div>
         </li>
-        
+
         <li class="mb-1">
             <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
                 Ordenes de servicio
@@ -51,6 +51,7 @@
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="{{route('ordenDeServicio.create')}}" class="link-dark text-white rounded">Crear</a></li>
                     <li><a href="{{route('admin.ordenDeServicio.listar')}}" class="link-dark text-white rounded">Listar</a></li>
+                    <li><a href="{{route('admin.ordenDeServicio.reingreso.view')}}" class="link-dark text-white rounded">Crear Reingreso</a></li>
                     <li><a href="#" class="link-dark text-white rounded">Reports</a></li>
                 </ul>
             </div>
@@ -64,7 +65,7 @@
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="{{route('marcas.create')}}" class="link-dark text-white rounded">Crear</a></li>
                     <li><a href="{{route('marcas.index')}}" class="link-dark text-white rounded">Listar</a></li>
-                    
+
                 </ul>
             </div>
         </li>
@@ -77,7 +78,7 @@
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="{{route('modelos.create')}}" class="link-dark text-white rounded">Crear</a></li>
                     <li><a href="{{route('modelos.index')}}" class="link-dark text-white rounded">Listar</a></li>
-                    
+
                 </ul>
             </div>
         </li>
@@ -90,13 +91,13 @@
                 <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
                     <li><a href="{{route('empleados.create')}}" class="link-dark text-white rounded">Crear</a></li>
                     <li><a href="{{route('empleados.index')}}" class="link-dark text-white rounded">Listar</a></li>
-                    
+
                 </ul>
             </div>
         </li>
     </ul>
-    
-    
+
+
     <hr>
     <div class="dropdown">
         <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
@@ -105,17 +106,18 @@
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
             <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Settings</a></li>
-            <li><a class="dropdown-item" href="#">Profile</a></li>
+            <li><a class="dropdown-item" href="#">Configuración</a></li>
+            <li><a class="dropdown-item" href="#">Perfil</a></li>
             <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{route('admin.cerrarSesion')}}">Cerrar Sesión</a></li>
         </ul>
     </div>
 </div>
     <div class="container-fluid">
-        @if ($message = Session::get('errors'))
+        @if($errors->has('message'))
             <script>
-                enviarNotificacion('error', 'Error en el formulario', 'Verifique los errores.')
+                let mensaje = @json($errors->get('message')[0]);
+                enviarNotificacion('error', 'Error en el formulario', `${mensaje}`);
             </script>
         @endif
         @yield('content')

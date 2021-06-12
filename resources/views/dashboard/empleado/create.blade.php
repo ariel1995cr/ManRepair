@@ -7,7 +7,7 @@
 
         <form action="{{ route('empleados.store') }}" method="POST">
 
-            <h1 class="display-1">Crear Empleado</h1>
+            <h1 class="display-1 text-center">Crear Empleado</h1>
             <hr>
             @include('dashboard.vistasParciales.createUpdateDelete-exitosa')
             <div class="row justify-content-center align-items-center">
