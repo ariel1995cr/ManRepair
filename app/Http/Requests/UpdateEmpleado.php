@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreEmpleado extends FormRequest
+class UpdateEmpleado extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,13 +23,12 @@ class StoreEmpleado extends FormRequest
      */
     public function rules()
     {
-
         return [
             'nombre'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
             'apellido'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
-            'dni' => 'unique:empleado,dni',
+            'dni' => 'unique:cliente,dni,'.$this->request->get('dni').',dni',
             'numero_de_telefono'=>'required|integer',  
-            'email' => 'unique:empleado,email',
+            'email' => 'unique:cliente,email,'.$this->request->get('dni').',dni',
             'contrasena' => 'required|min:6|string|confirmed',
         ];
     }

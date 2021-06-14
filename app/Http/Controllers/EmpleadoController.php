@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\RequestInciarSesion;
 use App\Http\Requests\StoreEmpleado;
+use App\Http\Requests\UpdateEmpleado;
 use App\Models\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -103,9 +104,17 @@ class EmpleadoController extends Controller
 
 
     //Ariel dijo que hagas esto !!!!!!!
-    public function update(Request $request)
+    public function update(UpdateEmpleado $request, Empleado $empleado)
     {
-        dd($request->all);
+
+        // $empleado->update($request->validated());
+        // // dd($cliente);
+        // return back()->with('status', 'Empleado actualizado con exito');
+
+        $empleado->update($request->validated());
+        // Session::flash('status', 'Marca actualizada con exito!');
+        $request->session()->flash('status','Empleado actualizado con exito!');
+        return view('dashboard.empleado.edit', ['empleado' => $empleado]);
     }
 
      /**

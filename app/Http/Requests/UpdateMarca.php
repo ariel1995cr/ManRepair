@@ -24,7 +24,7 @@ class UpdateMarca extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|min:5',
+            'nombre'=>'required|min:5|unique:marca,nombre',
             'logo'=>'',
         ];
     }

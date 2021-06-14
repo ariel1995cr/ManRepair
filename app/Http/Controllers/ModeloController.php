@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreModelo;
+use App\Http\Requests\UpdateModelo;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Models\Modelo;
@@ -72,7 +73,7 @@ class ModeloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreModelo $request, Modelo $modelo)
+    public function update(UpdateModelo $request, Modelo $modelo)
     {
         $modelo->update($request->validated());
         // dd($modelo);
