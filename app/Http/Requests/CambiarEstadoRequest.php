@@ -34,8 +34,8 @@ class CambiarEstadoRequest extends FormRequest
                 'nombre_estado' => 'required',
                 'detalle_reparacion' => 'required',
                 'materiales_necesarios' => 'required',
-                'importe_reparacion'=> 'required',
-                'tiempo_de_reparacion' => 'required',
+                'importe_reparacion'=> 'required|integer',
+                'tiempo_de_reparacion' => 'required|date',
                 'comentario' => 'required'
             ];
         }
