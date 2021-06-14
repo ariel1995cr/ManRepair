@@ -4,6 +4,28 @@
     <div class="col-12 text-left">
         <h1 class="display-1 text-center">Listado de ordenes de servicio</h1>
         <hr>
+        <form action="{{route('admin.ordenDeServicio.listar')}}" method="get">
+       <div class="row justify-content-end">
+               <div class="col-12 col-md-2">
+                   <select name="campoBusqueda" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                       <option {{ old('campoBusqueda') == "" ? 'selected' : '' }} value="" selected>Seleccionar campo</option>
+                       <option {{ old('campoBusqueda') == "nro" ? 'selected' : '' }} value="nro">Nro</option>
+                       <option {{ old('campoBusqueda') == "imei" ? 'selected' : '' }} value="imei">IMEI</option>
+                       <option {{ old('campoBusqueda') == "nombre_marca" ? 'selected' : '' }} value="nombre_marca">Marca</option>
+                       <option {{ old('campoBusqueda') == "nombre_modelo" ? 'selected' : '' }} value="nombre_modelo">Modelo</option>
+                       <option {{ old('campoBusqueda') == "nombre" ? 'selected' : '' }} value="nombre">Cliente</option>
+                       <option {{ old('campoBusqueda') == "created_at" ? 'selected' : '' }} value="created_at">Fecha de ingreso</option>
+                       <option {{ old('campoBusqueda') == "nombre_estado" ? 'selected' : '' }} value="nombre_estado">Estado actual</option>
+                   </select>
+               </div>
+               <div class="col-12 col-md-2">
+                   <input value="{{old('valorBusqueda')}}" name="valorBusqueda" type="text" class="form-control form-control-sm" placeholder="Valor de busqueda" aria-label="Valor a buscar">
+               </div>
+               <div class="col-12 col-md-1">
+                   <button type="submit" class="btn btn-sm btn-secondary">Buscar</button>
+               </div>
+       </div>
+        </form>
         <table class="table">
             <thead>
             <tr>

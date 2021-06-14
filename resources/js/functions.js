@@ -71,34 +71,7 @@ function enviarNotificacion(icon,title,text,footer=''){
     });
 }
 
-function crearInputForm(nombre,clase,label, claseDiv, inputTipo, type){
-    let elementoPadre = document.createElement('div');
-    elementoPadre.className =  'row';
 
-    let elemento = document.createElement('div');
-    elemento.className =  claseDiv;
-
-    let lbl = document.createElement('label');
-    lbl.textContent = label;
-
-    let input = document.createElement(inputTipo);
-    input.name = nombre;
-    input.id = nombre;
-    input.className = clase;
-    input.type = type;
-    if(nombre == 'importe_reparacion'){
-        input.step = "0.01"
-        input.min = "0"
-
-    }
-
-    elemento.appendChild(lbl);
-    elemento.appendChild(input);
-    elementoPadre.appendChild(elemento);
-    return elementoPadre;
-
-
-}
 
 async function formularioCambioDeEstado(estado){
     let estadoNuevo = estado;
@@ -157,3 +130,49 @@ async function enviarFormOrdenDeServicioReingreso(){
     }
 }
 
+
+function crearInputForm(nombre,clase,label, claseDiv, inputTipo, type){
+    let elemento = document.createElement('div');
+    elemento.className =  claseDiv;
+
+    let lbl = document.createElement('label');
+    lbl.textContent = label;
+
+    let input = document.createElement(inputTipo);
+    input.name = nombre;
+    input.id = nombre;
+    input.className = clase;
+    input.type = type;
+
+    elemento.appendChild(lbl);
+    elemento.appendChild(input);
+
+    return elemento;
+}
+
+function formularioTipoDeReporte(tipoDeReporteSeleccionado){
+    console.log(tipoDeReporteSeleccionado);
+    let classVisible = 'row justify-content-center align-items-center mt-2'
+    let classNoVisible = 'row d-none justify-content-center align-items-center mt-2'
+    let divForm1 = document.getElementById('camposReporteDeServicio');
+    let divForm2 = document.getElementById('camposCantidadDeReparadosyReparadosPorGarantia');
+    let selectSeleccionarMarca = document.getElementById('selectSeleccionarMarca');
+
+    divForm1.className = classNoVisible;
+    divForm2.className = classNoVisible;
+    selectSeleccionarMarca.className = 'row align-items-start mt-2';
+
+    if(tipoDeReporteSeleccionado == 'reporte de servicio'){
+        divForm1.className = classVisible;
+        document.getElementById("btnradio1").checked = true;
+    }
+    if(tipoDeReporteSeleccionado == 'cantidad de reparados'){
+        divForm2.className = classVisible;
+        document.getElementById("btnradio2").checked = true;
+    }
+    if(tipoDeReporteSeleccionado == 'reparados por garantia del celular'){
+        divForm2.className = classVisible;
+        selectSeleccionarMarca.className = 'd-none';
+        document.getElementById("btnradio3").checked = true;
+    }
+}

@@ -3,9 +3,10 @@
     <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
         <input type="txt" class="form-control" name="nombre" id="nombre" value="{{$empleado->nombre}}">
+
     </div>
 
-    
+
     <div class="mb-3">
         <label for="logo" class="form-label">Apellido</label>
         <input type="txt" class="form-control" name="apellido" id="apellido">

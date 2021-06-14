@@ -97,9 +97,15 @@ class OrdenDeServicioController extends Controller
 
     }
 
-    public function listar(){
-        $ordenesDeServicios = $this->ordenDeServicio::with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->paginate(15);
-        return view('Admin.OrdenDeServicio.listar', compact('ordenesDeServicios'));
+    public function listar(Request $request){
+        if($request->campoBusqueda == null || $request->valorBusqueda == null){
+            $ordenesDeServicios = $this->ordenDeServicio
+                ::with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->paginate(15);
+        }else{
+            $ordenesDeServicios = $this->ordenDeServicio->Buscar($request->campoBusqueda, $request->valorBusqueda)->paginate(15);
+        }
+
+        return view('Admin.OrdenDeServicio.listar')->with('ordenesDeServicios', $ordenesDeServicios);
     }
 
     public function cambiarEstadoView($nroOrdenDeServicio){
