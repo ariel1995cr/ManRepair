@@ -19,7 +19,7 @@
 <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark" style="width: 280px;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
         <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"/></svg>
-        <span class="fs-4">Sidebar</span>
+        <span class="fs-4">Man Repair</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
@@ -92,6 +92,17 @@
                     <li><a href="{{route('empleados.create')}}" class="link-dark text-white rounded">Crear</a></li>
                     <li><a href="{{route('empleados.index')}}" class="link-dark text-white rounded">Listar</a></li>
 
+                </ul>
+            </div>
+        </li>
+
+        <li class="mb-1">
+            <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#reporte-collapse" aria-expanded="false">
+                Reportes
+            </button>
+            <div class="collapse" id="reporte-collapse">
+                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                    <li><a href="{{route('admin.reportes.generarView')}}" class="link-dark text-white rounded">Generar</a></li>
                 </ul>
             </div>
         </li>

@@ -47,6 +47,36 @@ class OrdenDeServicio extends Model
         return $query->where('nro', $nro);
     }
 
+    public function scopeBuscar($query, $campo, $valor_de_busqueda){
+        if($campo == 'nro'){
+            return $query->where($campo, 'like', $valor_de_busqueda.'%');
+        }
+
+        if($campo == 'nombre_estado'){
+            return $query->whereHas('historico_estado', function ($query) use ($valor_de_busqueda){
+                $query->latest()->where('nombre_estado','like', $valor_de_busqueda.'%');
+            });
+        }
+
+        if(in_array($campo, ['imei', 'nombre_marca', 'nombre_modelo'])){
+            return $query->whereHas('celular', function ($query) use ($campo,$valor_de_busqueda){
+                $query->latest()->where($campo,'like', $valor_de_busqueda.'%');
+            });
+        }
+
+        if($campo == ['nombre']){
+            return $query->whereHas('cliente', function ($query) use ($campo,$valor_de_busqueda){
+                $query->latest()->where('nombre','like', $valor_de_busqueda.'%')->orWhere('apellido','like', $valor_de_busqueda.'%')->orWhere('dni','like', $valor_de_busqueda.'%');
+            });
+        }
+
+        if ($campo == 'created_at'){
+            return $query->whereHas('historico_estado', function ($query) use ($valor_de_busqueda){
+                $query->latest()->whereDate('created_at', $valor_de_busqueda);
+            });
+        }
+    }
+
     public function scopeSinReingreso($query){
         return $query->whereNull('nro_orden_anterior');
     }
@@ -93,5 +123,25 @@ class OrdenDeServicio extends Model
 
     public function getUltimaActualizacionAttribute(){
         return $this->historico_estado()->latest()->get()->last()->pivot->created_at;
+    }
+
+    public function scopeFiltroServicios($query, $fecha, $estado){
+        return $query->whereDate('created_at','=',$fecha)->whereHas('historico_estado', function ($query) use ($estado){
+            $query->latest()->where('nombre_estado','=', $estado);
+        });
+    }
+
+    public function scopeCantidadReparadosPorMarca($query, $desde, $hasta, $marca){
+        $query = $query->whereBetween('created_at', [$desde, $hasta]);
+        if($marca != ''){
+            $query->whereHas('celular', function ($query) use ($marca){
+                $query->where('nombre_marca','=', $marca);
+            });
+        }
+        return $query;
+    }
+    public function scopeReparadosPorGarantia($query, $desde, $hasta){
+        $query = $query->whereBetween('created_at', [$desde, $hasta])->whereNotNull('nro_orden_anterior');
+        return $query;
     }
 }

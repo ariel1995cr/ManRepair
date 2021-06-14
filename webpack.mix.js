@@ -17,4 +17,5 @@ mix
     .sass("resources/css/app.scss", "public/css")
     .css('resources/css/base.css', 'public/css/base/index.css')
     .js("resources/js/base.js", "public/js/base.js")
+    .sass("resources/css/tables.scss", "public/css/tablas.css")
 
