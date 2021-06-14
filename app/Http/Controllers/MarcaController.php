@@ -56,8 +56,16 @@ class MarcaController extends Controller
      */
     public function store(StoreMarca $request)
     {
-        // dd($request->validated());
-        Marca::create($request->validated());
+        $marca = new Marca();
+        $marca->nombre = $request->nombre;
+        if($request->file()) {
+            $fileName = time().'_'.$request->file('logo')->getClientOriginalName();
+            $filePath = $request->file('logo')->storeAs('uploads', $fileName, 'public');
+
+            $marca->logo = '/storage/' . $filePath;
+        }
+
+        $marca->save();
         return back()->with('status', 'Marca creada con exito');
     }
 
@@ -94,11 +102,16 @@ class MarcaController extends Controller
      */
     public function update(UpdateMarca $request, Marca $marca)
     {
-        $marca->update($request->validated());
-        // Session::flash('status', 'Marca actualizada con exito!');
+        $marca->nombre = $request->nombre;
+        if($request->file()) {
+            $fileName = time().'_'.$request->file('logo')->getClientOriginalName();
+            $filePath = $request->file('logo')->storeAs('uploads', $fileName, 'public');
+            $marca->logo = '/storage/' . $filePath;
+        }
+        $marca->save();
         $request->session()->flash('status','Marca actualizada con exito!');
         return view('dashboard.marca.edit', ['marca' => $marca]);
-        
+
         // $marca->update($request->validated());
         // return back()->with('status', 'Marca actualizada con exito');
     }

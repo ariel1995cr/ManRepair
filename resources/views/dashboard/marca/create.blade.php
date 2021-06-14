@@ -5,7 +5,7 @@
 
     <div class="form-group">
 
-        <form action="{{ route('marcas.store') }}" method="POST">
+        <form action="{{ route('marcas.store') }}" method="POST" enctype="multipart/form-data">
 
             <h1 class="display-1 text-center">Crear Marca</h1>
             <hr>

@@ -24,8 +24,8 @@ class StoreMarca extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|unique:marca,nombre|min:5',
-            'logo'=>'required|min:5',
+            'nombre'=>'required|unique:marca,nombre|min:2',
+            'logo'=>'nullable|file|max:5120|mimes:jpg,bmp,png',
         ];
     }
 }

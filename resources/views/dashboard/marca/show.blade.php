@@ -22,7 +22,13 @@
                         @foreach ($marcas as $marca)
                             <tr>
                                 <td scope="row">{{ $marca->nombre }}</td>
-                                <td>{{ $marca->logo }}</td>
+                               <td>
+                                   @if($marca->logo)
+                                       <img width="50px" height="50px" src="{{$marca->logo}}">
+                                   @else
+                                       No hay imagen.
+                                   @endif
+                               </td>
                                 <td>
 
                                     <a class="btn btn-primary"

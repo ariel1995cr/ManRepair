@@ -25,7 +25,13 @@
                                 <td scope="row">{{ $modelo->nombre_marca }}</td>
                                 <td>{{ $modelo->nombre }}</td>
                                 <td>{{ $modelo->fecha_lanzamiento }}</td>
-                                <td>{{ $modelo->foto }}</td>
+                                <td>
+                                    @if($modelo->foto)
+                                        <img width="50px" height="50px" src="{{$modelo->foto}}">
+                                    @else
+                                        No hay imagen.
+                                    @endif
+                                </td>
                                 <td>
                                     {{--  <a class="btn btn-primary" href="">Ver</a>  --}}
                                     <a class="btn btn-primary" href="{{ route('modelos.edit', $modelo->nombre) }}">Editar</a>

@@ -7,8 +7,8 @@
 
         {{-- Carga del Logo con alguna implementacion que conoscan --}}
         <div class="mb-3">
-            <label for="logo" class="form-label">Logo</label>
-            <input type="txt" class="form-control" name="logo" id="logo" value="{{$marca->logo}}">
+            <input type="file" name="logo" class="custom-file-input" id="chooseFile">
+            <label class="custom-file-label" for="chooseFile">Logo</label>
         </div>
 
         <div class="form-group">

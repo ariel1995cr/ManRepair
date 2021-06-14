@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreModelo;
 use App\Http\Requests\UpdateModelo;
+use App\Models\Marca;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 use App\Models\Modelo;
@@ -28,7 +30,9 @@ class ModeloController extends Controller
      */
     public function create()
     {
-        return view('dashboard.modelo.create', ['modelo'=> new Modelo()]);
+        $marcas = new Marca();
+        $marcas = $marcas->listarMarcas();
+        return view('dashboard.modelo.create', ['modelo'=> new Modelo(), 'marcas'=>$marcas]);
     }
 
     /**
@@ -39,7 +43,13 @@ class ModeloController extends Controller
      */
     public function store(StoreModelo $request)
     {
-        Modelo::create($request->validated());
+        $modelo = Modelo::create($request->validated());
+        if($request->file()) {
+            $fileName = time().'_'.$request->file('imagen')->getClientOriginalName();
+            $filePath = $request->file('imagen')->storeAs('modelos', $fileName, 'public');
+            $modelo->foto = '/storage/' . $filePath;
+            $modelo->save();
+        }
         return back()->with('status', 'Modelo creado con exito');
     }
 
@@ -76,8 +86,12 @@ class ModeloController extends Controller
     public function update(UpdateModelo $request, Modelo $modelo)
     {
         $modelo->update($request->validated());
-        // dd($modelo);
-        // return back()->with('status', 'Modelo actualizado con exito');
+        if($request->file()) {
+            $fileName = time().'_'.$request->file('imagen')->getClientOriginalName();
+            $filePath = $request->file('imagen')->storeAs('modelos', $fileName, 'public');
+            $modelo->foto = '/storage/' . $filePath;
+            $modelo->save();
+        }
         $request->session()->flash('status','Modelo actualizado con exito!');
         return view('dashboard.modelo.edit', ['modelo' => $modelo]);
     }

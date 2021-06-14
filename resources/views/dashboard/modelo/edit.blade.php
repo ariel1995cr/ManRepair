@@ -11,8 +11,8 @@
             @include('dashboard.vistasParciales.validacion-errores')
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-6">
-                    
-                    <form action="{{ route('modelos.update', $modelo->nombre) }}" method="POST">
+
+                    <form action="{{ route('modelos.update', $modelo->nombre) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
 
                         @include('dashboard.modelo.formularioModelo')

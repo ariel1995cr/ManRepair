@@ -11,8 +11,8 @@
             @include('dashboard.vistasParciales.validacion-errores')
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-6">
-                    
-                    <form action="{{ route('marcas.update', $marca->nombre) }}" method="POST">
+
+                    <form action="{{ route('marcas.update', $marca->nombre) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
 
                         @include('dashboard.marca.formularioMarca')

@@ -24,10 +24,10 @@ class StoreModelo extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|min:5',
-            'nombre_marca'=>'required|min:5',
-            'fecha_lanzamiento'=>'required',
-            'foto'=>'required',
+            'nombre'=>'required|min:2|unique:modelo,nombre',
+            'nombre_marca'=>'required|exists:marca,nombre',
+            'fecha_lanzamiento'=>'nullable',
+            'imagen'=>'nullable|file|max:5120|mimes:jpg,bmp,png',
         ];
     }
 }

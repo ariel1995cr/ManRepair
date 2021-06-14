@@ -5,8 +5,8 @@
 
     <div class="form-group">
 
-        
-        <form action="{{ route('modelos.store') }}" method="POST">
+
+        <form action="{{ route('modelos.store') }}" method="POST" enctype="multipart/form-data">
 
             <h1 class="display-1 text-center">Crear Modelo</h1>
             <hr>
