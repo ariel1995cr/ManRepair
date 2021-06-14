@@ -62,9 +62,12 @@
                                     <i class="bi bi-arrow-repeat"></i>
                                 </button>
                             </a>
-                        @else
-                            No hay acciones para realizar.
                         @endif
+                            <a href="{{route('admin.ordenDeServicio.ver', ['nroOrdenDeServicio'=>$orden->nro])}}" class="text-black-50" data-bs-toggle="tooltip" data-bs-placement="left" title="Ver orden de servicio">
+                                <button class="botonTransparente" type="submit">
+                                    <i class="bi bi-eye"></i>
+                                </button>
+                            </a>
                     </td>
                 </tr>
             @endforeach

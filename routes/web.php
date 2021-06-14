@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
 
     Route::resource('ordenDeServicio', OrdenDeServicioController::class)->only(['create', 'store']);
     Route::group(['prefix' => 'ordenDeServicio'], function () {
+        Route::get('ver/{nroOrdenDeServicio}', [OrdenDeServicioController::class, 'verOrdenDeServicio'])->name('admin.ordenDeServicio.ver');
         Route::get('reingreso', [OrdenDeServicioController::class, 'createReingreso'])->name('admin.ordenDeServicio.reingreso.view');
         Route::post('reingreso', [OrdenDeServicioController::class, 'altaReingreso'])->name('admin.ordenDeServicio.altaReingreso');
         Route::get('listar', [OrdenDeServicioController::class, 'listar'])->name('admin.ordenDeServicio.listar');

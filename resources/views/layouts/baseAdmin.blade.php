@@ -52,7 +52,6 @@
                     <li><a href="{{route('ordenDeServicio.create')}}" class="link-dark text-white rounded">Crear</a></li>
                     <li><a href="{{route('admin.ordenDeServicio.listar')}}" class="link-dark text-white rounded">Listar</a></li>
                     <li><a href="{{route('admin.ordenDeServicio.reingreso.view')}}" class="link-dark text-white rounded">Crear Reingreso</a></li>
-                    <li><a href="#" class="link-dark text-white rounded">Reports</a></li>
                 </ul>
             </div>
         </li>
@@ -116,15 +115,11 @@
             <strong>{{Auth::user()->apellido}} {{Auth::user()->nombre}}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-            <li><a class="dropdown-item" href="#">New project...</a></li>
-            <li><a class="dropdown-item" href="#">Configuración</a></li>
-            <li><a class="dropdown-item" href="#">Perfil</a></li>
-            <li><hr class="dropdown-divider"></li>
             <li><a class="dropdown-item" href="{{route('admin.cerrarSesion')}}">Cerrar Sesión</a></li>
         </ul>
     </div>
 </div>
-    <div class="container-fluid">
+    <div class="container-fluid" style="overflow-y: scroll">
         @if($errors->has('message'))
             <script>
                 let mensaje = @json($errors->get('message')[0]);
