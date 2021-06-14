@@ -27,7 +27,7 @@ class UpdateEmpleado extends FormRequest
             'nombre'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
             'apellido'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
             'dni' => 'unique:empleado,dni,'.$this->empleado->dni.',dni',
-            'numero_de_telefono'=>'required|integer',  
+            'numero_de_telefono'=>'required|numeric|digits:10',
             'email' => 'unique:empleado,email,'.$this->empleado->dni.',dni',
             'contrasena' => 'nullable|min:6|string|confirmed',
         ];

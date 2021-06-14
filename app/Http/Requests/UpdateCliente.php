@@ -30,7 +30,7 @@ class UpdateCliente extends FormRequest
             'nombre'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'dni' => 'unique:cliente,dni,'.$this->cliente->dni.',dni',
-            'numero_de_telefono'=>'required|integer',
+            'numero_de_telefono'=>'required|numeric|digits:10',
             // 'email'=>'required|email|unique:cliente,email',
             'email' => 'unique:cliente,email,'.$this->cliente->dni.',dni'
         ];

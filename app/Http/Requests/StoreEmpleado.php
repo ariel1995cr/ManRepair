@@ -28,7 +28,7 @@ class StoreEmpleado extends FormRequest
             'nombre'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'dni' => 'unique:empleado,dni',
-            'numero_de_telefono'=>'required|integer',
+            'numero_de_telefono'=>'required|numeric|digits:10',
             'email' => 'unique:empleado,email',
             'contrasena' => 'required|min:6|string|confirmed',
         ];
