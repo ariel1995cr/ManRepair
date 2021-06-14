@@ -33,8 +33,7 @@ async function obtenerModelos(marca, modeloSeleccionado=null){
         .catch()
 }
 
-function changeDNICliente(){
-    let dni = event.target.value;
+function changeDNICliente(dni){
     axios.get('/admin/clientes/campo/dni/dni/'+dni)
         .then(response=>{
             console.log(response.data);

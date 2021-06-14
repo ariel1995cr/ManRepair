@@ -39,7 +39,7 @@
                 </div>
                 <div class="col-12 col-md-4">
                     <label>DNI cliente</label>
-                    <input onchange="changeDNICliente()" value="{{ old('dni') }}" type="text" name="dni" class="form-control {{$errors->has('dni') ? 'border-danger' : ''}}" id="dni" placeholder="Ingresa DNI cliente">
+                    <input onchange="changeDNICliente(event.target.value)" value="{{ old('dni') }}" type="text" name="dni" class="form-control {{$errors->has('dni') ? 'border-danger' : ''}}" id="dni" placeholder="Ingresa DNI cliente">
                     @if($errors->has('dni'))
                         <span class="text-danger">{{$errors->first('dni')}}</span>
                     @endif
@@ -71,7 +71,7 @@
                 </div>
                 <div class="col-12 col-md-4">
                     <label>Telefono cliente</label>
-                    <input type="text" name="numero_de_telefono" value="{{ old('numero_de_telefono') }}" class="form-control {{$errors->has('telefono') ? 'border-danger' : ''}}" id="telefono" placeholder="Ingresa telefono" readonly>
+                    <input type="text" name="numero_de_telefono" value="{{ old('numero_de_telefono') }}" class="form-control {{$errors->has('numero_de_telefono') ? 'border-danger' : ''}}" id="telefono" placeholder="Ingresa telefono" readonly>
                     @if($errors->has('numero_de_telefono'))
                         <span class="text-danger">{{$errors->first('numero_de_telefono')}}</span>
                     @endif
@@ -106,6 +106,10 @@
             let modelo = @json(old('modelo'));
             if(marca != ''){
                 obtenerModelos(marca,modelo)
+            }
+            let dni = document.getElementById('dni').value;
+            if(dni != ''){
+                changeDNICliente(dni)
             }
         </script>
     @endif
