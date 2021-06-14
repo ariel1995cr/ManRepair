@@ -35,6 +35,9 @@ class Estado extends Model
         if($estadoActual == self::NOREPARADO){
             $query = $this->whereIn('nombre', [self::LISTOPARAENTREGA]);
         }
+        if($estadoActual == self::REPARADO){
+            $query = $this->whereIn('nombre', [self::LISTOPARAENTREGA]);
+        }
         if($estadoActual == self::LISTOPARAENTREGA){
             $query = $this->whereIn('nombre', [self::ENTREGADO]);
         }
