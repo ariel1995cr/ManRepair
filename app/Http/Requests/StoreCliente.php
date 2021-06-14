@@ -24,8 +24,8 @@ class StoreCliente extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
-            'apellido'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
+            'nombre'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
+            'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'dni'=>'required|unique:cliente,dni',
             'numero_de_telefono'=>'required|integer',
             'email'=>'required|email|unique:cliente,email',

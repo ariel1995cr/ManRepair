@@ -27,8 +27,8 @@ class UpdateCliente extends FormRequest
 
         // dd($this->cliente->dni);
         return [
-            'nombre'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
-            'apellido'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
+            'nombre'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
+            'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'dni' => 'unique:cliente,dni,'.$this->cliente->dni.',dni',
             'numero_de_telefono'=>'required|integer',
             // 'email'=>'required|email|unique:cliente,email',
