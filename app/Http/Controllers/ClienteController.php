@@ -87,7 +87,7 @@ class ClienteController extends Controller
     public function update(UpdateCliente $request, Cliente $cliente)
     {
         $cliente->update($request->validated());
-        // dd($cliente);
+        //  dd($cliente);
         return back()->with('status', 'Cliente actualizado con exito');
     }
 

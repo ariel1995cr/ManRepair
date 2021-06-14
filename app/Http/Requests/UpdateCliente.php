@@ -29,10 +29,10 @@ class UpdateCliente extends FormRequest
         return [
             'nombre'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
             'apellido'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
-            'dni' => 'unique:cliente,dni,'.$this->request->get('dni').',dni',
+            'dni' => 'unique:cliente,dni,'.$this->cliente->dni.',dni',
             'numero_de_telefono'=>'required|integer',
             // 'email'=>'required|email|unique:cliente,email',
-            'email' => 'unique:cliente,email,'.$this->request->get('dni').',dni'
+            'email' => 'unique:cliente,email,'.$this->cliente->dni.',dni'
         ];
     }
 }

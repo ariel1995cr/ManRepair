@@ -14,7 +14,7 @@
 
                     <form action="{{ route('modelos.update', $modelo->nombre) }}" method="POST" enctype="multipart/form-data">
                         @method('PUT')
-
+                        
                         @include('dashboard.modelo.formularioModelo')
                     </form>
 

@@ -73,7 +73,9 @@ class ModeloController extends Controller
      */
     public function edit(Modelo $modelo)
     {
-        return view('dashboard.modelo.edit', ['modelo' => $modelo]);
+        $marcas = new Marca();
+        $marcas = $marcas->listarMarcas();
+        return view('dashboard.modelo.edit', ['modelo' => $modelo], ['marcas'=> $marcas]);
     }
 
     /**
@@ -85,6 +87,9 @@ class ModeloController extends Controller
      */
     public function update(UpdateModelo $request, Modelo $modelo)
     {
+        
+        $marcas = new Marca();
+        $marcas = $marcas->listarMarcas();
         $modelo->update($request->validated());
         if($request->file()) {
             $fileName = time().'_'.$request->file('imagen')->getClientOriginalName();
@@ -93,7 +98,7 @@ class ModeloController extends Controller
             $modelo->save();
         }
         $request->session()->flash('status','Modelo actualizado con exito!');
-        return view('dashboard.modelo.edit', ['modelo' => $modelo]);
+        return view('dashboard.modelo.edit', ['modelo' => $modelo], ['marcas'=> $marcas]);
     }
 
     /**
