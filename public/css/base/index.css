@@ -11,7 +11,7 @@ main {
     height: 100vh;
     max-height: 100vh;
     overflow-x: hidden;
-    overflow-y: scroll;
+    overflow-y: hidden;
 }
 
 .b-example-divider {

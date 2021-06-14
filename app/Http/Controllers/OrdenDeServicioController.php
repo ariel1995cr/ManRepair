@@ -114,6 +114,11 @@ class OrdenDeServicioController extends Controller
         return view('Admin.OrdenDeServicio.cambiarEstado', compact('ordenDeServicio', 'estadosPosibles'));
     }
 
+    public function verOrdenDeServicio(OrdenDeServicio $nroOrdenDeServicio){
+        $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$nroOrdenDeServicio->nro)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
+        return view('Admin.OrdenDeServicio.createSucces')->with('ordenDeServicio', $this->ordenDeServicio)->with('title', 'Ver Orden de servicio');
+    }
+
     public function cambiarEstado(OrdenDeServicio $nroOrdenDeServicio, CambiarEstadoRequest $request){
         $this->ordenDeServicio = $nroOrdenDeServicio;
         if($request->nombre_estado == $this->estado::PRESUPUESTADO){

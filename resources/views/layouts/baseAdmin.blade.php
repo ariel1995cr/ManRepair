@@ -52,7 +52,6 @@
                     <li><a href="{{route('ordenDeServicio.create')}}" class="link-dark text-white rounded">Crear</a></li>
                     <li><a href="{{route('admin.ordenDeServicio.listar')}}" class="link-dark text-white rounded">Listar</a></li>
                     <li><a href="{{route('admin.ordenDeServicio.reingreso.view')}}" class="link-dark text-white rounded">Crear Reingreso</a></li>
-                    <li><a href="#" class="link-dark text-white rounded">Reports</a></li>
                 </ul>
             </div>
         </li>
@@ -124,7 +123,7 @@
         </ul>
     </div>
 </div>
-    <div class="container-fluid">
+    <div class="container-fluid" style="overflow-y: scroll">
         @if($errors->has('message'))
             <script>
                 let mensaje = @json($errors->get('message')[0]);
