@@ -75,7 +75,10 @@ class ModeloController extends Controller
     public function update(StoreModelo $request, Modelo $modelo)
     {
         $modelo->update($request->validated());
-        return back()->with('status', 'Modelo actualizado con exito');
+        // dd($modelo);
+        // return back()->with('status', 'Modelo actualizado con exito');
+        $request->session()->flash('status','Modelo actualizado con exito!');
+        return view('dashboard.modelo.edit', ['modelo' => $modelo]);
     }
 
     /**

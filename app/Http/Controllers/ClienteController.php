@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreCliente;
+use App\Http\Requests\UpdateCliente;
 use App\Models\Cliente;
 use Illuminate\Http\Request;
 
@@ -83,9 +84,10 @@ class ClienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreCliente $request, Cliente $cliente)
+    public function update(UpdateCliente $request, Cliente $cliente)
     {
         $cliente->update($request->validated());
+        // dd($cliente);
         return back()->with('status', 'Cliente actualizado con exito');
     }
 

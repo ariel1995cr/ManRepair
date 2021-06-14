@@ -8,6 +8,7 @@ use Response;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMarca;
+use App\Http\Requests\UpdateMarca;
 
 class MarcaController extends Controller
 {
@@ -80,6 +81,7 @@ class MarcaController extends Controller
      */
     public function edit(Marca $marca)
     {
+        // dd($marca->all());
         return view('dashboard.marca.edit', ['marca' => $marca]);
     }
 
@@ -90,10 +92,15 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreMarca $request, Marca $marca)
+    public function update(UpdateMarca $request, Marca $marca)
     {
         $marca->update($request->validated());
-        return back()->with('status', 'Marca actualizada con exito');
+        // Session::flash('status', 'Marca actualizada con exito!');
+        $request->session()->flash('status','Marca actualizada con exito!');
+        return view('dashboard.marca.edit', ['marca' => $marca]);
+        
+        // $marca->update($request->validated());
+        // return back()->with('status', 'Marca actualizada con exito');
     }
 
     /**

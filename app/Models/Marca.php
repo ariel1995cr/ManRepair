@@ -20,4 +20,5 @@ class Marca extends Model
     public function modelos(){
         return $this->hasMany(Modelo::class, 'nombre_marca', 'nombre');
     }
+
 }

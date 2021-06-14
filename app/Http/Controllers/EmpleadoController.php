@@ -79,6 +79,18 @@ class EmpleadoController extends Controller
 
 
     /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        return view('dashboard.empleado.create', ['empleado'=> new Empleado()]);
+        // $marca = Marca::pluck('nombre','logo');
+    }
+
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -90,16 +102,6 @@ class EmpleadoController extends Controller
     }
 
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('dashboard.empleado.create', ['empleado'=> new Empleado()]);
-        // $marca = Marca::pluck('nombre','logo');
-    }
     //Ariel dijo que hagas esto !!!!!!!
     public function update(Request $request)
     {

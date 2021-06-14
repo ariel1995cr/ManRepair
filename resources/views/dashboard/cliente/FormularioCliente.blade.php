@@ -1,4 +1,4 @@
-<form>
+{{--  <form>  --}}
     @csrf
     <div class="mb-3">
         <label for="nombre" class="form-label">Nombre</label>
@@ -31,4 +31,4 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 
-</form>
+{{--  </form>  --}}

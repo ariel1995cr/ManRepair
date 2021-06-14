@@ -8,6 +8,7 @@
             <h1 class="display-1 text-center">Editar Cliente</h1>
             <hr>
             @include('dashboard.vistasParciales.createUpdateDelete-exitosa')
+            @include('dashboard.vistasParciales.validacion-errores')
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-6">
                     

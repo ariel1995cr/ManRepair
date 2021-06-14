@@ -1,4 +1,4 @@
-<form>
+{{--  <form>  --}}
     @csrf
 
      {{-- Carga del Logo con alguna implementacion que conoscan --}}
@@ -27,4 +27,4 @@
         <button type="submit" class="btn btn-primary">Guardar</button>
     </div>
 
-</form>
+{{--  </form>  --}}

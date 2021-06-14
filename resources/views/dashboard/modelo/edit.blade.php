@@ -15,7 +15,6 @@
                         @method('PUT')
 
                         @include('dashboard.modelo.formularioModelo')
-
                     </form>
 
                 </div>
