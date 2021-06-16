@@ -27,7 +27,7 @@ class StoreEmpleado extends FormRequest
         return [
             'nombre'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
-            'dni' => 'required|numeric|min:8|max:8|unique:empleado,dni',
+            'dni' => 'required|numeric|digits_between:7,8|unique:empleado,dni',
             'numero_de_telefono'=>'required|numeric|digits:10',
             'email' => 'required|unique:empleado,email',
             'contrasena' => 'required|min:6|string|connfirmed',
