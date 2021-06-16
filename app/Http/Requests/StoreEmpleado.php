@@ -29,8 +29,9 @@ class StoreEmpleado extends FormRequest
             'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'dni' => 'required|min:8|unique:empleado,dni',
             'numero_de_telefono'=>'required|numeric|digits:10',
-            'email' => 'unique:empleado,email',
+            'email' => 'required|unique:empleado,email',
             'contrasena' => 'required|min:6|string|confirmed',
+            'rol'=>'required|in:1,2'
         ];
     }
 }

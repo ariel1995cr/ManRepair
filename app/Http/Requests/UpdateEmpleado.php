@@ -28,8 +28,9 @@ class UpdateEmpleado extends FormRequest
             'apellido'=>'required|min:5|regex:/^[\pL\s\-]+$/u',
             'dni' => 'required|min:8|unique:empleado,dni,'.$this->empleado->dni.',dni',
             'numero_de_telefono'=>'required|numeric|digits:10',
-            'email' => 'unique:empleado,email,'.$this->empleado->dni.',dni',
+            'email' => 'required|unique:empleado,email,'.$this->empleado->dni.',dni',
             'contrasena' => 'nullable|min:6|string|confirmed',
+            'rol'=>'required|in:1,2'
         ];
     }
 }

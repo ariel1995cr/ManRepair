@@ -103,15 +103,18 @@ class EmpleadoController extends Controller
     }
 
 
-    //Ariel dijo que hagas esto !!!!!!!
+
     public function update(UpdateEmpleado $request, Empleado $empleado)
     {
-
-        // $empleado->update($request->validated());
-        // // dd($cliente);
-        // return back()->with('status', 'Empleado actualizado con exito');
-
-        $empleado->update($request->validated());
+        $empleado->dni = $request->dni;
+        $empleado->email = $request->email;
+        $empleado->nombre = $request->nombre;
+        $empleado->apellido = $request->apellido;
+        $empleado->rol = $request->rol;
+        if($request->contrasena != ''){
+            $empleado->contrasena = $request->contrasena;
+        }
+        $empleado->save();
         // Session::flash('status', 'Marca actualizada con exito!');
         $request->session()->flash('status','Empleado actualizado con exito!');
         return view('dashboard.empleado.edit', ['empleado' => $empleado]);
