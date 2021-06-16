@@ -52,7 +52,7 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
     Route::resource('marcas', MarcaController::class)->except('destroy');
     Route::group(['prefix' => 'marcas'], function () {
       Route::delete('/desactivar', [MarcaController::class, 'destroy'])->name('marcas.destroy');
-        Route::post('/desactivar', [MarcaController::class, 'reactivar'])->name('marcas.reactivar');
+        Route::post('/reactivar', [MarcaController::class, 'reactivar'])->name('marcas.reactivar');
     });
     Route::resource('modelos', ModeloController::class);
     Route::resource('empleados', EmpleadoController::class)->middleware('administrador');
