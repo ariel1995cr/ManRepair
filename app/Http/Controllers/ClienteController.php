@@ -99,6 +99,6 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        dd($id);
     }
 }
