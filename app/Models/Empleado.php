@@ -18,7 +18,7 @@ class Empleado extends Usuario
     public $timestamps = false;
     protected $guard = "empleados";
 
-    protected $fillable = ['nombre', 'dni', 'apellido', 'numero_de_telefono', 'email', 'contrasena']; // GonzaWarjir
+    protected $fillable = ['nombre', 'dni', 'apellido', 'numero_de_telefono', 'rol','email', 'contrasena']; // GonzaWarjir
 
     public function getAuthPassword()
     {

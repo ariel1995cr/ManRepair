@@ -51,7 +51,7 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
     Route::get('marcas/obtenerModelos/{marca}', [MarcaController::class, 'listarModelos']);
     Route::resource('marcas', MarcaController::class);
     Route::resource('modelos', ModeloController::class);
-    Route::resource('empleados', EmpleadoController::class);
+    Route::resource('empleados', EmpleadoController::class)->middleware('administrador');
     Route::resource('clientes', ClienteController::class);
 
     Route::group(['prefix' => 'clientes'], function () {

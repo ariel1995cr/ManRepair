@@ -27,10 +27,11 @@ class StoreEmpleado extends FormRequest
         return [
             'nombre'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
-            'dni' => 'unique:empleado,dni',
+            'dni' => 'required|unique:empleado,dni',
             'numero_de_telefono'=>'required|numeric|digits:10',
-            'email' => 'unique:empleado,email',
+            'email' => 'required|unique:empleado,email',
             'contrasena' => 'required|min:6|string|confirmed',
+            'rol'=>'required|in:1,2'
         ];
     }
 }

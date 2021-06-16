@@ -82,18 +82,20 @@
             </div>
         </li>
         {{-- // Empleados //  --}}
-        <li class="mb-1">
-            <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapseEmpleado" aria-expanded="false">
-                Empleados
-            </button>
-            <div class="collapse" id="home-collapseEmpleado">
-                <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-                    <li><a href="{{route('empleados.create')}}" class="link-dark text-white rounded">Crear</a></li>
-                    <li><a href="{{route('empleados.index')}}" class="link-dark text-white rounded">Listar</a></li>
+        @if(Auth::user()->rol == 1)
+            <li class="mb-1">
+                <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#home-collapseEmpleado" aria-expanded="false">
+                    Empleados
+                </button>
+                <div class="collapse" id="home-collapseEmpleado">
+                    <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+                        <li><a href="{{route('empleados.create')}}" class="link-dark text-white rounded">Crear</a></li>
+                        <li><a href="{{route('empleados.index')}}" class="link-dark text-white rounded">Listar</a></li>
 
-                </ul>
-            </div>
-        </li>
+                    </ul>
+                </div>
+            </li>
+        @endauth
 
         <li class="mb-1">
             <button class="btn btn-toggle align-items-center rounded collapsed text-white mt-2" data-bs-toggle="collapse" data-bs-target="#reporte-collapse" aria-expanded="false">
