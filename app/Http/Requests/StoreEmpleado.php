@@ -30,7 +30,7 @@ class StoreEmpleado extends FormRequest
             'dni' => 'required|numeric|digits_between:7,8|unique:empleado,dni',
             'numero_de_telefono'=>'required|numeric|digits:10',
             'email' => 'required|unique:empleado,email',
-            'contrasena' => 'required|min:6|string|connfirmed',
+            'contrasena' => 'required|min:6|string|confirmed',
             'rol'=>'required|in:1,2'
         ];
     }
