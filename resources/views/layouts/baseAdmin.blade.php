@@ -128,6 +128,12 @@
                 enviarNotificacion('error', 'Error en el formulario', `${mensaje}`);
             </script>
         @endif
+            @if ($status = Session::get('status'))
+                <script>
+                    let mensaje = @json($status);
+                    enviarNotificacion('success', '', `${mensaje}`);
+                </script>
+            @endif
         @yield('content')
     </div>
 </main>

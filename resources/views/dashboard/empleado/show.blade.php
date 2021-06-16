@@ -31,8 +31,6 @@
                                 <td>
                                     {{--  <a class="btn btn-primary" href="">Ver</a>  --}}
                                     <a class="btn btn-primary" href="{{ route('empleados.edit', $empleado->dni) }}">Editar</a>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target=""
-                                        data-id="">Borrar</button>
                                 </td>
                             </tr>
                         @endforeach

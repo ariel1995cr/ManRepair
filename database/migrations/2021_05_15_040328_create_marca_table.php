@@ -16,6 +16,7 @@ class CreateMarcaTable extends Migration
         Schema::create('marca', function (Blueprint $table) {
             $table->string('nombre')->primary();
             $table->string('logo')->nullable();
+            $table->softDeletes();
         });
     }
 

@@ -20,6 +20,7 @@ class CreateModeloTable extends Migration
             $table->string('foto')->nullable();
 
             $table->foreign('nombre_marca')->references('nombre')->on('marca');
+            $table->softDeletes();
 
             $table->primary(['nombre', 'nombre_marca']);
         });
