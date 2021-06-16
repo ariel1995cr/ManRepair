@@ -178,7 +178,6 @@ function formularioTipoDeReporte(tipoDeReporteSeleccionado){
 
     function modalEvento(){
     var exampleModal = document.getElementById('modalBorrado');
-    console.log(exampleModal);
     exampleModal.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
         let button = event.relatedTarget
@@ -195,4 +194,22 @@ function formularioTipoDeReporte(tipoDeReporteSeleccionado){
         inputIdMarca.value = idBorrar;
         modalTitle.textContent = 'Borrar la marca ' + idBorrar;
     })
+
+        var modalReactivar = document.getElementById('modalReactivar');
+        modalReactivar.addEventListener('show.bs.modal', function (event) {
+            // Button that triggered the modal
+            let button = event.relatedTarget
+            // Extract info from data-bs-* attributes
+            let idBorrar = button.getAttribute('data-id')
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            let modalTitle = modalReactivar.querySelector('.modal-title')
+
+            let inputIdMarca = document.getElementById('nombreMarcaReactivar');
+
+            inputIdMarca.value = idBorrar;
+            modalTitle.textContent = 'Reactivar la marca ' + idBorrar;
+        })
 }

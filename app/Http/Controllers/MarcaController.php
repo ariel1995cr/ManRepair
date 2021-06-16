@@ -16,6 +16,7 @@ class MarcaController extends Controller
 
     function __construct(){
         $this->marca = new Marca();
+        $this->marcasEliminadas = Marca::onlyTrashed();
     }
     //
     public function listarModelos(Marca $marca)
@@ -32,7 +33,7 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        $marcas = Marca::get();
+        $marcas = Marca::withTrashed()->get();
         return view('dashboard.marca.show', ['marcas'=> $marcas]);
     }
 
@@ -122,9 +123,17 @@ class MarcaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Marca $marca)
+    public function destroy(Request $request)
     {
-        $marca->delete();
-        return back()->with('status', 'Post borrado con exito');
+        $this->marca = $this->marca->where('nombre',$request->nombre)->first();
+        $this->marca->delete();
+        return back()->with('status', 'Marca borrada con exito');
+    }
+
+    public function reactivar(Request $request)
+    {
+        $this->marcasEliminadas = $this->marcasEliminadas->where('nombre',$request->nombre)->first();
+        $this->marcasEliminadas->restore();
+        return back()->with('status', 'Marca recuperada con exito');
     }
 }
