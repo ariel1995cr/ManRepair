@@ -13,7 +13,7 @@
                     <form action="{{ route('empleados.update', $empleado->dni) }}" method="POST">
                         @method('PUT')
 
-                        @include('dashboard.empleado.formularioEmpleado')
+                        @include('dashboard.empleado.FormularioEmpleados')
 
                     </form>
                 </div>
