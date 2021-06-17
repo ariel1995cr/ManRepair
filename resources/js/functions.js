@@ -228,15 +228,31 @@ function modalEvento() {
         let button = event.relatedTarget
         // Extract info from data-bs-* attributes
         let idBorrar = button.getAttribute('data-id')
-        // If necessary, you could initiate an AJAX request here
-        // and then do the updating in a callback.
-        //
-        // Update the modal's content.
-        let modalTitle = modalReactivar.querySelector('.modal-title')
+        let idBorrarD = button.getAttribute('data-idModelo')
 
-        let inputIdMarca = document.getElementById('nombreMarcaReactivar');
 
-        inputIdMarca.value = idBorrar;
-        modalTitle.textContent = 'Reactivar la marca ' + idBorrar;
+        if (idBorrar !== null) {
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            let modalTitle = modalReactivar.querySelector('.modal-title')
+
+            let inputIdMarca = document.getElementById('nombreMarcaReactivar');
+
+            inputIdMarca.value = idBorrar;
+            modalTitle.textContent = 'Reactivar la marca ' + idBorrar;
+        } else {
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            let modalTitle = modalReactivar.querySelector('.modal-title')
+
+            let inputIdMarca = document.getElementById('nombreMarcaReactivar');
+
+            inputIdMarca.value = idBorrarD;
+            modalTitle.textContent = 'Reactivar el modelo ' + idBorrarD;
+        }
     })
 }
