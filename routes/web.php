@@ -51,10 +51,15 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
     Route::get('marcas/obtenerModelos/{marca}', [MarcaController::class, 'listarModelos']);
     Route::resource('marcas', MarcaController::class)->except('destroy');
     Route::group(['prefix' => 'marcas'], function () {
-      Route::delete('/desactivar', [MarcaController::class, 'destroy'])->name('marcas.destroy');
+        Route::delete('/desactivar', [MarcaController::class, 'destroy'])->name('marcas.destroy');
         Route::post('/desactivar', [MarcaController::class, 'reactivar'])->name('marcas.reactivar');
     });
-    Route::resource('modelos', ModeloController::class);
+
+    Route::resource('modelos', ModeloController::class)->except('destroy');
+    Route::group(['prefix' => 'modelos'], function () {
+        Route::delete('/desactivar', [ModeloController::class, 'destroy'])->name('modelos.destroy');
+        Route::post('/reactivar', [ModeloController::class, 'reactivar'])->name('modelos.reactivar');
+    });
     Route::resource('empleados', EmpleadoController::class)->middleware('administrador');
     Route::resource('clientes', ClienteController::class);
 

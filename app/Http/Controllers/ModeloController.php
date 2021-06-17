@@ -12,6 +12,14 @@ use App\Models\Modelo;
 
 class ModeloController extends Controller
 {
+
+    private $modelo;
+
+    function __construct(){
+        $this->modelo = new Modelo();
+        $this->marcasEliminadas = Modelo::onlyTrashed();
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +27,7 @@ class ModeloController extends Controller
      */
     public function index()
     {
-        $modelos = Modelo::get();
+        $modelos = Modelo::withTrashed()->get();
         return view('dashboard.modelo.show', ['modelos'=> $modelos]);
     }
 
@@ -107,8 +115,18 @@ class ModeloController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        // dd(request()->all());
+        $this->modelo = $this->modelo->where('nombre',$request->nombre)->first();
+        $this->modelo->delete();
+        return back()->with('status', 'Modelo borrado con exito');
+    }
+
+    public function reactivar(Request $request)
+    {
+        $this->marcasEliminadas = $this->marcasEliminadas->where('nombre',$request->nombre)->first();
+        $this->marcasEliminadas->restore();
+        return back()->with('status', 'Modelo recuperado con exito');
     }
 }
