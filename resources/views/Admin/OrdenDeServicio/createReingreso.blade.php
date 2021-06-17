@@ -6,6 +6,8 @@
         <hr>
         <form id="formCrearOrdenDeServicio" action="{{route('admin.ordenDeServicio.altaReingreso')}}" method="POST" >
             @csrf
+            <div id="informacionOrden" class="row justify-content-center align-items-center pt-2">
+            </div>
             <div class="row justify-content-center align-items-center pt-2">
                 <div class="col-12 col-md-4">
                     <label>Nro orden de servicio</label>

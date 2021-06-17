@@ -26,7 +26,7 @@ class StoreCliente extends FormRequest
         return [
             'nombre'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
-            'dni'=>'required|numeric|min:8|max:8|unique:cliente,dni',
+            'dni'=>'required|numeric|digits_between:7,8|unique:cliente,dni',
             'numero_de_telefono'=>'required|numeric|digits:10',
             'email'=>'required|email|unique:cliente,email',
         ];

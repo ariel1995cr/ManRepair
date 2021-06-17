@@ -104,11 +104,18 @@ async function formularioCambioDeEstado(estado){
 }
 
 async function ordenDeServicioReingreso(nro){
+    let informacionOrden = document.getElementById('informacionOrden');
     let resp = await axios.get('/admin/ordenDeServicio/reingresoValido/'+nro)
         .then(response=>{
+            let ordenDeServicio = response.data[1];
+            let date = new Date(ordenDeServicio['created_at']);
+            console.log(date);
+            let dateParse = date.getDate() + '/'+(date.getMonth()+1)+'/'+date.getFullYear();
+            informacionOrden.innerHTML = `Motivo de la orden: ${ordenDeServicio['motivo_orden']} <br> Descripción estado del celular: ${ordenDeServicio['descripcion_estado_celular']} <br> Fecha ingreso: ${dateParse}`
             return true;
         })
         .catch(err=>{
+            informacionOrden.innerHTML = '';
             let mensaje = err.response.data.mensaje;
             enviarNotificacion('error', 'Error en el formulario', mensaje);
             return false;

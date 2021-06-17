@@ -63,7 +63,7 @@
     </div>
 
     <div class="mb-3">
-        <label for="contrasena_confirmation" class="form-label {{$errors->has('contrasena') ? 'border-danger' : ''}}">Confirmar contraseña</label>
+        <label for="contrasena_confirmation" class="form-label {{$errors->has('contrasena_confirmation') ? 'border-danger' : ''}}">Confirmar contraseña</label>
         <input type="password" class="form-control" name="contrasena_confirmation" id="contrasena_confirmation">
         @if($errors->has('contrasena_confirmation'))
             <span class="text-danger">{{$errors->first('contrasena_confirmation')}}</span>

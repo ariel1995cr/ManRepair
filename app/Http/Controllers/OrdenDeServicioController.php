@@ -89,8 +89,11 @@ class OrdenDeServicioController extends Controller
 
         $resp = $this->ordenDeServicio->CoberturaValida($nroOrdenDeServicio);
 
+
+
         if($resp['valido'] === true){
-            return response()->json(['mensaje'=>'Orden valida.']);
+            $this->ordenDeServicio = $this->ordenDeServicio->where('nro', $nroOrdenDeServicio)->first();
+            return response()->json(['mensaje'=>'Orden valida.', 'orden', $this->ordenDeServicio]);
         }else{
             return response()->json(['mensaje'=>$resp['mensaje']],404);
         }
