@@ -26,17 +26,26 @@
                                 <td>{{ $modelo->nombre }}</td>
                                 <td>{{ $modelo->fecha_lanzamiento }}</td>
                                 <td>
-                                    @if($modelo->foto)
-                                        <img width="50px" height="50px" src="{{$modelo->foto}}">
+                                    @if ($modelo->foto)
+                                        <img width="50px" height="50px" src="{{ $modelo->foto }}">
                                     @else
                                         No hay imagen.
                                     @endif
                                 </td>
                                 <td>
-                                    {{--  <a class="btn btn-primary" href="">Ver</a>  --}}
-                                    <a class="btn btn-primary" href="{{ route('modelos.edit', $modelo->nombre) }}">Editar</a>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target=""
-                                        data-id="">Borrar</button>
+                                    {{-- <a class="btn btn-primary" href="">Ver</a> --}}
+                                    <a class="btn btn-primary"
+                                        href="{{ route('modelos.edit', $modelo->nombre) }}">Editar</a>
+
+                                    @if (is_null($modelo->deleted_at))
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalBorrado" data-id="{{ $modelo->nombre }}">Borrar</button>
+                                    @else
+                                        <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
+                                            data-bs-target="#modalReactivar"
+                                            data-id="{{ $modelo->nombre }}">Recuperar</button>
+                                    @endif
+
                                 </td>
                             </tr>
                         @endforeach
@@ -46,5 +55,53 @@
         </div>
 
     </div>
+    <form action="{{ route('modelos.destroy') }}" method="POST">
+        @csrf
+        @method('DELETE')
+        <div class="modal fade" id="modalBorrado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estas seguro que quiere eliminar este modelo?</p>
+                        <input name="nombre" hidden readonly id="nombreMarca" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-danger">Borrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <form action="{{ route('modelos.reactivar') }}" method="POST">
+        @csrf
+        <div class="modal fade" id="modalReactivar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>¿Estas seguro que quiere reactivar este modelo?</p>
+                        <input name="nombre" hidden readonly id="nombreMarcaReactivar" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="submit" class="btn btn-warning">Recuperar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    <script>
+        window.onload = function carga() {
+            modalEvento();
+        }
 
+    </script>
 @endsection
