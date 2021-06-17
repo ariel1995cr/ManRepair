@@ -49,14 +49,16 @@
            <div class="col-4 offset-1">
                <h1 class="display-6">Estados</h1>
                <div class="card border-1 border-dark p-4">
-                       @foreach($ordenDeServicio->historico_estado as $estado)
-                           <div class="card mt-2" >
-                               <div class="card-body bg-light">
-                                   <h5 class="card-title">{{$estado->nombre}}</h5>
-                                   <p class="card-text">{{$estado->pivot->created_at}}</p>
-                               </div>
+                   @foreach($ordenDeServicio->historico_estado as $estado)
+                       <div class="card mt-2" >
+                           <div class="card-body bg-light">
+                               <h5 class="card-title">{{$estado->nombre}}</h5>
+                               <p class="card-text">{{$estado->pivot->created_at}}
+                                   <br>
+                                   Comentario: <br>{{$estado->pivot->comentario}}</p>
                            </div>
-                       @endforeach
+                       </div>
+                   @endforeach
                </div>
            </div>
        </div>

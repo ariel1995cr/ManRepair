@@ -40,7 +40,7 @@ class OrdenDeServicio extends Model
     }
 
     public function historico_estado(){
-        return $this->belongsToMany(Estado::class, 'historial_estado_orden_de_servicio', 'nro_orden_de_servicio', 'nombre_estado')->withTimestamps()->orderBy('created_at','asc');
+        return $this->belongsToMany(Estado::class, 'historial_estado_orden_de_servicio', 'nro_orden_de_servicio', 'nombre_estado')->withPivot('comentario')->withTimestamps()->orderBy('created_at','asc');
     }
 
     public function scopeExiste($query, $nro){
