@@ -12,7 +12,7 @@
             <hr>
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-6">
-                    @include('dashboard.cliente.formularioCliente')
+                    @include('dashboard.cliente.FormularioCliente')
                 </div>
             </div>
         </form>
