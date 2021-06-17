@@ -134,6 +134,6 @@ class MarcaController extends Controller
     {
         $this->marcasEliminadas = $this->marcasEliminadas->where('nombre',$request->nombre)->first();
         $this->marcasEliminadas->restore();
-        return back()->with('status', 'Modelo recuperado con exito');
+        return back()->with('status', 'Marca recuperada con exito');
     }
 }
