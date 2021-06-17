@@ -1,30 +1,30 @@
-function changeMarca(marca){
+function changeMarca(marca) {
     let nombreMarca = marca;
     this.limpiarSelectModelos();
-    if(nombreMarca != ''){
+    if (nombreMarca != '') {
         this.obtenerModelos(nombreMarca);
     }
 }
 
-function limpiarSelectModelos(){
+function limpiarSelectModelos() {
     let select = document.getElementById('modelo')
-    for (let i = 0; i <= select.options.length-1; i++) {
-        if(select.options[i].value != ''){
+    for (let i = 0; i <= select.options.length - 1; i++) {
+        if (select.options[i].value != '') {
             select.options[i].remove();
         }
     }
 }
 
-async function obtenerModelos(marca, modeloSeleccionado=null){
-    await axios.get('/admin/marcas/obtenerModelos/'+marca)
-        .then(response=>{
+async function obtenerModelos(marca, modeloSeleccionado = null) {
+    await axios.get('/admin/marcas/obtenerModelos/' + marca)
+        .then(response => {
             console.log(response);
             let select = document.getElementById('modelo');
             let option = document.createElement("option");
             response.data.forEach(modelo => {
                 option.text = modelo.nombre;
                 option.value = modelo.nombre;
-                if(modelo.nombre == modeloSeleccionado){
+                if (modelo.nombre == modeloSeleccionado) {
                     option.selected = true;
                 }
                 select.add(option);
@@ -33,17 +33,17 @@ async function obtenerModelos(marca, modeloSeleccionado=null){
         .catch()
 }
 
-function changeDNICliente(dni){
-    axios.get('/admin/clientes/campo/dni/dni/'+dni)
-        .then(response=>{
+function changeDNICliente(dni) {
+    axios.get('/admin/clientes/campo/dni/dni/' + dni)
+        .then(response => {
             console.log(response.data);
-            if(response.data == ""){
+            if (response.data == "") {
                 console.log("hola");
                 document.getElementById('nombre').readOnly = false;
                 document.getElementById('apellido').readOnly = false;
                 document.getElementById('telefono').readOnly = false;
                 document.getElementById('email').readOnly = false;
-            }else{
+            } else {
                 let input = document.getElementById('nombre');
                 input.readOnly = true;
                 input.value = response.data.nombre;
@@ -61,7 +61,7 @@ function changeDNICliente(dni){
         .catch()
 }
 
-function enviarNotificacion(icon,title,text,footer=''){
+function enviarNotificacion(icon, title, text, footer = '') {
     this.Swal.fire({
         icon: icon,
         title: title,
@@ -72,49 +72,49 @@ function enviarNotificacion(icon,title,text,footer=''){
 
 
 
-async function formularioCambioDeEstado(estado){
+async function formularioCambioDeEstado(estado) {
     let estadoNuevo = estado;
 
     let divs = await document.getElementById("divForm");
 
-    if(estadoNuevo == ''){
+    if (estadoNuevo == '') {
         for (let i = 2; i < divs.children.length; i++) {
-            if(divs.children[i].className == 'row'){
+            if (divs.children[i].className == 'row') {
                 divs.children[i].className = 'row d-none';
             }
         }
     }
 
-    if(estadoNuevo == 'Presupuestado'){
+    if (estadoNuevo == 'Presupuestado') {
         for (let i = 0; i < divs.children.length; i++) {
-            if(divs.children[i].className == 'row d-none'){
+            if (divs.children[i].className == 'row d-none') {
                 divs.children[i].className = 'row';
             }
         }
     }
 
-    if (estadoNuevo != 'Presupuestado' && estadoNuevo != ''){
+    if (estadoNuevo != 'Presupuestado' && estadoNuevo != '') {
         for (let i = 6; i < divs.children.length; i++) {
             console.log(i);
-            if(divs.children[i].className == 'row d-none'){
+            if (divs.children[i].className == 'row d-none') {
                 divs.children[i].className = 'row';
             }
         }
     }
 }
 
-async function ordenDeServicioReingreso(nro){
+async function ordenDeServicioReingreso(nro) {
     let informacionOrden = document.getElementById('informacionOrden');
-    let resp = await axios.get('/admin/ordenDeServicio/reingresoValido/'+nro)
-        .then(response=>{
+    let resp = await axios.get('/admin/ordenDeServicio/reingresoValido/' + nro)
+        .then(response => {
             let ordenDeServicio = response.data[1];
             let date = new Date(ordenDeServicio['created_at']);
             console.log(date);
-            let dateParse = date.getDate() + '/'+(date.getMonth()+1)+'/'+date.getFullYear();
+            let dateParse = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
             informacionOrden.innerHTML = `Motivo de la orden: ${ordenDeServicio['motivo_orden']} <br> Descripción estado del celular: ${ordenDeServicio['descripcion_estado_celular']} <br> Fecha ingreso: ${dateParse}`
             return true;
         })
-        .catch(err=>{
+        .catch(err => {
             informacionOrden.innerHTML = '';
             let mensaje = err.response.data.mensaje;
             enviarNotificacion('error', 'Error en el formulario', mensaje);
@@ -123,13 +123,13 @@ async function ordenDeServicioReingreso(nro){
     return resp;
 }
 
-async function enviarFormOrdenDeServicioReingreso(){
+async function enviarFormOrdenDeServicioReingreso() {
     let nro = document.getElementById('nro_orden_anterior').value;
-    if(nro == ''){
+    if (nro == '') {
         return enviarNotificacion('error', 'Error en el formulario', 'No ingreso el número de la orden de servicio');
-    }else{
+    } else {
         let resp = await this.ordenDeServicioReingreso(nro);
-        if(resp){
+        if (resp) {
             let form = document.getElementById('formCrearOrdenDeServicio');
             form.submit();
         }
@@ -137,9 +137,9 @@ async function enviarFormOrdenDeServicioReingreso(){
 }
 
 
-function crearInputForm(nombre,clase,label, claseDiv, inputTipo, type){
+function crearInputForm(nombre, clase, label, claseDiv, inputTipo, type) {
     let elemento = document.createElement('div');
-    elemento.className =  claseDiv;
+    elemento.className = claseDiv;
 
     let lbl = document.createElement('label');
     lbl.textContent = label;
@@ -156,7 +156,7 @@ function crearInputForm(nombre,clase,label, claseDiv, inputTipo, type){
     return elemento;
 }
 
-function formularioTipoDeReporte(tipoDeReporteSeleccionado){
+function formularioTipoDeReporte(tipoDeReporteSeleccionado) {
     console.log(tipoDeReporteSeleccionado);
     let classVisible = 'row justify-content-center align-items-center mt-2'
     let classNoVisible = 'row d-none justify-content-center align-items-center mt-2'
@@ -168,24 +168,62 @@ function formularioTipoDeReporte(tipoDeReporteSeleccionado){
     divForm2.className = classNoVisible;
     selectSeleccionarMarca.className = 'row align-items-start mt-2';
 
-    if(tipoDeReporteSeleccionado == 'reporte de servicio'){
+    if (tipoDeReporteSeleccionado == 'reporte de servicio') {
         divForm1.className = classVisible;
         document.getElementById("btnradio1").checked = true;
     }
-    if(tipoDeReporteSeleccionado == 'cantidad de reparados'){
+    if (tipoDeReporteSeleccionado == 'cantidad de reparados') {
         divForm2.className = classVisible;
         document.getElementById("btnradio2").checked = true;
     }
-    if(tipoDeReporteSeleccionado == 'reparados por garantia del celular'){
+    if (tipoDeReporteSeleccionado == 'reparados por garantia del celular') {
         divForm2.className = classVisible;
         selectSeleccionarMarca.className = 'd-none';
         document.getElementById("btnradio3").checked = true;
     }
 }
 
-    function modalEvento(){
+function modalEvento() {
     var exampleModal = document.getElementById('modalBorrado');
     exampleModal.addEventListener('show.bs.modal', function (event) {
+        // Button that triggered the modal
+        let button = event.relatedTarget
+        // Extract info from data-bs-* attributes
+        let idBorrar = button.getAttribute('data-id')
+        let idBorrarD = button.getAttribute('data-idModelo')
+
+        ///
+        if (idBorrar !== null) {
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            let modalTitle = exampleModal.querySelector('.modal-title')
+
+            let inputIdMarca = document.getElementById('nombreMarca');
+
+            inputIdMarca.value = idBorrar;
+
+            modalTitle.textContent = 'Borrar la marca ' + idBorrar;
+        } else {
+            // If necessary, you could initiate an AJAX request here
+            // and then do the updating in a callback.
+            //
+            // Update the modal's content.
+            let modalTitle = exampleModal.querySelector('.modal-title')
+
+            let inputIdMarca = document.getElementById('nombreMarca');
+
+            inputIdMarca.value = idBorrarD;
+
+            modalTitle.textContent = 'Borrar el modelo ' + idBorrarD;
+        }
+
+
+    })
+
+    var modalReactivar = document.getElementById('modalReactivar');
+    modalReactivar.addEventListener('show.bs.modal', function (event) {
         // Button that triggered the modal
         let button = event.relatedTarget
         // Extract info from data-bs-* attributes
@@ -194,29 +232,11 @@ function formularioTipoDeReporte(tipoDeReporteSeleccionado){
         // and then do the updating in a callback.
         //
         // Update the modal's content.
-        let modalTitle = exampleModal.querySelector('.modal-title')
+        let modalTitle = modalReactivar.querySelector('.modal-title')
 
-        let inputIdMarca = document.getElementById('nombreMarca');
+        let inputIdMarca = document.getElementById('nombreMarcaReactivar');
 
         inputIdMarca.value = idBorrar;
-        modalTitle.textContent = 'Borrar la marca ' + idBorrar;
+        modalTitle.textContent = 'Reactivar la marca ' + idBorrar;
     })
-
-        var modalReactivar = document.getElementById('modalReactivar');
-        modalReactivar.addEventListener('show.bs.modal', function (event) {
-            // Button that triggered the modal
-            let button = event.relatedTarget
-            // Extract info from data-bs-* attributes
-            let idBorrar = button.getAttribute('data-id')
-            // If necessary, you could initiate an AJAX request here
-            // and then do the updating in a callback.
-            //
-            // Update the modal's content.
-            let modalTitle = modalReactivar.querySelector('.modal-title')
-
-            let inputIdMarca = document.getElementById('nombreMarcaReactivar');
-
-            inputIdMarca.value = idBorrar;
-            modalTitle.textContent = 'Reactivar la marca ' + idBorrar;
-        })
 }

@@ -39,11 +39,11 @@
 
                                     @if (is_null($modelo->deleted_at))
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                            data-bs-target="#modalBorrado" data-id="{{ $modelo->nombre }}">Borrar</button>
+                                            data-bs-target="#modalBorrado" data-idModelo="{{ $modelo->nombre }}">Borrar</button>
                                     @else
                                         <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
                                             data-bs-target="#modalReactivar"
-                                            data-id="{{ $modelo->nombre }}">Recuperar</button>
+                                            data-idModelo="{{ $modelo->nombre }}">Recuperar</button>
                                     @endif
 
                                 </td>
