@@ -37,7 +37,7 @@
                        @endisset
                        @isset($ordenDeServicio->materiales_necesarios)
                            <li class="mt-4 fw-lighter fw-bold">Importe de la reparaci&oacute;n</li>
-                           <li class="fw-lighter">{{$ordenDeServicio->materiales_necesarios}}</li>
+                           <li class="fw-lighter">{{$ordenDeServicio->importe_reparacion}}</li>
                        @endisset
                        @isset($ordenDeServicio->tiempo_de_reparacion)
                            <li class="mt-4 fw-lighter fw-bold">Día estimado de entrega</li>
