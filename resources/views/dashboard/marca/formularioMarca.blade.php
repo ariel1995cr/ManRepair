@@ -2,7 +2,7 @@
         @csrf
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre</label>
-            <input type="txt" class="form-control {{$errors->has('nombre') ? 'border-danger' : ''}}" name="nombre" id="nombre" value="{{$marca->nombre}}">
+            <input type="txt" class="form-control {{$errors->has('nombre') ? 'border-danger' : ''}}" name="nombre" id="nombre" value="{{ old('nombre') == '' ? $marca->nombre : old('nombre') }}">
             @if($errors->has('nombre'))
                 <span class="text-danger">{{$errors->first('nombre')}}</span>
             @endif

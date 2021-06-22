@@ -8,7 +8,7 @@
         <select onchange="changeMarca(event.target.value)" id="marca" name="nombre_marca" class="form-select {{$errors->has('nombre_marca') ? 'border-danger' : ''}}" aria-label="Seleccionar marca">
             <option selected value="">Seleccionar marca</option>
             @foreach($marcas as $marca)
-                <option {{ old('nombre_marca') == $marca->nombre ? 'selected' : '' }} value="{{$marca->nombre}}">{{$marca->nombre}}</option>
+                <option {{ old('nombre_marca') == $marca->nombre ? 'selected' : '' }} value="{{ old('nombre_marca') == '' ? $marca->nombre : old('nombre_marca') }}">{{ old('nombre_marca') == '' ? $marca->nombre : old('nombre_marca') }}</option>
             @endforeach
         </select>
         @if($errors->has('nombre_marca'))
@@ -18,7 +18,7 @@
 
     <div class="mb-3">
         <label for="Nombre" class="form-label">Modelo</label>
-        <input type="txt" class="form-control {{$errors->has('nombre') ? 'border-danger' : ''}}" name="nombre" id="nombre" value="{{$modelo->nombre}}">
+        <input type="txt" class="form-control {{$errors->has('nombre') ? 'border-danger' : ''}}" name="nombre" id="nombre" value="{{ old('nombre') == '' ? $modelo->nombre : old('nombre') }}">
         @if($errors->has('nombre'))
             <span class="text-danger">{{$errors->first('nombre')}}</span>
         @endif
@@ -26,7 +26,7 @@
 
     <div class="mb-3">
         <label for="Fecha de lanzamiento" class="form-label">Fecha de lanzamiento</label>
-        <input type="date" class="form-control" name="fecha_lanzamiento" id="lanzamiento" value="{{$modelo->fecha_lanzamiento}}">
+        <input type="date" class="form-control" name="fecha_lanzamiento" id="lanzamiento" value="{{ old('fecha_lanzamiento') == '' ? $modelo->fecha_lanzamiento : old('fecha_lanzamiento') }}">
     </div>
 
     <div class="mb-3">
