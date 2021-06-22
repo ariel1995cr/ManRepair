@@ -54,7 +54,7 @@ class OrdenDeServicioController extends Controller
     }
 
     public function altaReingreso(altaReingresoRequest $request){
-        $ordenAnterior = $this->ordenDeServicio->find($request->nro_orden_anterior)->first();
+        $ordenAnterior = $this->ordenDeServicio->where('nro',$request->nro_orden_anterior)->first();
         if($ordenAnterior->imei != $request->imei){
             return back()->withInput()->withErrors(['message'=>'El IMEI no corresponde a la orden de servicio.']);
         }

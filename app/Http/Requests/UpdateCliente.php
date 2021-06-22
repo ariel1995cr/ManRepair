@@ -31,8 +31,7 @@ class UpdateCliente extends FormRequest
             'apellido'=>'required|min:2|regex:/^[\pL\s\-]+$/u',
             'dni' => 'required|numeric|digits_between:7,8|unique:cliente,dni,'.$this->cliente->dni.',dni',
             'numero_de_telefono'=>'required|numeric|digits:10',
-            // 'email'=>'required|email|unique:cliente,email',
-            'email' => 'unique:cliente,email,'.$this->cliente->dni.',dni'
+            'email' => 'required|unique:cliente,email,'.$this->cliente->dni.',dni'
         ];
     }
 }
