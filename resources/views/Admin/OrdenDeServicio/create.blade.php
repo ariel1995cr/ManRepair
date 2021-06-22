@@ -32,7 +32,7 @@
             <div class="row justify-content-center align-items-center pt-2">
                 <div class="col-12 col-md-4">
                     <label>IMEI</label>
-                    <input type="number" name="imei" class="form-control {{$errors->has('imei') ? 'border-danger' : ''}}" id="imei" placeholder="Ingresa IMEI">
+                    <input type="number" value="{{ old('imei') }}" name="imei" class="form-control {{$errors->has('imei') ? 'border-danger' : ''}}" id="imei" placeholder="Ingresa IMEI">
                     @if($errors->has('imei'))
                         <span class="text-danger">{{$errors->first('imei')}}</span>
                     @endif

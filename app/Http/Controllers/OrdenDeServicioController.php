@@ -60,7 +60,6 @@ class OrdenDeServicioController extends Controller
         }
         DB::beginTransaction();
         try {
-            DB::commit();
             $this->ordenDeServicio->crearReingresoOrdenDeServicio($ordenAnterior->nro,$request->motivo_orden, $request->descripcion_estado_celular, $request->imei, $ordenAnterior->dni_cliente, $ordenAnterior->detalle_reparacion, $ordenAnterior->materiales_necesarios);
             $estado = new HistorialEstadoOrdenDeServico();
             $estado->nro_orden_de_servicio = $this->ordenDeServicio->nro;
@@ -75,6 +74,7 @@ class OrdenDeServicioController extends Controller
             $estado->nombre_estado = Estado::ENREPARACION;
             $estado->save();
             $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$this->ordenDeServicio->nro)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
+            DB::commit();
             return view('Admin.OrdenDeServicio.createSucces')->with('ordenDeServicio', $this->ordenDeServicio)->with('title', 'Reingreso creado correctamente');
         }catch (\Exception $e){
             DB::rollBack();
@@ -141,6 +141,14 @@ class OrdenDeServicioController extends Controller
     }
 
     public function store(RequestSaveOrdenDeServicio $request){
+        DB::beginTransaction();
+        try {
+        if($ultimaordenDeServicio = $this->ordenDeServicio->where('imei', $request->imei)->latest('created_at')->first()){
+            if($ultimaordenDeServicio->estado_actual != Estado::REPARADO){
+                return back()->withInput()->withErrors(['message'=>'Existe una orden de servicio actualmente en curso.']);
+            }
+        }
+
         $cliente = $this->cliente::buscarCliente('dni', $request->dni)->first();
         if($cliente == null){
             $this->cliente->dni = $request->dni;
@@ -172,8 +180,12 @@ class OrdenDeServicioController extends Controller
         $this->historialEstado->save();
 
         $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$this->ordenDeServicio->nro)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
-
+        DB::commit();
         return view('Admin.OrdenDeServicio.createSucces')->with('ordenDeServicio', $this->ordenDeServicio)->with('title', 'Orden de servicio creada correctamente.');
+        }catch (\Exception $e){
+            DB::rollBack();
+            return back()->withInput()->withErrors(['message'=>'Ocurrio algun error interno. Por favor reintente.']);
+        }
     }
 
 }
