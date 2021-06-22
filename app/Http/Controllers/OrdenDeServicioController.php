@@ -164,7 +164,7 @@ class OrdenDeServicioController extends Controller
             }
             $this->cliente->save();
         }else{
-            $this->cliente->find($request->dni);
+            $this->cliente->where('dni',$request->dni);
         }
 
         $this->celular->firstOrCreate(
