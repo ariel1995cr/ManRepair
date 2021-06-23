@@ -14,6 +14,7 @@ use App\Models\Marca;
 use App\Models\OrdenDeServicio;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
@@ -64,14 +65,17 @@ class OrdenDeServicioController extends Controller
             $estado = new HistorialEstadoOrdenDeServico();
             $estado->nro_orden_de_servicio = $this->ordenDeServicio->nro;
             $estado->nombre_estado = Estado::RECIBIDO;
+            $estado->dni_empleado = Auth::user()->dni;
             $estado->save();
             $estado = new HistorialEstadoOrdenDeServico();
             $estado->nro_orden_de_servicio = $this->ordenDeServicio->nro;
             $estado->nombre_estado = Estado::PRESUPUESTADO;
+            $estado->dni_empleado = Auth::user()->dni;
             $estado->save();
             $estado = new HistorialEstadoOrdenDeServico();
             $estado->nro_orden_de_servicio = $this->ordenDeServicio->nro;
             $estado->nombre_estado = Estado::ENREPARACION;
+            $estado->dni_empleado = Auth::user()->dni;
             $estado->save();
             $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$this->ordenDeServicio->nro)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
             DB::commit();
@@ -118,7 +122,7 @@ class OrdenDeServicioController extends Controller
     }
 
     public function verOrdenDeServicio(OrdenDeServicio $nroOrdenDeServicio){
-        $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$nroOrdenDeServicio->nro)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
+        $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$nroOrdenDeServicio->nro)->with('historico_estado', 'celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
         return view('Admin.OrdenDeServicio.createSucces')->with('ordenDeServicio', $this->ordenDeServicio)->with('title', 'Ver Orden de servicio');
     }
 
@@ -134,6 +138,7 @@ class OrdenDeServicioController extends Controller
         $this->historialEstado->nro_orden_de_servicio = $this->ordenDeServicio->nro;
         $this->historialEstado->nombre_estado = $request->nombre_estado;
         $this->historialEstado->comentario = $request->comentario;
+        $this->historialEstado->dni_empleado = Auth::user()->dni;
         $this->historialEstado->save();
         $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$this->ordenDeServicio->nro)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();
 
@@ -177,6 +182,7 @@ class OrdenDeServicioController extends Controller
 
         $this->historialEstado->nro_orden_de_servicio = $this->ordenDeServicio->nro;
         $this->historialEstado->nombre_estado = 'Recibido';
+        $this->historialEstado->dni_empleado = Auth::user()->dni;
         $this->historialEstado->save();
 
         $this->ordenDeServicio = $this->ordenDeServicio->where('nro',$this->ordenDeServicio->nro)->with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->first();

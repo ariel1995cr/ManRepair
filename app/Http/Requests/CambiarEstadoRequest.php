@@ -36,7 +36,7 @@ class CambiarEstadoRequest extends FormRequest
                 'materiales_necesarios' => 'required',
                 'importe_reparacion'=> 'required|integer',
                 'tiempo_de_reparacion' => 'required|date',
-                'comentario' => 'required'
+                'comentario' => 'nullable',
             ];
         }
     }

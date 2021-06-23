@@ -21,30 +21,7 @@
                     </div>
                 </div>
             </div>
-            <div id="camposReporteDeServicio" class="row d-none justify-content-center align-items-center mt-2">
-                <div class="col-12 col-md-3">
-                    <label>Fecha</label>
-                    <input type="date" name="fecha" class="form-control {{$errors->has('fecha') ? 'border-danger' : ''}}" id="fecha" placeholder="Ingresa fecha">
-                    @if($errors->has('fecha'))
-                        <span class="text-danger">{{$errors->first('fecha')}}</span>
-                    @endif
-                </div>
-                <div class="col-12 col-md-3">
-                    <label>Estado</label>
-                    <select id="estado" name="estado" class="form-select {{$errors->has('estado') ? 'border-danger' : ''}}" aria-label="Seleccionar estado">
-                        <option selected value="">Seleccionar estado</option>
-                        <option selected value="todos">Todos</option>
-                        @foreach($estados as $estado)
-                            <option {{ old('estado') == $estado->nombre ? 'selected' : '' }} value="{{$estado->nombre}}">{{$estado->nombre}}</option>
-                        @endforeach
-                    </select>
-                    @if($errors->has('estado'))
-                        <span class="text-danger">{{$errors->first('estado')}}</span>
-                    @endif
-                </div>
-            </div>
-            <div class="d-none" id="camposCantidadDeReparadosyReparadosPorGarantia">
-                <div class="row justify-content-center align-items-center mt-2">
+                <div id="todos" class="d-none row justify-content-center align-items-center mt-2">
                     <div class="col-12 col-md-3">
                         <label>Fecha desde</label>
                         <input type="date" name="fechaDesde" class="form-control {{$errors->has('fechaDesde') ? 'border-danger' : ''}}" id="fechaDesde" placeholder="Ingresa fecha">
@@ -60,12 +37,13 @@
                         @endif
                     </div>
                 </div>
-                <div id="selectSeleccionarMarca" class="row align-items-start mt-2">
+                <div id="selectSeleccionarMarca" class="d-none row align-items-start mt-2">
                     <div class="col-12 col-md-3 offset-md-3">
                         <label>Seleccionar marca</label>
                         <select id="marca" name="marca" class="form-select {{$errors->has('marca') ? 'border-danger' : ''}}" aria-label="Seleccionar marca">
                             <option selected value="">Seleccionar marca</option>
                             @foreach($marcas as $marca)
+                                <option value="todos">Todos</option>
                                 <option {{ old('marca') == $marca->nombre ? 'selected' : '' }} value="{{$marca->nombre}}">{{$marca->nombre}}</option>
                             @endforeach
                         </select>
@@ -74,10 +52,24 @@
                         @endif
                     </div>
                 </div>
-            </div>
+                <div id="selectSeleccionarEstado" class="d-none row align-items-start mt-2">
+                    <div class="col-12 col-md-3 offset-md-3">
+                        <label>Estado</label>
+                        <select id="estado" name="estado" class="form-select {{$errors->has('estado') ? 'border-danger' : ''}}" aria-label="Seleccionar estado">
+                            <option selected value="">Seleccionar estado</option>
+                            <option value="todos">Todos</option>
+                            @foreach($estados as $estado)
+                                <option {{ old('estado') == $estado->nombre ? 'selected' : '' }} value="{{$estado->nombre}}">{{$estado->nombre}}</option>
+                            @endforeach
+                        </select>
+                        @if($errors->has('estado'))
+                            <span class="text-danger">{{$errors->first('estado')}}</span>
+                        @endif
+                    </div>
+                </div>
             <div class="row align-items-start mt-3">
                 <div class="col-12 col-md-3 offset-md-3">
-                    <button class="btn btn-secondary">Generar</button>
+                    <button type="submit" class="btn btn-secondary">Generar</button>
                 </div>
             </div>
         </form>

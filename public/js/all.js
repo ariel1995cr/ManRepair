@@ -158,27 +158,29 @@ function crearInputForm(nombre, clase, label, claseDiv, inputTipo, type) {
 
 function formularioTipoDeReporte(tipoDeReporteSeleccionado) {
     console.log(tipoDeReporteSeleccionado);
+    let divForm1 = document.getElementById('todos');
+    let divForm2 = document.getElementById('selectSeleccionarEstado');
+    let divForm3 = document.getElementById('selectSeleccionarMarca');
+
     let classVisible = 'row justify-content-center align-items-center mt-2'
     let classNoVisible = 'row d-none justify-content-center align-items-center mt-2'
-    let divForm1 = document.getElementById('camposReporteDeServicio');
-    let divForm2 = document.getElementById('camposCantidadDeReparadosyReparadosPorGarantia');
-    let selectSeleccionarMarca = document.getElementById('selectSeleccionarMarca');
 
-    divForm1.className = classNoVisible;
-    divForm2.className = classNoVisible;
-    selectSeleccionarMarca.className = 'row align-items-start mt-2';
+    divForm1.className = classVisible;
+
 
     if (tipoDeReporteSeleccionado == 'reporte de servicio') {
-        divForm1.className = classVisible;
+        divForm2.className = 'row align-items-start mt-2';
+        divForm3.className = 'd-none row align-items-start mt-2';
         document.getElementById("btnradio1").checked = true;
     }
     if (tipoDeReporteSeleccionado == 'cantidad de reparados') {
-        divForm2.className = classVisible;
+        divForm2.className = 'd-none row align-items-start mt-2';
+        divForm3.className = 'row align-items-start mt-2';
         document.getElementById("btnradio2").checked = true;
     }
     if (tipoDeReporteSeleccionado == 'reparados por garantia del celular') {
-        divForm2.className = classVisible;
-        selectSeleccionarMarca.className = 'd-none';
+        divForm2.className = 'd-none row align-items-start mt-2';
+        divForm3.className = 'row align-items-start mt-2';
         document.getElementById("btnradio3").checked = true;
     }
 }

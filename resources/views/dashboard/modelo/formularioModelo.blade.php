@@ -8,7 +8,7 @@
         <select onchange="changeMarca(event.target.value)" id="marca" name="nombre_marca" class="form-select {{$errors->has('nombre_marca') ? 'border-danger' : ''}}" aria-label="Seleccionar marca">
             <option selected value="">Seleccionar marca</option>
             @foreach($marcas as $marca)
-                <option {{ old('nombre_marca') == $marca->nombre ? 'selected' : '' }} value="{{ old('nombre_marca') == '' ? $marca->nombre : old('nombre_marca') }}">{{ old('nombre_marca') == '' ? $marca->nombre : old('nombre_marca') }}</option>
+                <option {{ old('nombre_marca')||$marca->nombre == $marca->nombre ? 'selected' : '' }} value="{{ old('nombre_marca') == '' ? $marca->nombre : old('nombre_marca') }}">{{ old('nombre_marca') == '' ? $marca->nombre : old('nombre_marca') }}</option>
             @endforeach
         </select>
         @if($errors->has('nombre_marca'))

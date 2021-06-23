@@ -26,7 +26,7 @@ class ReporteController extends Controller
 
     public function generarReporte(GenerarReporteRequest $request){
         if($request->tipo_reporte == 'reporte de servicio'){
-            $view = $this->generarReporteServicios($request->fecha, $request->estado);
+            $view = $this->generarReporteServicios($request->fechaDesde, $request->fechaHasta, $request->estado);
             return $view->download('reporte_de_servicio.pdf');
         }
         if($request->tipo_reporte == 'cantidad de reparados'){
@@ -39,14 +39,25 @@ class ReporteController extends Controller
         }
     }
 
-    public function generarReporteServicios($fecha, $estado){
-        $ordenesDeServicio = $this->ordenDeServicio->filtroServicios($fecha, $estado)->get();
+    public function generarReporteServicios($desde, $hasta,$estado){
+        $ordenesDeServicio = $this->ordenDeServicio->filtroServicios($desde, $hasta, $estado)->get();
+
+        $filteredOrdenes = $ordenesDeServicio->filter(function ($value, $key) use($estado) {
+            if($estado != 'todos'){
+                if($value->estado_actual == $estado){
+                    return $value;
+                }
+            }
+            return $value;
+        });
+
         $data = [
             'filtros'=> [
-                'fecha' => $fecha,
+                'Fecha desde' => $desde,
+                'Fecha hasta' => $hasta,
                 'estado' => $estado,
             ],
-            'ordenes'=> $ordenesDeServicio,
+            'ordenes'=> $filteredOrdenes,
             'titulo'=> 'Reporte de servicios'
         ];
 
@@ -57,13 +68,22 @@ class ReporteController extends Controller
         $ordenesDeServicio = $this->ordenDeServicio->cantidadReparadosPorMarca($desde,$hasta, $marca)->get()->groupBy('celular.nombre_marca')->map(function ($row) {
             return $row->count();
         });
+
+        $filteredOrdenes = $ordenesDeServicio->filter(function ($value, $key){
+            if($value->estado_actual == Estado::REPARADO){
+                return $value;
+            }
+            return $value;
+        });
+
         $data = [
             'filtros'=> [
                 'Fecha desde' => $desde,
                 'Fecha hasta' => $hasta,
                 'Nombre marca' => $marca,
+                'Estado' => Estado::REPARADO,
             ],
-            'ordenes'=> $ordenesDeServicio,
+            'ordenes'=> $filteredOrdenes,
             'titulo'=> 'Reporte cantidad de reparados por marca'
         ];
         return PDF::loadView('pdf.reporteCantidadReparadosMarca', $data)->setPaper('a4', 'landscape');

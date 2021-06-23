@@ -26,6 +26,7 @@
             <th scope="col">Cliente</th>
             <th scope="col">Número de teléfono</th>
             <th scope="col">Fecha de ingreso</th>
+            <th scope="col">Estado</th>
         </tr>
         </thead>
         <tbody>
@@ -39,6 +40,7 @@
                 <td>{{$orden->cliente->apellido}} {{$orden->cliente->nombre}}</td>
                 <td>{{$orden->cliente->numero_de_telefono}}</td>
                 <td>{{$orden->created_at}}</td>
+                <td>{{$orden->estado_actual}}</td>
             </tr>
         @endforeach
         </tbody>

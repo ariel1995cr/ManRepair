@@ -16,6 +16,12 @@ class OrdenDeServicio extends Model
     public $incrementing = true;
     protected $with = ['historico_estado', 'celular', 'empleado', 'cliente'];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'tiempo_de_reparacion'
+    ];
+
     public function crearOrdenDeServicio($motivo_orden, $descripcion_estado_celular, $imei, $dni_cliente){
         $this->motivo_orden = $motivo_orden;
         $this->descripcion_estado_celular = $descripcion_estado_celular;
@@ -40,7 +46,7 @@ class OrdenDeServicio extends Model
     }
 
     public function historico_estado(){
-        return $this->belongsToMany(Estado::class, 'historial_estado_orden_de_servicio', 'nro_orden_de_servicio', 'nombre_estado')->withPivot('comentario')->withTimestamps()->orderBy('created_at','asc');
+        return $this->belongsToMany(Estado::class, 'historial_estado_orden_de_servicio', 'nro_orden_de_servicio', 'nombre_estado')->withPivot('comentario', 'dni_empleado')->withTimestamps()->orderBy('created_at','asc');
     }
 
     public function scopeExiste($query, $nro){
@@ -125,17 +131,21 @@ class OrdenDeServicio extends Model
         return $this->historico_estado()->latest()->get()->last()->pivot->created_at;
     }
 
-    public function scopeFiltroServicios($query, $fecha, $estado){
-        return $query->whereDate('created_at','=',$fecha)->whereHas('historico_estado', function ($query) use ($estado){
-            $query->latest()->where('nombre_estado','=', $estado);
-        });
+    public function scopeFiltroServicios($query, $desde, $hasta,$estado){
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->hour(0)->minute(0)->second(0);
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->hour(23)->minute(59)->second(0);
+        return $query->whereBetween('created_at', [$desde, $hasta]);
     }
 
     public function scopeCantidadReparadosPorMarca($query, $desde, $hasta, $marca){
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->hour(0)->minute(0)->second(0);
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->hour(23)->minute(59)->second(0);
         $query = $query->whereBetween('created_at', [$desde, $hasta]);
         if($marca != ''){
             $query->whereHas('celular', function ($query) use ($marca){
-                $query->where('nombre_marca','=', $marca);
+                if($marca != 'todos'){
+                    $query->where('nombre_marca','=', $marca);
+                }
             });
         }
         return $query;
