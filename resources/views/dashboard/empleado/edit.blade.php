@@ -7,13 +7,12 @@
 
             <h1 class="display-1 text-center">Editar Empleado</h1>
             <hr>
-            @include('dashboard.vistasParciales.createUpdateDelete-exitosa')
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-6">
                     <form action="{{ route('empleados.update', $empleado->dni) }}" method="POST">
                         @method('PUT')
 
-                        @include('dashboard.empleado.FormularioEmpleados')
+                        @include('dashboard.empleado.FormularioEmpleado')
 
                     </form>
                 </div>

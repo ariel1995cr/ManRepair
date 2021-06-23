@@ -24,14 +24,14 @@
                 <div id="todos" class="d-none row justify-content-center align-items-center mt-2">
                     <div class="col-12 col-md-3">
                         <label>Fecha desde</label>
-                        <input type="date" name="fechaDesde" class="form-control {{$errors->has('fechaDesde') ? 'border-danger' : ''}}" id="fechaDesde" placeholder="Ingresa fecha">
+                        <input type="date" name="fechaDesde" value="{{old('fechaDesde')}}" class="form-control {{$errors->has('fechaDesde') ? 'border-danger' : ''}}" id="fechaDesde" placeholder="Ingresa fecha">
                         @if($errors->has('fechaDesde'))
                             <span class="text-danger">{{$errors->first('fechaDesde')}}</span>
                         @endif
                     </div>
                     <div class="col-12 col-md-3">
                         <label>Fecha hasta</label>
-                        <input type="date" name="fechaHasta" class="form-control {{$errors->has('fechaHasta') ? 'border-danger' : ''}}" id="fechaHasta" placeholder="Ingresa fecha">
+                        <input type="date" name="fechaHasta" value="{{old('fechaHasta')}}" class="form-control {{$errors->has('fechaHasta') ? 'border-danger' : ''}}" id="fechaHasta" placeholder="Ingresa fecha">
                         @if($errors->has('fechaHasta'))
                             <span class="text-danger">{{$errors->first('fechaHasta')}}</span>
                         @endif
@@ -42,8 +42,8 @@
                         <label>Seleccionar marca</label>
                         <select id="marca" name="marca" class="form-select {{$errors->has('marca') ? 'border-danger' : ''}}" aria-label="Seleccionar marca">
                             <option selected value="">Seleccionar marca</option>
+                            <option value="todos">Todos</option>
                             @foreach($marcas as $marca)
-                                <option value="todos">Todos</option>
                                 <option {{ old('marca') == $marca->nombre ? 'selected' : '' }} value="{{$marca->nombre}}">{{$marca->nombre}}</option>
                             @endforeach
                         </select>

@@ -26,9 +26,10 @@ class GenerarReporteRequest extends FormRequest
         return [
             //
             'tipo_reporte' => 'required',
-            'fechaDesde' => 'required',
-            'fechaHasta' => 'required',
-            'marca' => 'required_if:tipo_reporte,"cantidad de reparados"',
+            'fechaDesde' => 'required|date',
+            'fechaHasta' => 'required|date',
+            'marca' => 'required_if:tipo_reporte,"cantidad de reparados","reparados por garantia del celular"',
+            'estado' => 'required_if:tipo_reporte,"reporte de servicio"',
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Requests\GenerarReporteRequest;
 use App\Models\Estado;
 use App\Models\Marca;
 use App\Models\OrdenDeServicio;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use PDF;
 
@@ -25,6 +26,12 @@ class ReporteController extends Controller
     }
 
     public function generarReporte(GenerarReporteRequest $request){
+
+        if($request->fechaDesde > $request->fechaHasta){
+            $aux = $request->fechaDesde;
+            $request->fechaDesde = $request->fechaHasta;
+            $request->fechaHasta = $aux;
+        }
         if($request->tipo_reporte == 'reporte de servicio'){
             $view = $this->generarReporteServicios($request->fechaDesde, $request->fechaHasta, $request->estado);
             return $view->download('reporte_de_servicio.pdf');
@@ -34,7 +41,7 @@ class ReporteController extends Controller
             return $view->download('reporte_cantidad_reparados_por_marca.pdf');
         }
         if($request->tipo_reporte =='reparados por garantia del celular'){
-            $view = $this->generarReporteReparadosPorGarantia($request->fechaDesde, $request->fechaHasta);
+            $view = $this->generarReporteReparadosPorGarantia($request->fechaDesde, $request->fechaHasta, $request->marca);
             return $view->download('reporte_reparados_por_garantida_celular.pdf');
         }
     }
@@ -50,6 +57,8 @@ class ReporteController extends Controller
             }
             return $value;
         });
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d-m-Y');
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d-m-Y');
 
         $data = [
             'filtros'=> [
@@ -65,38 +74,47 @@ class ReporteController extends Controller
     }
 
     public function generarReporteCantidadReparados($desde, $hasta, $marca){
-        $ordenesDeServicio = $this->ordenDeServicio->cantidadReparadosPorMarca($desde,$hasta, $marca)->get()->groupBy('celular.nombre_marca')->map(function ($row) {
-            return $row->count();
-        });
-
-        $filteredOrdenes = $ordenesDeServicio->filter(function ($value, $key){
-            if($value->estado_actual == Estado::REPARADO){
+        $ordenesDeServicio = $this->ordenDeServicio->cantidadReparadosPorMarca($desde,$hasta, $marca)->get()->filter(function ($value, $key){
+            if($value->estado_actual == Estado::REPARADO || $value->estado_actual == Estado::LISTOPARAENTREGA || $value->estado_actual == Estado::ENTREGADO){
                 return $value;
             }
-            return $value;
+        })->groupBy('celular.nombre_marca')->map(function ($row) {
+            return $row->count();
         });
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d-m-Y');
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d-m-Y');
 
         $data = [
             'filtros'=> [
                 'Fecha desde' => $desde,
                 'Fecha hasta' => $hasta,
-                'Nombre marca' => $marca,
+                'Marca' => $marca,
                 'Estado' => Estado::REPARADO,
             ],
-            'ordenes'=> $filteredOrdenes,
+            'ordenes'=> $ordenesDeServicio,
             'titulo'=> 'Reporte cantidad de reparados por marca'
         ];
         return PDF::loadView('pdf.reporteCantidadReparadosMarca', $data)->setPaper('a4', 'landscape');
     }
 
-    public function generarReporteReparadosPorGarantia($desde, $hasta){
-        $ordenesDeServicio = $this->ordenDeServicio->reparadosPorGarantia($desde, $hasta)->get();
+    public function generarReporteReparadosPorGarantia($desde, $hasta, $marca){
+        $ordenesDeServicio = $this->ordenDeServicio->reparadosPorGarantia($desde, $hasta, $marca)->get();
+
+        $filteredOrdenes = $ordenesDeServicio->filter(function ($value, $key){
+            if($value->estado_actual == Estado::REPARADO || $value->estado_actual == Estado::LISTOPARAENTREGA || $value->estado_actual == Estado::ENTREGADO){
+                return $value;
+            }
+        });
+
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d-m-Y');
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d-m-Y');
         $data = [
             'filtros'=> [
                 'Fecha desde' => $desde,
                 'Fecha hasta' => $hasta,
+                'Marca' => $marca,
             ],
-            'ordenes'=> $ordenesDeServicio,
+            'ordenes'=> $filteredOrdenes,
             'titulo'=> 'Reporte de reparados por garantia'
         ];
 

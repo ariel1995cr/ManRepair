@@ -148,6 +148,13 @@ class OrdenDeServicioController extends Controller
     public function store(RequestSaveOrdenDeServicio $request){
         DB::beginTransaction();
         try {
+
+        if($celular = $this->celular->where('imei', $request->imei)->first()){
+            if($celular->nombre_marca != $request->marca || $celular->nombre_modelo != $request->modelo){
+                return back()->withInput()->withErrors(['message'=>'El IMEI no coincide con la marca o el modelo.']);
+            }
+        }
+
         if($ultimaordenDeServicio = $this->ordenDeServicio->where('imei', $request->imei)->latest('created_at')->first()){
             if($ultimaordenDeServicio->estado_actual != Estado::REPARADO){
                 return back()->withInput()->withErrors(['message'=>'Existe una orden de servicio actualmente en curso.']);
@@ -190,6 +197,7 @@ class OrdenDeServicioController extends Controller
         return view('Admin.OrdenDeServicio.createSucces')->with('ordenDeServicio', $this->ordenDeServicio)->with('title', 'Orden de servicio creada correctamente.');
         }catch (\Exception $e){
             DB::rollBack();
+            dd($e);
             return back()->withInput()->withErrors(['message'=>'Ocurrio algun error interno. Por favor reintente.']);
         }
     }

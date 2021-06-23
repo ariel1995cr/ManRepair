@@ -8,7 +8,7 @@
                 {{$titulo}}
                 <br>
                 Generado por: {{Auth::user()->nombre}} {{Auth::user()->apellido}}</th>
-            <th scope="col" colspan="6">
+                <th scope="col" colspan="7">
                 Filtros utilizados:
                 <br>
                 @foreach($filtros as $key => $filtro)
@@ -39,7 +39,7 @@
                 <td>{{$orden->celular->nombre_marca}}</td>
                 <td>{{$orden->cliente->apellido}} {{$orden->cliente->nombre}}</td>
                 <td>{{$orden->cliente->numero_de_telefono}}</td>
-                <td>{{$orden->created_at}}</td>
+                <td>{{$orden->created_at->format('d-m-Y')}}</td>
                 <td>{{$orden->estado_actual}}</td>
             </tr>
         @endforeach

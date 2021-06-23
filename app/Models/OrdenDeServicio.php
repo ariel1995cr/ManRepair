@@ -132,14 +132,14 @@ class OrdenDeServicio extends Model
     }
 
     public function scopeFiltroServicios($query, $desde, $hasta,$estado){
-        $desde = Carbon::createFromFormat('Y-m-d', $desde)->hour(0)->minute(0)->second(0);
-        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->hour(23)->minute(59)->second(0);
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->hour(00)->minute(00)->second(00);
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->hour(23)->minute(59)->second(59);
         return $query->whereBetween('created_at', [$desde, $hasta]);
     }
 
     public function scopeCantidadReparadosPorMarca($query, $desde, $hasta, $marca){
-        $desde = Carbon::createFromFormat('Y-m-d', $desde)->hour(0)->minute(0)->second(0);
-        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->hour(23)->minute(59)->second(0);
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->hour(00)->minute(00)->second(00);
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->hour(23)->minute(59)->second(59);
         $query = $query->whereBetween('created_at', [$desde, $hasta]);
         if($marca != ''){
             $query->whereHas('celular', function ($query) use ($marca){
@@ -150,8 +150,17 @@ class OrdenDeServicio extends Model
         }
         return $query;
     }
-    public function scopeReparadosPorGarantia($query, $desde, $hasta){
+    public function scopeReparadosPorGarantia($query, $desde, $hasta, $marca){
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->hour(00)->minute(00)->second(00);
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->hour(23)->minute(59)->second(59);
         $query = $query->whereBetween('created_at', [$desde, $hasta])->whereNotNull('nro_orden_anterior');
+        if($marca != ''){
+            $query->whereHas('celular', function ($query) use ($marca){
+                if($marca != 'todos'){
+                    $query->where('nombre_marca','=', $marca);
+                }
+            });
+        }
         return $query;
     }
 }

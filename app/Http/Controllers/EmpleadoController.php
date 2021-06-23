@@ -9,6 +9,7 @@ use App\Models\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class EmpleadoController extends Controller
 {
@@ -115,9 +116,7 @@ class EmpleadoController extends Controller
             $empleado->contrasena = $request->contrasena;
         }
         $empleado->save();
-        // Session::flash('status', 'Marca actualizada con exito!');
-        $request->session()->flash('status','Empleado actualizado con exito!');
-        return view('dashboard.empleado.edit', ['empleado' => $empleado]);
+        return back()->with('status', 'Empleado actualizado con exito');
     }
 
      /**

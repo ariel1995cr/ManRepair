@@ -26,7 +26,7 @@ class CambiarEstadoRequest extends FormRequest
     {
         if($this->request->get('nombre_estado') != Estado::PRESUPUESTADO){
             return [
-                'comentario' => 'required'
+                'comentario' => 'nullable'
             ];
         }
         if($this->request->get('nombre_estado') == Estado::PRESUPUESTADO){

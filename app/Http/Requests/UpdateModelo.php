@@ -24,7 +24,7 @@ class UpdateModelo extends FormRequest
     public function rules()
     {
         return [
-            'nombre'=>'required|min:2|unique:modelo,nombre,'.$this->modelo->nombre.',nombre',
+            'nombre'=>'required|min:1|unique:modelo,nombre,'.$this->modelo->nombre.',nombre',
             'nombre_marca'=>'required|exists:marca,nombre|unique:modelo,nombre_marca,'.$this->modelo->nombre_marca.',nombre_marca',
             'fecha_lanzamiento'=>'nullable',
             'foto'=>'nullable|file|max:5120|mimes:jpg,bmp,png',
