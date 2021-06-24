@@ -39,5 +39,9 @@
             </div>
         </div>
     </div>
+    {{-- Pagination --}}
+    <div class="d-flex flex-row-reverse">
+        {!! $empleados->links() !!}
+    </div>
 
 @endsection
