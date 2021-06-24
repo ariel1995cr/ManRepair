@@ -54,8 +54,9 @@ class ReporteController extends Controller
                 if($value->estado_actual == $estado){
                     return $value;
                 }
+            }else{
+                return $value;
             }
-            return $value;
         });
         $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d-m-Y');
         $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d-m-Y');
