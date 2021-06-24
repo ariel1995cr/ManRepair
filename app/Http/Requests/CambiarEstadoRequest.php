@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use App\Models\Estado;
+use Carbon\Carbon;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CambiarEstadoRequest extends FormRequest
@@ -35,9 +36,16 @@ class CambiarEstadoRequest extends FormRequest
                 'detalle_reparacion' => 'required',
                 'materiales_necesarios' => 'required',
                 'importe_reparacion'=> 'required|integer',
-                'tiempo_de_reparacion' => 'required|date',
+                'tiempo_de_reparacion' => 'required|date|after_or_equal:'.date('m/d/Y'),
                 'comentario' => 'nullable',
             ];
         }
+    }
+
+    public function messages()
+    {
+        return [
+            'tiempo_de_reparacion.after_or_equal' => 'El campo tiempo de reparacion debe ser una fecha posterior o igual a '.Carbon::now()->format('d/m/Y').',',
+        ];
     }
 }

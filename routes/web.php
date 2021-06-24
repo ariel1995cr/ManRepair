@@ -5,6 +5,8 @@ use App\Http\Controllers\OrdenDeServicioController;
 // use App\Http\Controllers\dashboard\MarcaController as MarcaGonza;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\AdminController;
+use App\Models\OrdenDeServicio;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\ClienteController;
@@ -22,6 +24,48 @@ use App\Http\Controllers\ReporteController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('pruebaSeeder', function (){
+    OrdenDeServicio::factory()->count(10)->make()->each(function ($orden){
+        $modelo = \App\Models\Modelo::inRandomOrder()->first();
+        $celular = \App\Models\Celular::firstOrCreate(
+            ['imei'=>$orden->imei],
+            ['nombre_marca'=>$modelo->nombre_marca, 'nombre_modelo'=>$modelo->nombre]
+        );
+
+        $orden->save();
+
+        $estados = new \App\Models\Estado();
+        $historialEstado = new \App\Models\HistorialEstadoOrdenDeServico();
+        $historialEstado->nro_orden_de_servicio = $orden->nro;
+        $historialEstado->nombre_estado = 'Recibido';
+        $historialEstado->dni_empleado = $orden->dni_empleado;
+        $historialEstado->save();
+
+        $int = random_int(0,6);
+        for ($i = 0; $i <= $int; $i++) {
+            if($orden->estado_actual != "Entregado"){
+                $nuevoEstado = $estados->obtenerEstadoPosibles($orden->estado_actual)->first();
+                $historialEstado = new \App\Models\HistorialEstadoOrdenDeServico();
+                $historialEstado->nro_orden_de_servicio = $orden->nro;
+                $historialEstado->nombre_estado = $nuevoEstado->nombre;
+                $historialEstado->dni_empleado = $orden->dni_empleado;
+                if($nuevoEstado->nombre == \App\Models\Estado::PRESUPUESTADO){
+                    $orden->detalle_reparacion = "detalle de reparacion";
+                    $orden->materiales_necesarios = "lista de materiales";
+                    $orden->importe_reparacion = random_int(1000,15000);
+                    $orden->save();
+                }
+                if($nuevoEstado->nombre == \App\Models\Estado::NOREPARADO){
+                    $orden->importe_reparacion = 0;
+                    $orden->save();
+                    $historialEstado->comentario = "por x motivo no se pudo reparar";
+                }
+                $historialEstado->save();
+            }
+        }
+    });
+});
 
 Route::resource('/', InicioController::class)->only(['index']);
 
