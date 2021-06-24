@@ -29,8 +29,8 @@ class CreateOrdenDeServicioTable extends Migration
 
             $table->foreign('nro_orden_anterior')->references('nro')->on('orden_de_servicio');
             $table->foreign('imei')->references('imei')->on('celular');
-            $table->foreign('dni_empleado')->references('dni')->on('empleado');
-            $table->foreign('dni_cliente')->references('dni')->on('cliente');
+            $table->foreign('dni_empleado')->references('dni')->on('empleado')->onUpdate('cascade');
+            $table->foreign('dni_cliente')->references('dni')->on('cliente')->onUpdate('cascade');
         });
     }
 
