@@ -106,7 +106,7 @@ async function ordenDeServicioReingreso(nro) {
     let informacionOrden = document.getElementById('informacionOrden');
     let resp = await axios.get('/admin/ordenDeServicio/reingresoValido/' + nro)
         .then(response => {
-            let ordenDeServicio = response.data[1];
+            let ordenDeServicio = response.data.orden;
             let date = new Date(ordenDeServicio['created_at']);
             let dateParse = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
             informacionOrden.innerHTML = `Motivo de la orden: ${ordenDeServicio['motivo_orden']} <br> Descripción estado del celular: ${ordenDeServicio['descripcion_estado_celular']} <br> Fecha ingreso: ${dateParse}`

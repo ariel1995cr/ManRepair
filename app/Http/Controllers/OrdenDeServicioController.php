@@ -104,7 +104,7 @@ class OrdenDeServicioController extends Controller
             if($error){
                 return response()->json(['mensaje'=>'Esta orden no fue reparada.'],404);
             }
-            return response()->json(['mensaje'=>'Orden valida.', 'orden'=> $this->ordenDeServicio]);
+            return response()->json(['mensaje'=>'Orden valida.', 'orden'=> $this->ordenDeServicio], 202);
         }else{
             return response()->json(['mensaje'=>$resp['mensaje']],404);
         }
