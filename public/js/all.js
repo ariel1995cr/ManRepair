@@ -18,10 +18,9 @@ function limpiarSelectModelos() {
 async function obtenerModelos(marca, modeloSeleccionado = null) {
     await axios.get('/admin/marcas/obtenerModelos/' + marca)
         .then(response => {
-            console.log(response);
             let select = document.getElementById('modelo');
-            let option = document.createElement("option");
             response.data.forEach(modelo => {
+                let option = document.createElement("option");
                 option.text = modelo.nombre;
                 option.value = modelo.nombre;
                 if (modelo.nombre == modeloSeleccionado) {
@@ -109,7 +108,6 @@ async function ordenDeServicioReingreso(nro) {
         .then(response => {
             let ordenDeServicio = response.data[1];
             let date = new Date(ordenDeServicio['created_at']);
-            console.log(date);
             let dateParse = date.getDate() + '/' + (date.getMonth() + 1) + '/' + date.getFullYear();
             informacionOrden.innerHTML = `Motivo de la orden: ${ordenDeServicio['motivo_orden']} <br> Descripción estado del celular: ${ordenDeServicio['descripcion_estado_celular']} <br> Fecha ingreso: ${dateParse}`
             return true;
@@ -118,6 +116,8 @@ async function ordenDeServicioReingreso(nro) {
             informacionOrden.innerHTML = '';
             let mensaje = err.response.data.mensaje;
             enviarNotificacion('error', 'Error en el formulario', mensaje);
+            let ordennro = document.getElementById('nro_orden_anterior');
+            ordennro.value = '';
             return false;
         })
     return resp;
