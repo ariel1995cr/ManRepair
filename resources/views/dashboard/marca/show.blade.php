@@ -30,11 +30,10 @@
                                     @endif
                                 </td>
                                 <td>
-
-                                    <a class="btn btn-primary"
-                                        href="{{ route('marcas.edit', $marca->nombre) }}">Editar</a>
                                     @if(is_null($marca->deleted_at))
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalBorrado"  data-id="{{$marca->nombre}}">Borrar</button>
+                                        <a class="btn btn-primary"
+                                           href="{{ route('marcas.edit', $marca->nombre) }}">Editar</a>
                                     @else
                                         <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#modalReactivar"  data-id="{{$marca->nombre}}">Recuperar</button>
                                     @endif

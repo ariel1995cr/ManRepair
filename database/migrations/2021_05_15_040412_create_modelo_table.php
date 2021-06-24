@@ -19,7 +19,7 @@ class CreateModeloTable extends Migration
             $table->date('fecha_lanzamiento')->nullable();
             $table->string('foto')->nullable();
 
-            $table->foreign('nombre_marca')->references('nombre')->on('marca');
+            $table->foreign('nombre_marca')->references('nombre')->on('marca')->onUpdate('cascade')->onDelete('cascade');;
             $table->softDeletes();
 
             $table->primary(['nombre', 'nombre_marca']);

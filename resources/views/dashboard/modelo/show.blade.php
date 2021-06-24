@@ -34,10 +34,11 @@
                                 </td>
                                 <td>
                                     {{-- <a class="btn btn-primary" href="">Ver</a> --}}
-                                    <a class="btn btn-primary"
-                                        href="{{ route('modelos.edit', $modelo->nombre) }}">Editar</a>
+
 
                                     @if (is_null($modelo->deleted_at))
+                                        <a class="btn btn-primary"
+                                           href="{{ route('modelos.edit', $modelo->nombre) }}">Editar</a>
                                         <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                             data-bs-target="#modalBorrado" data-idModelo="{{ $modelo->nombre }}">Borrar</button>
                                     @else
