@@ -76,7 +76,7 @@ class ReporteController extends Controller
 
     public function generarReporteCantidadReparados($desde, $hasta, $marca){
         $ordenesDeServicio = $this->ordenDeServicio->cantidadReparadosPorMarca($desde,$hasta, $marca)->get()->filter(function ($value, $key){
-            if($value->estado_actual == Estado::REPARADO || $value->estado_actual == Estado::LISTOPARAENTREGA || $value->estado_actual == Estado::ENTREGADO){
+            if($value->historico_estado->contains('nombre', Estado::REPARADO)){
                 return $value;
             }
         })->groupBy('celular.nombre_marca')->map(function ($row) {
@@ -102,7 +102,7 @@ class ReporteController extends Controller
         $ordenesDeServicio = $this->ordenDeServicio->reparadosPorGarantia($desde, $hasta, $marca)->get();
 
         $filteredOrdenes = $ordenesDeServicio->filter(function ($value, $key){
-            if($value->estado_actual == Estado::REPARADO || $value->estado_actual == Estado::LISTOPARAENTREGA || $value->estado_actual == Estado::ENTREGADO){
+            if($value->historico_estado->contains('nombre', Estado::REPARADO)){
                 return $value;
             }
         });

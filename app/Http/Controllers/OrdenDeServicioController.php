@@ -96,11 +96,11 @@ class OrdenDeServicioController extends Controller
         if($resp['valido'] === true){
             $error = false;
             $this->ordenDeServicio = $this->ordenDeServicio->where('nro', $nroOrdenDeServicio)->first();
-            $this->ordenDeServicio->historico_estado->each(function ($item, $key) use(&$error){
-               if($item->nombre == Estado::NOREPARADO){
-                  $error = true;
-               }
-            });
+                $this->ordenDeServicio->historico_estado->each(function ($item, $key) use(&$error){
+                   if($item->nombre == Estado::NOREPARADO){
+                      $error = true;
+                   }
+                });
             if($error){
                 return response()->json(['mensaje'=>'Esta orden no fue reparada.'],404);
             }
