@@ -44,6 +44,9 @@
             </div>
         </div>
     </div>
-
+    {{-- Pagination --}}
+    <div class="d-flex flex-row-reverse">
+        {!! $clientes->links() !!}
+    </div>
 
 @endsection
