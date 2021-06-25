@@ -48,7 +48,7 @@
                     @endisset
                     @isset($ordenDeServicio->tiempo_de_reparacion)
                         <li class="mt-4 fw-lighter fw-bold">Día estimado de entrega</li>
-                        <li class="fw-lighter">{{$ordenDeServicio->tiempo_de_reparacion->format('d-m-Y h:s')}}</li>
+                        <li class="fw-lighter">{{$ordenDeServicio->tiempo_de_reparacion->format('d-m-Y H:i')}}</li>
                     @endisset
                 </ul>
             </div>
@@ -60,7 +60,7 @@
                     <div class="card mt-2" >
                         <div class="card-body bg-light">
                             <h5 class="card-title">{{$estado->nombre}}</h5>
-                            <p class="card-text">{{$estado->pivot->created_at->format('d-m-Y h:s')}}
+                            <p class="card-text">{{$estado->pivot->created_at->format('d-m-Y H:i')}}
                                 <br>
                                 @if($estado->pivot->comentario != '')
                                     <span>Comentario: <br>{{$estado->pivot->comentario}}
