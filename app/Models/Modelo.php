@@ -16,6 +16,7 @@ class Modelo extends Model
     protected $table = "modelo";
     public $incrementing = false;
     public $timestamps = false;
+    protected $dates = ['fecha_lanzamiento'];
 
     protected $fillable = ['nombre', 'nombre_marca', 'fecha_lanzamiento', 'foto'];
 }

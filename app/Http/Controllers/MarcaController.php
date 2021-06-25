@@ -111,10 +111,10 @@ class MarcaController extends Controller
         }
         $marca->save();
         $request->session()->flash('status','Marca actualizada con exito!');
-        return view('dashboard.marca.edit', ['marca' => $marca]);
+        return back()->with('status', 'Marca actualizada con exito')->withInput();
 
         // $marca->update($request->validated());
-        // return back()->with('status', 'Marca actualizada con exito');
+        //
     }
 
     /**

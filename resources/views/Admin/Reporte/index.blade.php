@@ -67,7 +67,7 @@
                         @endif
                     </div>
                 </div>
-            <div class="row align-items-start mt-3">
+            <div id="BotonGenerar" class="d-none row align-items-start mt-3">
                 <div class="col-12 col-md-3 offset-md-3">
                     <button type="submit" class="btn btn-secondary">Generar</button>
                 </div>

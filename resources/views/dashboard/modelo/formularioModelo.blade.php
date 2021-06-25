@@ -23,7 +23,7 @@
 
     <div class="mb-3">
         <label for="Fecha de lanzamiento" class="form-label">Fecha de lanzamiento</label>
-        <input type="date" class="form-control" name="fecha_lanzamiento" id="lanzamiento" value="{{ old('fecha_lanzamiento') == '' ? $modelo->fecha_lanzamiento : old('fecha_lanzamiento') }}">
+        <input type="date" class="form-control" name="fecha_lanzamiento" id="lanzamiento" value="{{ old('fecha_lanzamiento') == '' ? $modelo->fecha_lanzamiento == null ? '' : $modelo->fecha_lanzamiento->format('Y-m-d') : old('fecha_lanzamiento') }}">
     </div>
 
     <div class="mb-3">

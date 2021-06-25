@@ -161,6 +161,7 @@ function formularioTipoDeReporte(tipoDeReporteSeleccionado) {
     let divForm1 = document.getElementById('todos');
     let divForm2 = document.getElementById('selectSeleccionarEstado');
     let divForm3 = document.getElementById('selectSeleccionarMarca');
+    let divFormBotton = document.getElementById('BotonGenerar');
 
     let classVisible = 'row justify-content-center align-items-center mt-2'
     let classNoVisible = 'row d-none justify-content-center align-items-center mt-2'
@@ -183,6 +184,7 @@ function formularioTipoDeReporte(tipoDeReporteSeleccionado) {
         divForm3.className = 'row align-items-start mt-2';
         document.getElementById("btnradio3").checked = true;
     }
+    divFormBotton.className = "row align-items-start mt-3";
 }
 
 function modalEvento() {

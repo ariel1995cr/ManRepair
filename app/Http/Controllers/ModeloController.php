@@ -95,7 +95,7 @@ class ModeloController extends Controller
      */
     public function update(UpdateModelo $request, Modelo $modelo)
     {
-        
+
         $marcas = new Marca();
         $marcas = $marcas->listarMarcas();
         $modelo->update($request->validated());
@@ -105,8 +105,8 @@ class ModeloController extends Controller
             $modelo->foto = '/storage/' . $filePath;
             $modelo->save();
         }
-        $request->session()->flash('status','Modelo actualizado con exito!');
-        return view('dashboard.modelo.edit', ['modelo' => $modelo], ['marcas'=> $marcas]);
+
+        return back()->with('status', 'Modelo actualizado con exito')->withInput();
     }
 
     /**
