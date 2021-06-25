@@ -23,7 +23,7 @@ class CreateHistorialEstadoOrdenDeServicioTable extends Migration
 
             $table->foreign('nro_orden_de_servicio')->references('nro')->on('orden_de_servicio');
             $table->foreign('nombre_estado')->references('nombre')->on('estado');
-            $table->foreign('dni_empleado')->references('dni')->on('empleado');
+            $table->foreign('dni_empleado')->references('dni')->on('empleado')->onUpdate('cascade');
         });
     }
 
