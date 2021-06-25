@@ -50,7 +50,7 @@ class ClienteController extends Controller
     public function store(StoreCliente $request)
     {
         Cliente::create($request->validated());
-        return back()->with('status', 'Cliente creado con exito');
+        return redirect()->route('clientes.index')->with('status', 'Cliente creado con exito');
     }
 
     /**
@@ -88,7 +88,7 @@ class ClienteController extends Controller
     {
         $cliente->update($request->validated());
         //  dd($cliente);
-        return back()->with('status', 'Cliente actualizado con exito');
+        return redirect()->route('clientes.index')->with('status', 'Cliente actualizado con exito');
     }
 
     /**

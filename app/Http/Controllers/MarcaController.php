@@ -67,7 +67,7 @@ class MarcaController extends Controller
         }
 
         $marca->save();
-        return back()->with('status', 'Marca creada con exito');
+        return redirect()->route('marcas.index')->with('status', 'Marca creada con exito');
     }
 
     /**
@@ -111,10 +111,7 @@ class MarcaController extends Controller
         }
         $marca->save();
         $request->session()->flash('status','Marca actualizada con exito!');
-        return back()->with('status', 'Marca actualizada con exito')->withInput();
-
-        // $marca->update($request->validated());
-        //
+        return redirect()->route('marcas.index')->with('status', 'Marca actualizada con exito');
     }
 
     /**
