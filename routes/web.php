@@ -68,9 +68,13 @@ Route::get('pruebaSeeder', function (){
 });
 
 Route::get('pruebaSeederReingreso', function (){
-    OrdenDeServicio::all()->filter(function ($value, $key){
-        $value->historico_estado->contains('nombre_estado', );
-    });
+    $ordenesDeServicio = OrdenDeServicio::whereHas('historico_estado', function ($q){
+        $q->whereIn('nombre_estado', ['Entregado', 'Reparado']);
+    })->whereHas('historico_estado', function ($q){
+        $q->where('nombre_estado', 'Reparado');
+    })->get();
+
+    dd($ordenesDeServicio);
 });
 
 Route::resource('/', InicioController::class)->only(['index']);

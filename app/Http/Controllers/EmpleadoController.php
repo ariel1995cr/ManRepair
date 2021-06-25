@@ -116,7 +116,7 @@ class EmpleadoController extends Controller
             $empleado->contrasena = $request->contrasena;
         }
         $empleado->save();
-        return back()->with('status', 'Empleado actualizado con exito');
+        return redirect()->route('empleados.index')->with('status', 'Empleado actualizado con exito');
     }
 
      /**
@@ -129,7 +129,7 @@ class EmpleadoController extends Controller
     {
         // dd($request->validated());
         Empleado::create($request->validated());
-        return back()->with('status', 'Empleado creado con exito');
+        return redirect()->route('empleados.index')->with('status', 'Empleado creado con exito');
     }
 
 }

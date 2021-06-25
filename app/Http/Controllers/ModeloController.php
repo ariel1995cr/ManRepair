@@ -58,7 +58,7 @@ class ModeloController extends Controller
             $modelo->foto = '/storage/' . $filePath;
             $modelo->save();
         }
-        return back()->with('status', 'Modelo creado con exito');
+        return redirect()->route('modelos.index')->with('status', 'Modelo creado con exito');
     }
 
     /**
@@ -106,7 +106,7 @@ class ModeloController extends Controller
             $modelo->save();
         }
 
-        return back()->with('status', 'Modelo actualizado con exito')->withInput();
+        return redirect()->route('modelos.index')->with('status', 'Modelo actualizado con exito');
     }
 
     /**
