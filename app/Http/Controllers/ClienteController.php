@@ -18,7 +18,12 @@ class ClienteController extends Controller
 
     public function buscarCliente($campo, $dni)
     {
-        return $this->cliente::buscarCliente($campo, $dni)->first();
+        $cliente = $this->cliente::buscarCliente($campo, $dni)->first();
+        if($cliente == null){
+            return response()->json(['encontrado'=>false]);
+        }else{
+            return ['encontrado'=>true, 'cliente'=>$cliente];
+        }
     }
     /**
      * Display a listing of the resource.

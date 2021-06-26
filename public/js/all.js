@@ -36,8 +36,7 @@ function changeDNICliente(dni) {
     axios.get('/admin/clientes/campo/dni/dni/' + dni)
         .then(response => {
             console.log(response.data);
-            if (response.data == "") {
-                console.log("hola");
+            if (response.data.encontrado == false) {
                 document.getElementById('nombre').readOnly = false;
                 document.getElementById('apellido').readOnly = false;
                 document.getElementById('telefono').readOnly = false;
@@ -45,16 +44,16 @@ function changeDNICliente(dni) {
             } else {
                 let input = document.getElementById('nombre');
                 input.readOnly = true;
-                input.value = response.data.nombre;
+                input.value = response.data.cliente.nombre;
                 input = document.getElementById('apellido');
                 input.readOnly = true;
-                input.value = response.data.apellido;
+                input.value = response.data.cliente.apellido;
                 input = document.getElementById('telefono');
                 input.readOnly = true;
-                input.value = response.data.numero_de_telefono;
+                input.value = response.data.cliente.numero_de_telefono;
                 input = document.getElementById('email');
                 input.readOnly = true;
-                input.value = response.data.email;
+                input.value = response.data.cliente.email;
             }
         })
         .catch()
