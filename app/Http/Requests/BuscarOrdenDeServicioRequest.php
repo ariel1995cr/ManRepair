@@ -23,6 +23,11 @@ class BuscarOrdenDeServicioRequest extends FormRequest
      */
     public function rules()
     {
+        if($this->request->get('campoBusqueda') == null){
+            return [
+
+            ];
+        }
         if($this->request->get('campoBusqueda') == 'nro'){
             return [
                 //
