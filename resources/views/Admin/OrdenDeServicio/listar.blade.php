@@ -20,6 +20,9 @@
                </div>
                <div class="col-12 col-md-2">
                    <input value="{{old('valorBusqueda')}}" name="valorBusqueda" type="text" class="form-control form-control-sm" placeholder="Valor de busqueda" aria-label="Valor a buscar">
+                   @if($errors->has('valorBusqueda'))
+                       <span class="text-danger">{{$errors->first('valorBusqueda')}}</span>
+                   @endif
                </div>
                <div class="col-12 col-md-1">
                    <button type="submit" class="btn btn-sm btn-secondary">Buscar</button>
