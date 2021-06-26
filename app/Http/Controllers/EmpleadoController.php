@@ -111,6 +111,7 @@ class EmpleadoController extends Controller
         $empleado->email = $request->email;
         $empleado->nombre = $request->nombre;
         $empleado->apellido = $request->apellido;
+        $empleado->numero_de_telefono = $request->numero_de_telefono;
         $empleado->rol = $request->rol;
         if($request->contrasena != ''){
             $empleado->contrasena = $request->contrasena;

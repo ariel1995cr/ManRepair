@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\altaReingresoRequest;
+use App\Http\Requests\BuscarOrdenDeServicioRequest;
 use App\Http\Requests\CambiarEstadoRequest;
 use App\Http\Requests\RequestSaveOrdenDeServicio;
 use App\Http\Requests\StoreCliente;
@@ -111,7 +112,7 @@ class OrdenDeServicioController extends Controller
 
     }
 
-    public function listar(Request $request){
+    public function listar(BuscarOrdenDeServicioRequest $request){
         if($request->campoBusqueda == null || $request->valorBusqueda == null){
             $ordenesDeServicios = $this->ordenDeServicio
                 ::with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->paginate(15);

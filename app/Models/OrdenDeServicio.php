@@ -78,7 +78,8 @@ class OrdenDeServicio extends Model
 
         if ($campo == 'created_at'){
             return $query->whereHas('historico_estado', function ($query) use ($valor_de_busqueda){
-                $query->latest()->whereDate('created_at', $valor_de_busqueda);
+                $fecha = Carbon::createFromFormat('d/m/Y', $valor_de_busqueda);
+                $query->latest()->whereDate('created_at', $fecha);
             });
         }
     }

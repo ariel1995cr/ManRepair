@@ -20,6 +20,9 @@
                </div>
                <div class="col-12 col-md-2">
                    <input value="{{old('valorBusqueda')}}" name="valorBusqueda" type="text" class="form-control form-control-sm" placeholder="Valor de busqueda" aria-label="Valor a buscar">
+                   @if($errors->has('valorBusqueda'))
+                       <span class="text-danger">{{$errors->first('valorBusqueda')}}</span>
+                   @endif
                </div>
                <div class="col-12 col-md-1">
                    <button type="submit" class="btn btn-sm btn-secondary">Buscar</button>
@@ -52,9 +55,9 @@
                     <td>{{$orden->celular->nombre_modelo}}</td>
                     <td>{{$orden->cliente->apellido}} {{$orden->cliente->nombre}}</td>
                     <td>{{$orden->empleado->apellido}} {{$orden->empleado->nombre}}</td>
-                    <td>{{$orden->created_at}}</td>
+                    <td>{{$orden->created_at->format('d/m/Y H:i')}}</td>
                     <td>{{$orden->estado_actual}}</td>
-                    <td>{{$orden->ultima_actualizacion}}</td>
+                    <td>{{$orden->ultima_actualizacion->format('d/m/Y H:i')}}</td>
                     <td>
                         @if($orden->estado_actual != 'Entregado')
                             <a href="{{route('admin.ordenDeServicio.cambiarEstado', ['nroOrdenDeServicio'=>$orden->nro])}}" class="text-black-50" data-bs-toggle="tooltip" data-bs-placement="left" title="Cambiar estado">
