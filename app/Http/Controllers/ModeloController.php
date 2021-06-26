@@ -27,7 +27,8 @@ class ModeloController extends Controller
      */
     public function index()
     {
-        $modelos = Modelo::withTrashed()->get();
+        $modelos = Modelo::withTrashed()->paginate(10);
+       
         return view('dashboard.modelo.show', ['modelos'=> $modelos]);
     }
 

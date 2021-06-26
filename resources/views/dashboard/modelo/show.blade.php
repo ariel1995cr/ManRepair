@@ -98,6 +98,10 @@
                 </div>
             </div>
         </div>
+        {{-- Pagination --}}
+        <div class="d-flex flex-row-reverse">
+            {!! $modelos->links() !!}
+        </div>
     </form>
     <script>
         window.onload = function carga() {
