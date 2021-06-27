@@ -24,9 +24,21 @@
     <div class="mb-3">
         <label for="Fecha de lanzamiento" class="form-label">Fecha de lanzamiento</label>
         <input type="date" class="form-control" name="fecha_lanzamiento" id="lanzamiento" value="{{ old('fecha_lanzamiento') == '' ? $modelo->fecha_lanzamiento == null ? '' : $modelo->fecha_lanzamiento->format('Y-m-d') : old('fecha_lanzamiento') }}">
+        @if($errors->has('fecha_lanzamiento'))
+            <span class="text-danger">{{$errors->first('fecha_lanzamiento')}}</span>
+        @endif
     </div>
 
-    <div class="mb-3">
+@if($modelo->foto != null)
+    <div class="form-check mb-3">
+        <input onchange="eliminarFoto(event.target)" class="form-check-input" type="checkbox" name="eliminarFotoValue" id="eliminarFotoValue">
+        <label class="form-check-label" for="eliminarFotoValue">
+            Eliminar foto
+        </label>
+    </div>
+@endif
+
+    <div id="CambiarFoto" class="mb-3">
         <input type="file" name="imagen" class="custom-file-input" id="chooseFile">
         <label class="custom-file-label" for="chooseFile">Imagen</label>
         <br>

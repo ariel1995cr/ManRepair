@@ -259,3 +259,11 @@ function modalEvento() {
         }
     })
 }
+
+function eliminarFoto(valor){
+   if(valor.checked){
+       document.getElementById("CambiarFoto").className = "mb-3 d-none";
+   }else{
+       document.getElementById("CambiarFoto").className = "mb-3";
+   }
+}

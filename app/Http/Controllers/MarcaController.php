@@ -44,7 +44,7 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        return view('dashboard.marca.create', ['marca'=> new Marca()]);
+        return view('dashboard.marca.create', ['marca'=> new Marca(), 'edit'=> false]);
         // $marca = Marca::pluck('nombre','logo');
 
     }
@@ -91,7 +91,7 @@ class MarcaController extends Controller
     public function edit(Marca $marca)
     {
         // dd($marca->all());
-        return view('dashboard.marca.edit', ['marca' => $marca]);
+        return view('dashboard.marca.edit', ['marca' => $marca, 'edit'=> true]);
     }
 
     /**
@@ -104,10 +104,14 @@ class MarcaController extends Controller
     public function update(UpdateMarca $request, Marca $marca)
     {
         $marca->nombre = $request->nombre;
-        if($request->file()) {
-            $fileName = time().'_'.$request->file('logo')->getClientOriginalName();
-            $filePath = $request->file('logo')->storeAs('uploads', $fileName, 'public');
-            $marca->logo = '/storage/' . $filePath;
+        if($request->eliminarFotoValue == "on"){
+            $marca->logo = null;
+        }else{
+            if($request->file()) {
+                $fileName = time().'_'.$request->file('logo')->getClientOriginalName();
+                $filePath = $request->file('logo')->storeAs('uploads', $fileName, 'public');
+                $marca->logo = '/storage/' . $filePath;
+            }
         }
         $marca->save();
         $request->session()->flash('status','Marca actualizada con exito!');

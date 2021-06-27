@@ -28,7 +28,7 @@ class ModeloController extends Controller
     public function index()
     {
         $modelos = Modelo::withTrashed()->paginate(10);
-       
+
         return view('dashboard.modelo.show', ['modelos'=> $modelos]);
     }
 
@@ -96,15 +96,19 @@ class ModeloController extends Controller
      */
     public function update(UpdateModelo $request, Modelo $modelo)
     {
-
         $marcas = new Marca();
         $marcas = $marcas->listarMarcas();
         $modelo->update($request->validated());
+        if($request->eliminarFotoValue == "on"){
+            $modelo->foto = null;
+            $modelo->save();
+        }else{
         if($request->file()) {
             $fileName = time().'_'.$request->file('imagen')->getClientOriginalName();
             $filePath = $request->file('imagen')->storeAs('modelos', $fileName, 'public');
             $modelo->foto = '/storage/' . $filePath;
             $modelo->save();
+        }
         }
 
         return redirect()->route('modelos.index')->with('status', 'Modelo actualizado con exito');
