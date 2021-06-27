@@ -61,7 +61,7 @@ class EmpleadoController extends Controller
      */
     public function index()
     {
-        $empleados = Empleado::paginate(8);
+        $empleados = Empleado::paginate(10);
         return view('dashboard.empleado.show', ['empleados'=> $empleados]);
     }
 

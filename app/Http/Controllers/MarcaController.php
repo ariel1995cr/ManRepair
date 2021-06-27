@@ -33,7 +33,7 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        $marcas = Marca::withTrashed()->get();
+        $marcas = Marca::withTrashed()->paginate(10);
         return view('dashboard.marca.show', ['marcas'=> $marcas]);
     }
 

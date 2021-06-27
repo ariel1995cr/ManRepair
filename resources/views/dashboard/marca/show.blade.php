@@ -30,12 +30,15 @@
                                     @endif
                                 </td>
                                 <td>
-                                    @if(is_null($marca->deleted_at))
-                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalBorrado"  data-id="{{$marca->nombre}}">Borrar</button>
+                                    @if (is_null($marca->deleted_at))
+                                        <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                            data-bs-target="#modalBorrado" data-id="{{ $marca->nombre }}">Borrar</button>
                                         <a class="btn btn-primary"
-                                           href="{{ route('marcas.edit', $marca->nombre) }}">Editar</a>
+                                            href="{{ route('marcas.edit', $marca->nombre) }}">Editar</a>
                                     @else
-                                        <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal" data-bs-target="#modalReactivar"  data-id="{{$marca->nombre}}">Recuperar</button>
+                                        <button type="button" class="btn btn-warning text-white" data-bs-toggle="modal"
+                                            data-bs-target="#modalReactivar"
+                                            data-id="{{ $marca->nombre }}">Recuperar</button>
                                     @endif
                                 </td>
                             </tr>
@@ -47,7 +50,7 @@
             </div>
         </div>
     </div>
-    <form action="{{route('marcas.destroy')}}" method="POST">
+    <form action="{{ route('marcas.destroy') }}" method="POST">
         @csrf
         @method('DELETE')
         <div class="modal fade" id="modalBorrado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -69,7 +72,7 @@
             </div>
         </div>
     </form>
-    <form action="{{route('marcas.reactivar')}}" method="POST">
+    <form action="{{ route('marcas.reactivar') }}" method="POST">
         @csrf
         <div class="modal fade" id="modalReactivar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -80,7 +83,7 @@
                     </div>
                     <div class="modal-body">
                         <p>¿Estas seguro que quiere reactivar esta marca?</p>
-                        <input name="nombre"  hidden readonly id="nombreMarcaReactivar" />
+                        <input name="nombre" hidden readonly id="nombreMarcaReactivar" />
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
@@ -90,9 +93,13 @@
             </div>
         </div>
     </form>
-<script>
-    window.onload = function carga(){
-        modalEvento();
-    }
-</script>
+    {{-- Pagination --}}
+    <div class="d-flex flex-row-reverse">
+        {!! $marcas->links() !!}
+    </div>
+    <script>
+        window.onload = function carga() {
+            modalEvento();
+        }
+    </script>
 @endsection
