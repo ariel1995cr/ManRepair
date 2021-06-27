@@ -34,15 +34,15 @@ class ReporteController extends Controller
         }
         if($request->tipo_reporte == 'reporte de servicio'){
             $view = $this->generarReporteServicios($request->fechaDesde, $request->fechaHasta, $request->estado);
-            return $view->download('reporte_de_servicio.pdf');
+            return $view->stream('reporte_de_servicio.pdf');
         }
         if($request->tipo_reporte == 'cantidad de reparados'){
             $view = $this->generarReporteCantidadReparados($request->fechaDesde, $request->fechaHasta, $request->marca);
-            return $view->download('reporte_cantidad_reparados_por_marca.pdf');
+            return $view->stream('reporte_cantidad_reparados_por_marca.pdf');
         }
         if($request->tipo_reporte =='reparados por garantia del celular'){
             $view = $this->generarReporteReparadosPorGarantia($request->fechaDesde, $request->fechaHasta, $request->marca);
-            return $view->download('reporte_reparados_por_garantida_celular.pdf');
+            return $view->stream('reporte_reparados_por_garantida_celular.pdf');
         }
     }
 

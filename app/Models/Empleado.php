@@ -39,4 +39,9 @@ class Empleado extends Usuario
     {
         $this->attributes['contrasena'] = Hash::make($value);
     }
+
+    public function getFullNameAttribute()
+    {
+       return "{$this->nombre} {$this->apellido}";
+    }
 }

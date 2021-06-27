@@ -4,7 +4,7 @@
     <div class="col-12 text-left">
         <h1 class="display-1  text-center">Generar reporte</h1>
         <hr>
-        <form id="formCrearOrdenDeServicio" action="{{route('admin.reportes.generarReporteDeServicio')}}" method="POST" >
+        <form id="formCrearOrdenDeServicio" action="{{route('admin.reportes.generarReporteDeServicio')}}" method="POST">
             @csrf
             <div class="row justify-content-center align-items-center">
                 <div class="col-12 col-md-6">

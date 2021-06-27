@@ -14,7 +14,7 @@ class OrdenDeServicio extends Model
     protected $table = 'orden_de_servicio';
     protected $primaryKey = 'nro';
     public $incrementing = true;
-    protected $with = ['historico_estado', 'celular', 'empleado', 'cliente'];
+    protected $with = ['historico_estado', 'celular', 'empleado', 'cliente', 'ordenSiguiente'];
 
     protected $dates = [
         'created_at',
@@ -47,6 +47,10 @@ class OrdenDeServicio extends Model
 
     public function historico_estado(){
         return $this->belongsToMany(Estado::class, 'historial_estado_orden_de_servicio', 'nro_orden_de_servicio', 'nombre_estado')->withPivot('comentario', 'dni_empleado')->withTimestamps()->orderBy('created_at','asc');
+    }
+
+    public function ordenSiguiente(){
+        return $this->hasOne(OrdenDeServicio::class, 'nro_orden_anterior', 'nro');
     }
 
     public function scopeExiste($query, $nro){
