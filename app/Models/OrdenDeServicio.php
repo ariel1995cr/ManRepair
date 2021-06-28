@@ -70,10 +70,9 @@ class OrdenDeServicio extends Model
                 $query->latest()->where($campo,'like', $valor_de_busqueda.'%');
             });
         }
-
-        if($campo == ['nombre']){
+        if($campo == 'nombre'){
             return $query->whereHas('cliente', function ($query) use ($campo,$valor_de_busqueda){
-                $query->latest()->where('nombre','like', $valor_de_busqueda.'%')->orWhere('apellido','like', $valor_de_busqueda.'%')->orWhere('dni','like', $valor_de_busqueda.'%');
+                $query->where('nombre','like', $valor_de_busqueda.'%')->orWhere('apellido','like', $valor_de_busqueda.'%')->orWhere('dni','like', $valor_de_busqueda.'%');
             });
         }
 
