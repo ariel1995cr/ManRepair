@@ -49,9 +49,11 @@ class OrdenDeServicio extends Model
         return $this->belongsToMany(Estado::class, 'historial_estado_orden_de_servicio', 'nro_orden_de_servicio', 'nombre_estado')->withPivot('comentario', 'dni_empleado')->withTimestamps()->orderBy('created_at','asc');
     }
 
+
     public function ordenSiguiente(){
         return $this->hasOne(OrdenDeServicio::class, 'nro_orden_anterior', 'nro');
     }
+
 
     public function scopeExiste($query, $nro){
         return $query->where('nro', $nro);
@@ -62,11 +64,6 @@ class OrdenDeServicio extends Model
             return $query->where($campo, 'like', $valor_de_busqueda.'%');
         }
 
-        if($campo == 'nombre_estado'){
-            return $query->whereHas('historico_estado', function ($query) use ($valor_de_busqueda){
-                $query->latest()->where('nombre_estado','like', $valor_de_busqueda.'%');
-            });
-        }
 
         if(in_array($campo, ['imei', 'nombre_marca', 'nombre_modelo'])){
             return $query->whereHas('celular', function ($query) use ($campo,$valor_de_busqueda){

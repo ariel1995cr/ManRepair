@@ -15,9 +15,12 @@ use App\Models\Marca;
 use App\Models\OrdenDeServicio;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use App\Support\Collection;
 
 class OrdenDeServicioController extends Controller
 {
@@ -112,13 +115,45 @@ class OrdenDeServicioController extends Controller
 
     }
 
+    public function paginateCollection($collection, $perPage, $pageName = 'page', $fragment = null)
+    {
+        $currentPage = \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPage($pageName);
+        $currentPageItems = $collection->slice(($currentPage - 1) * $perPage, $perPage);
+        parse_str(request()->getQueryString(), $query);
+        unset($query[$pageName]);
+        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
+            $currentPageItems,
+            $collection->count(),
+            $perPage,
+            $currentPage,
+            [
+                'pageName' => $pageName,
+                'path' => \Illuminate\Pagination\LengthAwarePaginator::resolveCurrentPath(),
+                'query' => $query,
+                'fragment' => $fragment
+            ]
+        );
+
+        return $paginator;
+    }
+
     public function listar(BuscarOrdenDeServicioRequest $request){
         if($request->campoBusqueda == null || $request->valorBusqueda == null){
             $ordenesDeServicios = $this->ordenDeServicio
-                ::with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->paginate(15);
+                ::with('historico_estado','celular', 'empleado:dni,nombre,apellido', 'cliente:dni,nombre,apellido,numero_de_telefono')->get();
         }else{
-            $ordenesDeServicios = $this->ordenDeServicio->Buscar($request->campoBusqueda, $request->valorBusqueda)->paginate(15);
+            $ordenesDeServicios = $this->ordenDeServicio->Buscar($request->campoBusqueda, $request->valorBusqueda)->get();
+
+            if($request->campoBusqueda=="nombre_estado" && $request->valorBusqueda != ""){
+                $busqueda = $request->valorBusqueda;
+                $ordenesDeServicios = $ordenesDeServicios->filter(function ($item)use($busqueda){
+                    return false !== stripos($item->estado_actual, $busqueda);
+                });
+            }
         }
+
+        $myCollectionObj = collect($ordenesDeServicios);
+        $ordenesDeServicios = $this->paginateCollection($myCollectionObj,15);
 
         return view('Admin.OrdenDeServicio.listar')->with('ordenesDeServicios', $ordenesDeServicios);
     }
