@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OrdenDeServicio extends Model
 {
@@ -72,7 +73,7 @@ class OrdenDeServicio extends Model
         }
         if($campo == 'nombre'){
             return $query->whereHas('cliente', function ($query) use ($campo,$valor_de_busqueda){
-                $query->where('nombre','like', $valor_de_busqueda.'%')->orWhere('apellido','like', $valor_de_busqueda.'%')->orWhere('dni','like', $valor_de_busqueda.'%');
+                $query->where(DB::raw('concat(apellido," ",nombre)'),'like', $valor_de_busqueda.'%')->orWhere(DB::raw('concat(nombre," ",apellido)'),'like', $valor_de_busqueda.'%')->orWhere('dni','like', $valor_de_busqueda.'%');
             });
         }
 
