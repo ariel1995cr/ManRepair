@@ -143,6 +143,13 @@ class OrdenDeServicioController extends Controller
             $this->ordenDeServicio->tiempo_de_reparacion = $request->tiempo_de_reparacion;
             $this->ordenDeServicio->save();
         }
+        if($request->nombre_estado == $this->estado::NOREPARADO){
+            $this->ordenDeServicio->detalle_reparacion = $request->detalle_reparacion;
+            $this->ordenDeServicio->materiales_necesarios = $request->materiales_necesarios;
+            $this->ordenDeServicio->importe_reparacion = 0;
+            $this->ordenDeServicio->tiempo_de_reparacion = $request->tiempo_de_reparacion;
+            $this->ordenDeServicio->save();
+        }
         $this->historialEstado->nro_orden_de_servicio = $this->ordenDeServicio->nro;
         $this->historialEstado->nombre_estado = $request->nombre_estado;
         $this->historialEstado->comentario = $request->comentario;

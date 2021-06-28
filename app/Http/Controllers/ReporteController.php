@@ -58,8 +58,8 @@ class ReporteController extends Controller
                 return $value;
             }
         });
-        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d-m-Y');
-        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d-m-Y');
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d/m/Y');
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d/m/Y');
 
         $data = [
             'filtros'=> [
@@ -82,8 +82,8 @@ class ReporteController extends Controller
         })->groupBy('celular.nombre_marca')->map(function ($row) {
             return $row->count();
         });
-        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d-m-Y');
-        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d-m-Y');
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d/m/Y');
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d/m/Y');
 
         $data = [
             'filtros'=> [
@@ -107,8 +107,8 @@ class ReporteController extends Controller
             }
         });
 
-        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d-m-Y');
-        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d-m-Y');
+        $desde = Carbon::createFromFormat('Y-m-d', $desde)->format('d/m/Y');
+        $hasta = Carbon::createFromFormat('Y-m-d', $hasta)->format('d/m/Y');
         $data = [
             'filtros'=> [
                 'Fecha desde' => $desde,

@@ -35,7 +35,7 @@ class CambiarEstadoRequest extends FormRequest
                 'nombre_estado' => 'required',
                 'detalle_reparacion' => 'required',
                 'materiales_necesarios' => 'required',
-                'importe_reparacion'=> 'required|integer',
+                'importe_reparacion'=> 'required|integer|min:0',
                 'tiempo_de_reparacion' => 'required|date|after_or_equal:'.date('m/d/Y'),
                 'comentario' => 'nullable',
             ];

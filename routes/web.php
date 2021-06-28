@@ -5,7 +5,9 @@ use App\Http\Controllers\OrdenDeServicioController;
 // use App\Http\Controllers\dashboard\MarcaController as MarcaGonza;
 use App\Http\Controllers\EmpleadoController;
 use App\Http\Controllers\AdminController;
+use App\Models\Estado;
 use App\Models\OrdenDeServicio;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MarcaController;
@@ -74,7 +76,49 @@ Route::get('pruebaSeederReingreso', function (){
         $q->where('nombre_estado', 'Reparado');
     })->get();
 
-    dd($ordenesDeServicio);
+    foreach ($ordenesDeServicio as $orden) {
+        $empleado = \App\Models\Empleado::inRandomOrder()->first();
+        $reingreso = $orden->replicate();
+        $reingreso->nro_orden_anterior = $orden->nro;
+        $reingreso->motivo_orden = 'Fallo el arreglo';
+        $reingreso->importe_reparacion = 0;
+        $reingreso->dni_empleado = $empleado->dni;
+        $reingreso->save();
+        $estado = new \App\Models\HistorialEstadoOrdenDeServico();
+        $estado->nro_orden_de_servicio = $reingreso->nro;
+        $estado->nombre_estado = Estado::RECIBIDO;
+        $estado->dni_empleado = \App\Models\Empleado::inRandomOrder()->first()->dni;
+        $estado->save();
+        $estado = new \App\Models\HistorialEstadoOrdenDeServico();
+        $estado->nro_orden_de_servicio = $reingreso->nro;
+        $estado->nombre_estado = Estado::PRESUPUESTADO;
+        $estado->dni_empleado = \App\Models\Empleado::inRandomOrder()->first()->dni;
+        $estado->save();
+        $estado = new \App\Models\HistorialEstadoOrdenDeServico();
+        $estado->nro_orden_de_servicio = $reingreso->nro;
+        $estado->nombre_estado = Estado::ENREPARACION;
+        $estado->dni_empleado = \App\Models\Empleado::inRandomOrder()->first()->dni;
+        $estado->save();
+        $estados = new \App\Models\Estado();
+        $int = random_int(0,6);
+        for ($i = 0; $i <= $int; $i++) {
+            if($reingreso->estado_actual != "Entregado"){
+                $nuevoEstado = $estados->obtenerEstadoPosibles($reingreso->estado_actual)->first();
+                $historialEstado = new \App\Models\HistorialEstadoOrdenDeServico();
+                $historialEstado->nro_orden_de_servicio = $reingreso->nro;
+                $historialEstado->nombre_estado = $nuevoEstado->nombre;
+                $historialEstado->dni_empleado = $reingreso->dni_empleado;
+                if($nuevoEstado->nombre == \App\Models\Estado::NOREPARADO){
+                    $reingreso->importe_reparacion = 0;
+                    $reingreso->save();
+                    $historialEstado->comentario = "por x motivo no se pudo reparar";
+                }
+                $historialEstado->save();
+            }
+        }
+    }
+
+
 });
 
 Route::resource('/', InicioController::class)->only(['index']);
