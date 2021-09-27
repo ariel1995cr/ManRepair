@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CambiarContrasenaRequest;
 use App\Http\Requests\RequestInciarSesion;
 use App\Http\Requests\StoreEmpleado;
 use App\Http\Requests\UpdateEmpleado;
@@ -128,9 +129,19 @@ class EmpleadoController extends Controller
      */
     public function store(StoreEmpleado $request)
     {
-        // dd($request->validated());
         Empleado::create($request->validated());
         return redirect()->route('empleados.index')->with('status', 'Empleado creado con exito');
+    }
+
+    public function editarContrasena(){
+        return view('Admin.Usuario.cambiarContrasena');
+    }
+
+    public function saveContrasena(CambiarContrasenaRequest $request){
+        $empleado = Empleado::where('dni', Auth::user()->dni)->first();
+        $empleado->contrasena = $request->contrasenaNueva;
+        $empleado->update();
+        return redirect()->route('admin.empleado.cambiarContraseña')->with('status', 'Empleado creado con exito');
     }
 
 }

@@ -46,7 +46,7 @@
             </div>
             <div class="row justify-content-center align-items-center pt-2">
                 <div class="col-12 col-md-4">
-                    <button onclick="enviarFormOrdenDeServicioReingreso()" type="button" @click="" class="btn btn-secondary">Guardar</button>
+                    <button onclick="enviarFormOrdenDeServicioReingreso()" type="button" class="btn btn-secondary">Guardar</button>
                 </div>
             </div>
         </form>

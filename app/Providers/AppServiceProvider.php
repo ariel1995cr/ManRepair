@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -30,5 +31,9 @@ class AppServiceProvider extends ServiceProvider
             \URL::forceScheme('https');
             \Schema::defaultStringLength(191);
         }
+
+        \Validator::extendImplicit('current_password', function ($attribute, $value, $parameters, $validator){
+            return Hash::check($value, \Auth::user()->contrasena);
+        });
     }
 }

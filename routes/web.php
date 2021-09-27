@@ -27,6 +27,8 @@ use App\Http\Controllers\ReporteController;
 |
 */
 
+
+
 Route::get('pruebaSeeder', function (){
     OrdenDeServicio::factory()->count(10)->make()->each(function ($orden){
         $modelo = \App\Models\Modelo::inRandomOrder()->first();
@@ -133,6 +135,9 @@ Route::group(['middleware' => 'auth:empleados', 'prefix' => 'admin'], function (
     Route::get('/', [AdminController::class, 'index'])->name('admin.index');
 
     Route::get('cerrarSesion', [EmpleadoController::class, 'cerrarSesion'])->name('admin.cerrarSesion');
+
+    Route::get('cambiarContraseña', [EmpleadoController::class, 'editarContrasena'])->name('admin.empleado.cambiarContraseña');
+    Route::post('cambiarContraseña', [EmpleadoController::class, 'saveContrasena'])->name('admin.empleado.cambiarContraseñaPost');
 
     Route::resource('ordenDeServicio', OrdenDeServicioController::class)->only(['create', 'store']);
     Route::group(['prefix' => 'ordenDeServicio'], function () {

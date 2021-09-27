@@ -116,6 +116,7 @@
             <strong>{{Auth::user()->apellido}} {{Auth::user()->nombre}}</strong>
         </a>
         <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+            <li><a class="dropdown-item" href="{{route('admin.empleado.cambiarContraseña')}}">Cambiar contraseña</a></li>
             <li><a class="dropdown-item" href="{{route('admin.cerrarSesion')}}">Cerrar Sesión</a></li>
         </ul>
     </div>
