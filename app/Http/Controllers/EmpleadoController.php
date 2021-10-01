@@ -10,6 +10,7 @@ use App\Models\Empleado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 
 class EmpleadoController extends Controller
@@ -141,7 +142,9 @@ class EmpleadoController extends Controller
         $empleado = Empleado::where('dni', Auth::user()->dni)->first();
         $empleado->contrasena = $request->contrasenaNueva;
         $empleado->update();
-        return redirect()->route('admin.empleado.cambiarContraseña')->with('status', 'Empleado creado con exito');
+        Auth::logout();
+
+        return Redirect::to('/iniciarSesion')->with('success', 'Se cambio la contraseña correctamente. Por favor inicie sesión nuevamente.');
     }
 
 }

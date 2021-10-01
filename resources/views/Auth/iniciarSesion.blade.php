@@ -1,12 +1,16 @@
 @extends('layouts.base')
 
 @section('content')
-
-
 <div class="container">
     <div class="col-12 text-center">
         <h1 class="display-1 mt-5">Iniciar Sesión</h1>
     </div>
+    @if ($message = Session::get('success'))
+        <div class="alert alert-success alert-block">
+            <button type="button" class="close" data-dismiss="alert">×</button>
+            <strong>{{ $message }}</strong>
+        </div>
+    @endif
     <form action="{{route('empleado.iniciarSesion.post')}}" method="POST">
         @csrf
         <div class="row justify-content-center align-items-center">
