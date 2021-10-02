@@ -27,10 +27,7 @@ class CambiarContrasenaRequest extends FormRequest
         return [
             //
             'contrasena' => 'required|current_password',
-            'contrasenaNueva' => ['required','different:contrasena','confirmed', Password::min(8)
-                ->letters()
-                ->mixedCase()
-                ->numbers()],
+            'contrasenaNueva' => ['required','different:contrasena','confirmed', Password::min(6)],
             'contrasenaNueva_confirmation' => 'required','same:contrasenaNueva',
         ];
     }
