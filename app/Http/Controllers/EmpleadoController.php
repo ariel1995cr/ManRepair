@@ -143,7 +143,7 @@ class EmpleadoController extends Controller
         $empleado->contrasena = $request->contrasenaNueva;
         $empleado->update();
         Auth::logout();
-        
+
         $request->session()->invalidate();
 
         return redirect()->to('/iniciarSesion')->with('success', 'Se cambio la contraseña correctamente. Por favor inicie sesión nuevamente.');

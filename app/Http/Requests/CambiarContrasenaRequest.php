@@ -35,6 +35,7 @@ class CambiarContrasenaRequest extends FormRequest
     public function messages()
     {
         return [
+            'contrasenaNueva.different'=>'La contraseña nueva y contraseña actual deben ser diferentes',
           'contrasena.current_password' => 'La contraseña no es la contraseña actual.'
         ];
     }
